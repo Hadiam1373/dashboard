@@ -1,18 +1,21 @@
-import { createVuetify } from 'vuetify';
+import {createVuetify} from 'vuetify';
 import '@mdi/font/css/materialdesignicons.css';
 import * as components from 'vuetify/components';
 import * as directives from 'vuetify/directives';
-import { PurpleTheme} from '@/theme/LightTheme';
+import theme from "@/plugins/theme";
+import {fa, en} from 'vuetify/locale'
 
 
 export default createVuetify({
     components,
     directives,
-
-    theme: {
-        defaultTheme: 'PurpleTheme',
-        themes: {
-            PurpleTheme,
+    theme,
+    locale: {
+        locale: 'fa',
+        fallback: 'fa',
+        messages: {fa, en},
+        rtl: {
+            fa: true
         }
     },
     defaults: {
