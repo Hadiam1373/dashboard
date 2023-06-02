@@ -29,7 +29,7 @@ const chartOptions = computed(() => {
         stroke: {
             show: false
         },
-        
+
         dataLabels: {
             enabled: false
         },
@@ -42,7 +42,7 @@ const chartOptions = computed(() => {
 const Chart = [38, 40, 25];
 </script>
 <template>
-    <v-card elevation="10" class="withbg">
+    <v-card elevation="1" class="withbg">
         <v-card-item>
             <div class="d-sm-flex align-center justify-space-between pt-sm-2">
                 <v-card-title class="text-h5">Yearly Breakup</v-card-title>

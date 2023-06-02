@@ -1,6 +1,6 @@
 import {
     ApertureIcon,
-    CopyIcon,
+    CopyIcon, DashboardIcon,
     LayoutDashboardIcon, LoginIcon, MoodHappyIcon, TypographyIcon, UserPlusIcon
 } from 'vue-tabler-icons';
 
@@ -20,44 +20,89 @@ export interface menu {
 }
 
 const sidebarItem: menu[] = [
-    { header: 'Home' },
     {
-        title: 'Dashboard',
-        icon: LayoutDashboardIcon,
-        to: '/'
-    },
-    { header: 'utilities' },
-    {
-        title: 'Typography',
-        icon: TypographyIcon,
-        to: '/ui/typography'
+        title: 'dashboard',
+        icon: 'mdi-view-dashboard',
+        to: '/',
     },
     {
-        title: 'Shadow',
-        icon: CopyIcon,
-        to: '/ui/shadow'
-    },
-    { header: 'auth' },
-    {
-        title: 'Login',
-        icon: LoginIcon,
-        to: '/auth/login'
+        title: 'kyc',
+        icon: 'mdi-fingerprint',
+        to: '/kyc',
     },
     {
-        title: 'Register',
-        icon: UserPlusIcon,
-        to: '/auth/register'
-    },
-    { header: 'Extra' },
-    {
-        title: 'Icons',
-        icon: MoodHappyIcon,
-        to: '/icons'
+        title: 'gateways',
+        icon: 'mdi-cart-outline',
+        to: '/gateways',
     },
     {
-        title: 'Sample Page',
-        icon: ApertureIcon,
-        to: '/sample-page'
+        title: 'invoices',
+        icon: 'mdi-credit-card',
+        to: '/invoices',
+    },
+    {
+        title: 'upgrade',
+        icon: 'mdi-rocket-launch',
+        to: '/upgrade',
+    },
+    {
+        title: 'invite friends',
+        icon: 'mdi-account-plus',
+        to: '/invite-friends',
+    },
+    {
+        title: 'profits',
+        icon: 'mdi-cash-multiple',
+        to: '/profits',
+    },
+    {
+        title: 'wallets',
+        icon: 'mdi-wallet',
+        to: '/wallets',
+    },
+    {
+        title: 'transactions',
+        icon: 'mdi-wallet',
+        to: '/transactions',
+    },
+    {
+        title: 'tickets',
+        icon: 'mdi-ticket-confirmation',
+        to: '/tickets',
+    },
+    {
+        title: 'withdraw',
+        icon: 'mdi-wallet-travel',
+        children:[
+            {
+                title:'withdraw requests list',
+                to:'/'
+            },
+            {
+                title:'create withdraw request',
+                to:'/'
+            },
+        ]
+    },
+    {
+        title: 'setting',
+        icon: 'mdi-cog',
+        to: '/setting',
+    },
+    {
+        title: 'change password',
+        icon: 'mdi-lock',
+        to: '/change-password',
+    },
+    {
+        title: 'documentation',
+        icon: 'mdi-file-document-outline',
+        to: '/gateway-documentation',
+    },
+    {
+        title: 'changelog history',
+        icon: 'mdi-history',
+        to: '/changelog-history',
     },
 ];
 

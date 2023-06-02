@@ -33,6 +33,7 @@ const theme = {
         'perfect-scrollbar-thumb': '#DBDADE',
         'skin-bordered-background': '#fff',
         'skin-bordered-surface': '#fff',
+        'hover-primary':'#09675d'
       },
       variables: {
         'code-color': '#d400ff',
@@ -54,7 +55,7 @@ const theme = {
         'switch-disabled-track-opacity': 0.3,
         'switch-disabled-thumb-opacity': 0.4,
         'switch-checked-disabled-opacity': 0.3,
-
+        'hover-primary':'#09675d',
         // Shadows
         'shadow-key-umbra-color': '#2F2B3D',
       },

@@ -3,9 +3,11 @@ import '@mdi/font/css/materialdesignicons.css';
 import * as components from 'vuetify/components';
 import * as directives from 'vuetify/directives';
 import theme from "@/plugins/theme";
-import {fa, en} from 'vuetify/locale'
+import fa  from "../i18n/locale/fa.mjs";
+import en  from "../i18n/locale/en.mjs"
 
 
+// @ts-ignore
 export default createVuetify({
     components,
     directives,
@@ -13,7 +15,7 @@ export default createVuetify({
     locale: {
         locale: 'fa',
         fallback: 'fa',
-        messages: {fa, en},
+        messages: {fa , en},
         rtl: {
             fa: true
         }

@@ -1,24 +1,49 @@
 <script setup>
 import Icon from '../Icon.vue';
 
-const props = defineProps({ item: Object, level: Number });
+const props = defineProps({item: Object, level: Number});
 </script>
 
 <template>
-    <!---Single Item-->
-    <v-list-item
-        :to="item.to"
-        rounded
-        class="mb-1"
-        active-color="primary"
-        :disabled="item.disabled"
-        :target="item.type === 'external' ? '_blank' : ''"
+  <!--        IF Item Has Children-->
+    <v-list-group
+            v-if="item.children"
+            :value="item.title"
     >
-        <!---If icon-->
-        <template v-slot:prepend>
-            <Icon :item="item.icon" :level="level" />
+        <template v-slot:activator="{ props }">
+            <v-list-item
+                    v-bind="props"
+                    :prepend-icon="item.icon"
+                    :title="$vuetify.locale.t(`$vuetify.sidebar.${item.title}`)"
+                    class="mb-1"
+                    :disabled="item.disabled"
+                    :target="item.type === 'external' ? '_blank' : ''"
+            ></v-list-item>
         </template>
-        <v-list-item-title>{{item.title }}</v-list-item-title>
+        <v-list-item
+                v-for="(item , index) in item.children"
+                :key="index"
+                :title="$vuetify.locale.t(`$vuetify.sidebar.${item.title}`)"
+                :value="item.title"
+                active-color="primary"
+        >
+        </v-list-item>
+    </v-list-group>
+  <!---Single Item-->
+    <v-list-item
+            v-else
+            :to="item.to"
+            rounded
+            class="mb-1"
+            active-color="primary"
+            :disabled="item.disabled"
+            :target="item.type === 'external' ? '_blank' : ''"
+    >
+        <!--        -If icon-->
+        <template v-slot:prepend>
+            <v-icon>{{ item.icon}}</v-icon>
+        </template>
+        <v-list-item-title>{{ $vuetify.locale.t(`$vuetify.sidebar.${item.title}`) }}</v-list-item-title>
         <!---If Caption-->
         <v-list-item-subtitle v-if="item.subCaption" class="text-caption mt-n1 hide-menu">
             {{ item.subCaption }}
@@ -26,11 +51,11 @@ const props = defineProps({ item: Object, level: Number });
         <!---If any chip or label-->
         <template v-slot:append v-if="item.chip">
             <v-chip
-                :color="item.chipColor"
-                class="sidebarchip hide-menu"
-                :size="'small'"
-                :variant="item.chipVariant"
-                :prepend-icon="item.chipIcon"
+                    :color="item.chipColor"
+                    class="sidebarchip hide-menu"
+                    :size="'small'"
+                    :variant="item.chipVariant"
+                    :prepend-icon="item.chipIcon"
             >
                 {{ item.chip }}
             </v-chip>

@@ -84,7 +84,7 @@ const chartOptions = computed(() => {
 });
 </script>
 <template>
-    <v-card elevation="10" class="withbg">
+    <v-card elevation="1" class="withbg">
         <v-card-item>
             <div class="d-sm-flex align-center justify-space-between pt-sm-2">
                 <div><v-card-title class="text-h5">Sales Overview</v-card-title></div>

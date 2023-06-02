@@ -11,15 +11,23 @@ import LoginForm from '@/components/auth/LoginForm.vue';
                     <v-card rounded="md" elevation="10" class="px-sm-1 px-0 withbg mx-auto" max-width="500">
                         <v-card-item class="pa-sm-8">
                             <div class="d-flex justify-center py-4">
-                                <Logo />
+                                <Logo/>
                             </div>
-                            <div class="text-body-1 text-muted text-center mb-3">Your Social Campaigns</div>
-                            <LoginForm />
+                            <div class="text-body-1 text-muted text-center mb-3">
+                                <span class="text-body-1">
+                                    {{ $vuetify.locale.t('$vuetify.login.title') }}
+                                </span>
+                                <span class="text-body-1 mx-2 text-primary"> {{
+                                    $vuetify.locale.t('$vuetify.login.start')
+                                    }}</span>
+                            </div>
+                            <LoginForm/>
                             <h6 class="text-h6 text-muted font-weight-medium d-flex justify-center align-center mt-3">
-                                New to Modernize?
+                                {{ $vuetify.locale.t('$vuetify.login.qustion') }}
                                 <RouterLink to="/auth/register"
-                                    class="text-primary text-decoration-none text-body-1 opacity-1 font-weight-medium pl-2">
-                                    Create an account</RouterLink>
+                                            class="text-primary text-decoration-none text-body-1 opacity-1 font-weight-medium pl-2">
+                                    {{ $vuetify.locale.t('$vuetify.login.signup') }}
+                                </RouterLink>
                             </h6>
                         </v-card-item>
                     </v-card>
