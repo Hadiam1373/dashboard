@@ -5,6 +5,7 @@ import {ref} from "vue";
 import Authentication from "@/api/apis/Authentication";
 import {setItem, clearItem} from "@/storage";
 import {router} from "@/router";
+import * as yup from 'yup';
 
 
 const {handleSubmit, handleReset} = useForm({
@@ -15,7 +16,10 @@ const {handleSubmit, handleReset} = useForm({
         },
 
         password(value) {
-            return true
+            if (!value || value.length < 8) {
+                return vuetify.locale.t('$vuetify.error.password')
+            }
+            return true;
         },
     }
 })
