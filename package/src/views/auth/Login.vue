@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup>
 import Logo from '@/layouts/full/logo/Logo.vue';
 /* Login form */
 import LoginForm from '@/components/auth/LoginForm.vue';

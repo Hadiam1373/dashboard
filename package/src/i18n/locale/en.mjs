@@ -30,7 +30,7 @@ export default {
         enter: 'Enter'
     },
     signup: {
-        title:'Sign Up',
+        title: 'Sign Up',
         name: 'First and Family-name',
         email: 'Email',
         code: 'Invitation Code',
@@ -40,5 +40,14 @@ export default {
         createAccount: 'Create an account',
         question: 'Already registered?',
         enter: 'Enter'
+    },
+    error: {
+        email: 'Must be a valid e-mail.',
+        password: 'Must be a valid password.',
+        checkbox: 'Must be checked Rules.'
+    },
+    sweetAlert:{
+        title:'Error',
+        button:'OK'
     }
 }

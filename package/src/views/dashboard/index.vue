@@ -16,17 +16,8 @@ import ProfileUserCard from "@/components/dashboard/ProfileUserCard.vue";
             </v-row>
             <v-row>
                 <!-- Sales overview -->
-                <v-col cols="12" lg="8">
+                <v-col cols="12">
                     <SalesOverview/>
-                </v-col>
-                <!-- Yearly Breakup / Monthly Earnings -->
-                <v-col cols="12" lg="4">
-                    <div class="mb-6">
-                        <YearlyBreakup/>
-                    </div>
-                    <div>
-                        <MonthlyEarning/>
-                    </div>
                 </v-col>
             </v-row>
         </v-col>

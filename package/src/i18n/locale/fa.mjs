@@ -40,5 +40,14 @@ export default {
         createAccount:'ایجاد حساب',
         question:' قبلا ثبت نام کرده اید؟',
         enter:'ورود'
+    },
+    error: {
+        email: 'لطفا ایمیل معتبر وارد نمایید',
+        password: 'لطفا رمز عبور معتبر وراد نمایید',
+        checkbox: 'لطفا قوانین را مطالعه فرمایید'
+    },
+    sweetAlert:{
+        title:'خطایی رخ داده است',
+        button:'تایید'
     }
 }

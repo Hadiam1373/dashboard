@@ -1,6 +1,7 @@
 <script setup>
 import {useLocale} from 'vuetify'
 import {ref} from "vue";
+import {setItem} from "@/storage";
 
 const {current} = useLocale()
 
@@ -17,6 +18,7 @@ const i18nCompLanguages = ref([
 
 function changeLocale(locale) {
     current.value = locale
+    setItem('lang' , locale)
 }
 </script>
 <template>

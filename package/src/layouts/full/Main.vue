@@ -59,10 +59,8 @@ const sDrawer = ref(true);
                 <NotificationDD/>
                 <!--change language -->
                 <change-language/>
-<!--                {{ $vuetify.locale.t('$vuetify.badge') }}-->
             </div>
             <div>
-                <span>{{}}</span>
                 <!--  change theme-->
                 <change-theme/>
                 <!-- User Profile -->
