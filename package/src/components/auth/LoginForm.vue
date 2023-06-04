@@ -5,7 +5,6 @@ import {ref} from "vue";
 import Authentication from "@/api/apis/Authentication";
 import {setItem, clearItem} from "@/storage";
 import {router} from "@/router";
-import * as yup from 'yup';
 
 
 const {handleSubmit, handleReset} = useForm({

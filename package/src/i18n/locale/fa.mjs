@@ -17,6 +17,7 @@ export default {
         'change password':'تغییر رمز عبور',
         documentation:'مستندات درگاه',
         'changelog history':'تاریخچه تغییرات',
+        Logout:'خروج'
     },
     login:{
         title:'هنوز ثبت نام نکرده اید ؟',

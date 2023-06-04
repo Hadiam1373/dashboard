@@ -17,6 +17,7 @@ export default {
         'change password': 'Change Password',
         documentation: 'Documentation',
         'changelog history': 'Changelog History',
+        Logout:'Logout'
     },
     login: {
         title: 'still not registred ?',
