@@ -9,6 +9,10 @@ class Auth {
         })
     }
 
+    async singUp(data){
+       return await axiosIns.post('api/signup' , data)
+    }
+
     async logout(){
         return await axiosIns.get('api/logout')
     }

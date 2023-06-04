@@ -5,6 +5,7 @@ import {ref} from "vue";
 import Authentication from "@/api/apis/Authentication";
 import {setItem, clearItem} from "@/storage";
 import {router} from "@/router";
+import ForgetPassword from "@/views/auth/ForgetPassword.vue";
 
 
 const {handleSubmit, handleReset} = useForm({
@@ -73,10 +74,7 @@ const submit = handleSubmit(values => {
                             type="checkbox"
                     ></v-checkbox>
                     <div class="ml-sm-auto">
-                        <RouterLink to="/"
-                                    class="text-primary text-decoration-none text-body-1 opacity-1 font-weight-medium">
-                            {{ $vuetify.locale.t('$vuetify.login.forget') }}
-                        </RouterLink>
+                        <forget-password/>
                     </div>
                 </div>
             </v-col>

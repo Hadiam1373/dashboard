@@ -40,12 +40,20 @@ export default {
         rules: 'I agree with the rules of BitCredit.',
         createAccount: 'Create an account',
         question: 'Already registered?',
-        enter: 'Enter'
+        enter: 'Enter',
+    },
+    forgetPassword:{
+        title:'forgot your password ?',
+        email:'E-mail',
+        reset:'Reset Password'
     },
     error: {
         email: 'Must be a valid e-mail.',
         password: 'Must be a valid password.',
-        checkbox: 'Must be checked Rules.'
+        checkbox: 'Must be checked Rules.',
+        rePassword:'The password is not the same as the password entered',
+        name:'Enter the name correctly',
+        rules:'Declare your agreement with BitoCredit rules'
     },
     sweetAlert:{
         title:'Error',
