@@ -69,6 +69,13 @@ export default {
             'transactions_average': 'transactions average',
             'withdraw_requests': 'withdraw requests',
             'monthly_average': 'monthly average'
+        },
+        gateWays: {
+            id: '',
+            name: '',
+            status: '',
+            'status_label': '',
+            'created_at': ''
         }
     }
 }
