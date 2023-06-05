@@ -30,12 +30,12 @@ let loading = ref(false);
 
 const submit = handleSubmit(values => {
     loading.value = true
-    clearItem()
+    // clearItem()
     Authentication.login(email.value.value, password.value.value).then(r => {
         try {
             const {token, ...data} = r.data.data
-            setItem('userData', JSON.stringify(data))
-            setItem('accessToken', token)
+            setItem('userData', JSON.stringify(data), '36000000')
+            setItem('accessToken', token, '36000000')
             router.push('/')
         } catch (e) {
             loading.value = false

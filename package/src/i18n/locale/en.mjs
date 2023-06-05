@@ -17,7 +17,7 @@ export default {
         'change password': 'Change Password',
         documentation: 'Documentation',
         'changelog history': 'Changelog History',
-        Logout:'Logout'
+        Logout: 'Logout'
     },
     login: {
         title: 'still not registred ?',
@@ -42,21 +42,33 @@ export default {
         question: 'Already registered?',
         enter: 'Enter',
     },
-    forgetPassword:{
-        title:'forgot your password ?',
-        email:'E-mail',
-        reset:'Reset Password'
+    forgetPassword: {
+        title: 'forgot your password ?',
+        email: 'E-mail',
+        reset: 'Reset Password'
     },
     error: {
         email: 'Must be a valid e-mail.',
         password: 'Must be a valid password.',
         checkbox: 'Must be checked Rules.',
-        rePassword:'The password is not the same as the password entered',
-        name:'Enter the name correctly',
-        rules:'Declare your agreement with BitoCredit rules'
+        rePassword: 'The password is not the same as the password entered',
+        name: 'Enter the name correctly',
+        rules: 'Declare your agreement with BitoCredit rules'
     },
-    sweetAlert:{
-        title:'Error',
-        button:'OK'
+    sweetAlert: {
+        title: 'Error',
+        button: 'OK'
+    },
+    dashboard: {
+        cartTitle: {
+            'users_count': 'users count',
+            'wallets_count': 'wallets count',
+            'active_wallets_count': 'active wallets count',
+            'transactions_count': 'transactions count',
+            'transactions_amount': 'transactions amount',
+            'transactions_average': 'transactions average',
+            'withdraw_requests': 'withdraw requests',
+            'monthly_average': 'monthly average'
+        }
     }
 }

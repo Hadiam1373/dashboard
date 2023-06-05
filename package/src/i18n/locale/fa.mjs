@@ -58,5 +58,17 @@ export default {
     sweetAlert:{
         title:'خطایی رخ داده است',
         button:'تایید'
+    },
+    dashboard:{
+        cartTitle:{
+            'users_count':'کاربران',
+            'wallets_count':'تعداد کیف پول',
+            'active_wallets_count':'کیف پول های فعال',
+            'transactions_count':'تراکنش ها',
+            'transactions_amount':'مبلغ معاملات',
+            'transactions_average':'میانگین معاملات',
+            'withdraw_requests':'درخواست برداشت',
+            'monthly_average':'میانگین ماهانه'
+        }
     }
 }

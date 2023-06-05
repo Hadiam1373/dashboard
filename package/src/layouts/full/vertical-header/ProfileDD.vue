@@ -10,16 +10,15 @@ let loading = ref(false)
 
 function Logout() {
     loading.value = true
-    Authentication.logout().then(r => {
-        try {
-            if (r.status !== 'error') {
-                clearItem()
-                router.push('/auth/login');
-            }
-        } catch (e) {
+    Authentication.logout().then(
+        () => {
+            clearItem()
+            router.push('/auth/login');
+        },
+        (error) => {
             loading.value = false
         }
-    })
+    )
 }
 
 const computedUserData = computed(() => {

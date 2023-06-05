@@ -25,15 +25,16 @@ const axiosIns = axios.create({
 // ℹ️ Add request interceptor to send the authorization header on each subsequent request after login
 axiosIns.interceptors.request.use(config => {
     let token = localStorage.getItem('accessToken');
-    console.log('token:' + token)
+    let tokenParse = JSON.parse(token)
+    console.log(tokenParse)
     // If token is found
-    if (token) {
+    if (tokenParse) {
         // Get request headers and if headers is undefined assign blank object
         config.headers = config.headers || {}
 
         // Set authorization header
         // ℹ️ JSON.parse will convert token to string
-        config.headers.Authorization = token ? `Bearer ${token}` : ''
+        config.headers.Authorization = tokenParse.value ? `Bearer ${tokenParse.value}` : ''
     }
 
     // Return modified config
@@ -53,13 +54,20 @@ axiosIns.interceptors.response.use(response => {
             title: vuetify.locale.t('$vuetify.sweetAlert.title'),
             text: error.response.data.message
         }).then(r => router.push('/auth/login'))
-    } else {
+    } else if (typeof (error.response.data.message) === 'string') {
         Toast.fire({
             icon: 'error',
             title: vuetify.locale.t('$vuetify.sweetAlert.title'),
             text: error.response.data.message
         }).then(r => true)
-        return Promise.reject(error)
+    } else if (typeof (error.response.data.message) === 'object') {
+        for (let error in error.response.data.message) {
+            Toast.fire({
+                icon: 'error',
+                title: vuetify.locale.t('$vuetify.sweetAlert.title'),
+                text: error
+            }).then(r => true)
+        }
     }
 })
 // error.response.data.message,

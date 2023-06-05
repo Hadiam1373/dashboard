@@ -1,6 +1,6 @@
-import { createApp } from 'vue';
+import {createApp} from 'vue';
 import App from './App.vue';
-import { router } from './router';
+import {router} from './router';
 import vuetify from './plugins/vuetify';
 import '@/scss/style.scss';
 import PerfectScrollbar from 'vue3-perfect-scrollbar';
@@ -10,11 +10,12 @@ import Maska from 'maska';
 import VueSweetalert2 from 'vue-sweetalert2';
 import {options} from "@/theme/sweet-alert-theme";
 import 'sweetalert2/dist/sweetalert2.min.css';
+
 const app = createApp(App);
 app.use(router);
 app.use(PerfectScrollbar);
 app.use(VueTablerIcons);
 app.use(Maska);
 app.use(VueApexCharts);
-app.use(VueSweetalert2 , options);
+app.use(VueSweetalert2, options);
 app.use(vuetify).mount('#app');
