@@ -1,15 +1,37 @@
 <script setup>
-const props = defineProps(['headers', 'items', 'itemsPerPage', 'local'])
+const props = defineProps(['headers', 'dataTable', 'page', 'total', 'perPage'])
 </script>
 
 <template>
+        <v-table  class="mt-5" height="400px" fixed-header>
+            <thead>
+            <tr>
+                <th class="text-center"
+                    v-for="(item , index) in headers"
+                    :key="index">
+                    {{ $vuetify.locale.t(`$vuetify.dashboard.gateWays.${item.title}`) }}
+                </th>
+            </tr>
+            </thead>
+            <tbody v-if="dataTable">
+            <tr
+                    v-for="(item , index) in dataTable"
+                    :key="index"
+            >
+                <slot name="body" :item="item"></slot>
+            </tr>
+            </tbody>
+        </v-table>
+        <div v-if="!dataTable" class="d-flex noData align-center justify-center w-100 h-100">
+            {{ $vuetify.locale.t(`$vuetify.noDataText`) }}
+        </div>
 
-    <v-data-table v-model:items-per-page="itemsPerPage" :headers="headers" :items="items" item-value="name"
-        class="elevation-1">
-        <template v-slot:header="{ header }">
-            <span>{{ $vuetify.locale.t(`$vuetify.dashboard.${local}.${header}`) }}</span>
-        </template>
-    </v-data-table>
 </template>
 
-<style scoped></style>
+<style scoped>
+.noData {
+    position: fixed;
+    top: -9%;
+    left: -8%;
+}
+</style>

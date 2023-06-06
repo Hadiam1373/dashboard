@@ -11,7 +11,7 @@ import ProfileUserCard from "@/components/dashboard/ProfileUserCard.vue";
 <template>
     <v-row>
         <v-col cols="12">
-            <v-row>
+            <v-row class="mb-5">
                 <profile-user-card/>
             </v-row>
             <v-row>

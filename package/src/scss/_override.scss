@@ -1,21 +1,76 @@
 html {
-    .bg-success {
-        color: white !important;
-    }
+  .bg-success {
+    color: white !important;
+  }
 
-    .bg-primary {
-        color: $white !important;
-    }
+  .bg-primary {
+    color: $white !important;
+  }
 
-    .bg-secondary {
-        color: $white !important;
-    }
+  .bg-secondary {
+    color: $white !important;
+  }
 
-    .bg-warning {
-        color: $white !important;
-    }
+  .bg-warning {
+    color: $white !important;
+  }
 }
+
 .border,
 .v-divider {
-    border-color: rgba(var(--v-border-color), 1) !important;
+  border-color: rgba(var(--v-border-color), 1) !important;
 }
+
+/* Define css class for global loading message to cover
+   screen during axios operations */
+tr{
+  min-height: 65px;
+}
+
+.loading-indicator:before {
+  content: '';
+  background: #000000cc;
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  z-index: 10000;
+}
+
+.loading-indicator:after {
+  position: fixed;
+  width: 100%;
+  top: 50%;
+  left: 0;
+  z-index: 10001;
+  color:white;
+  text-align:center;
+  font-weight:bold;
+  font-size:1.5rem;
+}
+.v-locale--is-ltr .loading-indicator:after{
+  content: 'Loading ...' !important;
+  position: fixed;
+  width: 100%;
+  top: 50%;
+  left: 0;
+  z-index: 10001;
+  color:white;
+  text-align:center;
+  font-weight:bold;
+  font-size:1.5rem;
+}
+.v-locale--is-rtl .loading-indicator:after{
+  content: 'در حال بارگذاری ...'!important;
+  position: fixed;
+  width: 100%;
+  top: 50%;
+  left: 0;
+  z-index: 10001;
+  color:white;
+  text-align:center;
+  font-weight:bold;
+  font-size:1.5rem;
+}
+

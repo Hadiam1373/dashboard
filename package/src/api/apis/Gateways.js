@@ -1,8 +1,12 @@
 import axiosIns from "@/api/fetch/interceptors";
 
 class Gateways {
-    async getGateways(){
-        return await axiosIns.get('panel/gateway')
+    async getGateways(page){
+        return await axiosIns.get('panel/gateway' , {
+            params:{
+                page : page
+            }
+        })
     }
 }
 
