@@ -2,6 +2,12 @@ export default {
     badge: 'Badge',
     close: 'Close',
     filter:'Filters',
+    filters:{
+        gatName:'',
+        type:'',
+        search:'',
+        remove:''
+    },
     dataIterator: {
         noResultsText: 'No matching records found',
         loadingText: 'Loading items...'
@@ -156,8 +162,7 @@ export default {
             action:"",
             invoice:'invoices',
             setting:'setting',
-            gatName:'',
-            type:''
+            gatewaySetting:'gateway setting'
         }
     }
 }

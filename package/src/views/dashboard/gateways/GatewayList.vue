@@ -10,6 +10,7 @@ let gateWaysData = ref()
 let perPage = ref()
 let total = ref()
 let page = ref(1)
+let status = ref()
 
 let paginationLength = computed(() => {
     let length = Math.ceil(total.value / perPage.value)
@@ -31,6 +32,21 @@ function getData() {
             gateWaysData.value = r.data.data.gateways.data
             perPage.value = r.data.data.gateways.meta.per_page
             total.value = r.data.data.gateways.meta.total
+            status.value = r.data.data.status
+        },
+        (error) => {
+            console.log(error)
+        }
+    )
+}
+
+function getDataFilters(filter) {
+    Gateways.getGateways(page.value, filter.label1, filter.label2).then(
+        (r) => {
+            gateWaysData.value = r.data.data.gateways.data
+            perPage.value = r.data.data.gateways.meta.per_page
+            total.value = r.data.data.gateways.meta.total
+            status.value = r.data.data.status
         },
         (error) => {
             console.log(error)
@@ -46,7 +62,6 @@ onMounted(() => {
     getData()
 })
 </script>
-
 <template>
     <v-card>
         <v-card-title>
@@ -57,13 +72,16 @@ onMounted(() => {
                     </span>
                 </div>
                 <div>
-                    <v-btn color="primary">
+                    <v-btn color="primary" @click="$router.push('/gateways/newGateways')">
                         {{ $vuetify.locale.t(`$vuetify.dashboard.gateWays.create`) }}
                     </v-btn>
                 </div>
             </div>
         </v-card-title>
-        <filters-table/>
+        <filters-table label1="gatName" label2="type" remove="remove"
+                       :status="status" search="search" @getDataFilters="getDataFilters"
+                       @removeDataFilters="getData"
+        />
         <v-divider class="mb-5"></v-divider>
         <DataTable :headers="headers"
                    :dataTable="gateWaysData"
@@ -82,7 +100,8 @@ onMounted(() => {
                     <v-btn size="small" color="secondary" class="mx-1 mt-2 mt-lg-0" prepend-icon="mdi-receipt">
                         {{ $vuetify.locale.t(`$vuetify.dashboard.gateWays.invoice`) }}
                     </v-btn>
-                    <v-btn size="small" color="primary" class="mx-1 mt-2 mt-lg-0" prepend-icon="mdi-cog">
+                    <v-btn @click="$router.push(`/gateways/newGateways/${item.id}`)" size="small" color="primary"
+                           class="mx-1 mt-2 mt-lg-0" prepend-icon="mdi-cog">
                         {{ $vuetify.locale.t(`$vuetify.dashboard.gateWays.setting`) }}
                     </v-btn>
                 </td>
@@ -99,6 +118,7 @@ onMounted(() => {
         </v-col>
     </v-card>
 </template>
+
 <style scoped>
 
 </style>

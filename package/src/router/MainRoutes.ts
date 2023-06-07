@@ -14,9 +14,21 @@ const MainRoutes = {
         {
             name: 'Gateways',
             path: '/gateways',
-            component: () => import('@/views/dashboard/gateways.vue')
+            component: () => import('@/views/dashboard/gateways/gateways.vue'),
+            redirect: '/gateways/gatewaysList',
+            children: [
+                {
+                    name: 'GatewaysList',
+                    path: '/gateways/gatewaysList',
+                    component: () => import('@/views/dashboard/gateways/GatewayList.vue'),
+                },
+                {
+                    name: 'CreateNewGateways',
+                    path: '/gateways/newGateways/:id?',
+                    component: () => import('@/views/dashboard/gateways/CreateNewGateway.vue'),
+                }
+            ]
         },
-
     ]
 };
 

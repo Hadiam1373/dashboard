@@ -22,7 +22,7 @@ const props = defineProps(['headers', 'dataTable', 'page', 'total', 'perPage'])
             </tr>
             </tbody>
         </v-table>
-        <div v-if="!dataTable" class="d-flex noData align-center justify-center w-100 h-100">
+        <div v-if="!dataTable || !dataTable[0]" class="d-flex noData align-center justify-center w-100 h-100">
             {{ $vuetify.locale.t(`$vuetify.noDataText`) }}
         </div>
 
@@ -31,7 +31,7 @@ const props = defineProps(['headers', 'dataTable', 'page', 'total', 'perPage'])
 <style scoped>
 .noData {
     position: fixed;
-    top: -9%;
+    top: 20%;
     left: -8%;
 }
 </style>

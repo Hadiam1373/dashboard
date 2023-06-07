@@ -2,6 +2,12 @@ export default {
     badge: 'نشان',
     close: 'بستن',
     filter:'فیلتر',
+    filters:{
+        gatName:'نام درگاه',
+        type:'وضعیت',
+        search:'جستجو',
+        remove:'حذف فیلترها'
+    },
     dataIterator: {
         noResultsText: 'نتیجه‌ای یافت نشد',
         loadingText: 'در حال بارگذاری...'
@@ -156,8 +162,7 @@ export default {
             action:"عملیات",
             invoice:'صورت حساب ها',
             setting:'تنظیمات',
-            gatName:'نام درگاه',
-            type:'وضعیت'
+            gatewaySetting:'تنظیمات درگاه'
         }
     }
 }
