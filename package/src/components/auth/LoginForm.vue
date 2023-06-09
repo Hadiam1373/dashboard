@@ -3,10 +3,9 @@ import {useField, useForm} from 'vee-validate'
 import vuetify from "@/plugins/vuetify";
 import {ref} from "vue";
 import Authentication from "@/api/apis/Authentication";
-import {setItem, clearItem} from "@/storage";
-import {router} from "@/router";
+import {getItem, setItem} from "@/storage";
 import ForgetPassword from "@/views/auth/ForgetPassword.vue";
-
+import {router} from "@/router";
 
 const {handleSubmit, handleReset} = useForm({
     validationSchema: {
@@ -28,19 +27,23 @@ const email = useField('email');
 const password = useField('password');
 let loading = ref(false);
 
-const submit = handleSubmit(values => {
-    loading.value = true
-    // clearItem()
-    Authentication.login(email.value.value, password.value.value).then(r => {
-        try {
+function Login() {
+    Authentication.login(email.value.value, password.value.value).then(
+        (r) => {
             const {token, ...data} = r.data.data
             setItem('userData', JSON.stringify(data), '36000000')
             setItem('accessToken', token, '36000000')
             router.push('/')
-        } catch (e) {
+        },
+        (error) => {
             loading.value = false
         }
-    })
+    )
+}
+
+const submit = handleSubmit(values => {
+    loading.value = true
+    Login()
 })
 </script>
 
