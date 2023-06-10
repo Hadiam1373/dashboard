@@ -1,17 +1,29 @@
 <script setup>
-import {ref} from "vue";
+import {computed, ref} from "vue";
 
-const props = defineProps(['label1', 'label2', 'search', 'remove', 'status'])
+const props = defineProps(['search', 'remove', 'status', 'inputs' , 'item1' ,'item2' ,'item3' ,'item4'])
 let filters = ref({
-    label1: '',
-    label2: '',
+    text1: '',
+    text2: '',
+    text3: '',
+    text4: '',
+    select1: '',
+    select2: '',
+    select3: '',
+    select4: ''
 })
 
-const emit = defineEmits(['removeDataFilters' , 'getDataFilters'])
+const emit = defineEmits(['removeDataFilters', 'getDataFilters'])
 
 function removeFilters() {
-    filters.value.label1 = ''
-    filters.value.label2 = ''
+    filters.value.text1 = ''
+    filters.value.text2 = ''
+    filters.value.text3 = ''
+    filters.value.text4 = ''
+    filters.value.select1 = ''
+    filters.value.select2 = ''
+    filters.value.select3 = ''
+    filters.value.select4 = ''
     emit('removeDataFilters')
 }
 
@@ -25,18 +37,43 @@ function removeFilters() {
             >
                 <v-expansion-panel-text class="pt-5">
                     <v-row align="center">
-                        <v-col cols="12" lg="4" sm="6">
-                            <v-text-field variant="outlined" color="primary" hide-details v-model="filters.label1"
-                                          :label="$vuetify.locale.t(`$vuetify.filters.${props.label1}`)">
-
+                        <v-col v-for="(item , index) in props.inputs" cols="12" lg="4" sm="6">
+                            <v-text-field v-if="item.type === 'text' && item.key === 'one'" :key="index"
+                                          variant="outlined" color="primary" hide-details v-model="filters.text1"
+                                          :label="$vuetify.locale.t(`$vuetify.filters.${item.label}`)">
                             </v-text-field>
-
-                        </v-col>
-                        <v-col cols="12" lg="4" sm="6">
-                            <v-select variant="outlined" :items="status" color="primary" hide-details
-                                      v-model="filters.label2"
-                                      :label="$vuetify.locale.t(`$vuetify.filters.${props.label2}`)">
-
+                            <v-text-field v-if="item.type === 'text' && item.key === 'two'" :key="index"
+                                          variant="outlined" color="primary" hide-details v-model="filters.text2"
+                                          :label="$vuetify.locale.t(`$vuetify.filters.${item.label}`)">
+                            </v-text-field>
+                            <v-text-field v-if="item.type === 'text' && item.key === 'tree'" :key="index"
+                                          variant="outlined" color="primary" hide-details v-model="filters.text3"
+                                          :label="$vuetify.locale.t(`$vuetify.filters.${item.label}`)">
+                            </v-text-field>
+                            <v-text-field v-if="item.type === 'text' && item.key === 'four'" :key="index"
+                                          variant="outlined" color="primary" hide-details v-model="filters.text4"
+                                          :label="$vuetify.locale.t(`$vuetify.filters.${item.label}`)">
+                            </v-text-field>
+                            <!--                            select section -->
+                            <v-select v-if="item.type === 'select' && item.key === 'one'" :key="index"
+                                      variant="outlined" :items="props.item1" color="primary" hide-details
+                                      v-model="filters.select1"
+                                      :label="$vuetify.locale.t(`$vuetify.filters.${item.label}`)">
+                            </v-select>
+                            <v-select v-if="item.type === 'select' && item.key === 'two'" :key="index"
+                                      variant="outlined" :items="props.item2" color="primary" hide-details
+                                      v-model="filters.select2"
+                                      :label="$vuetify.locale.t(`$vuetify.filters.${item.label}`)">
+                            </v-select>
+                            <v-select v-if="item.type === 'select' && item.key === 'tree'" :key="index"
+                                      variant="outlined" :items="props.item3" color="primary" hide-details
+                                      v-model="filters.select3"
+                                      :label="$vuetify.locale.t(`$vuetify.filters.${item.label}`)">
+                            </v-select>
+                            <v-select v-if="item.type === 'select' && item.key === 'four'" :key="index"
+                                      variant="outlined" :items="props.item4" color="primary" hide-details
+                                      v-model="filters.select4"
+                                      :label="$vuetify.locale.t(`$vuetify.filters.${item.label}`)">
                             </v-select>
                         </v-col>
                         <v-col cols="12" lg="4" sm="12" class="text-end">

@@ -29,6 +29,18 @@ const MainRoutes = {
                 }
             ]
         },
+        {
+            name: 'Invoice',
+            path: '/invoices',
+            component: () => import('@/views/dashboard/invoice/index.vue'),
+            children: [
+                {
+                    name: 'InvoiceSetting',
+                    path: '/invoices/invoice-setting',
+                    component: () => import('@/views/dashboard/invoice/invoice-setting.vue'),
+                },
+            ]
+        },
     ]
 };
 

@@ -5,7 +5,9 @@ import {ref} from "vue";
 import Authentication from "@/api/apis/Authentication";
 import {getItem, setItem} from "@/storage";
 import ForgetPassword from "@/views/auth/ForgetPassword.vue";
-import {router} from "@/router";
+import {useRouter} from "vue-router";
+
+const router = useRouter()
 
 const {handleSubmit, handleReset} = useForm({
     validationSchema: {
@@ -33,6 +35,7 @@ function Login() {
             const {token, ...data} = r.data.data
             setItem('userData', JSON.stringify(data), '36000000')
             setItem('accessToken', token, '36000000')
+            loading.value = false
             router.push('/')
         },
         (error) => {

@@ -1,5 +1,5 @@
 <script setup>
-const props = defineProps(['headers', 'dataTable', 'page', 'total', 'perPage'])
+const props = defineProps(['headers', 'dataTable', 'page', 'total', 'perPage' , 'local'])
 </script>
 
 <template>
@@ -9,7 +9,7 @@ const props = defineProps(['headers', 'dataTable', 'page', 'total', 'perPage'])
                 <th class="text-center"
                     v-for="(item , index) in headers"
                     :key="index">
-                    {{ $vuetify.locale.t(`$vuetify.dashboard.gateWays.${item.title}`) }}
+                    {{ $vuetify.locale.t(`$vuetify.dashboard.${props.local}.${item.title}`) }}
                 </th>
             </tr>
             </thead>

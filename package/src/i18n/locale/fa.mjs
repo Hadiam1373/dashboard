@@ -163,6 +163,21 @@ export default {
             invoice:'صورت حساب ها',
             setting:'تنظیمات',
             gatewaySetting:'تنظیمات درگاه'
+        },
+        invoice: {
+            title:'لیست صورت حساب ها',
+            create:'ایجاد صورت حساب',
+            id: 'شناسه',
+            name: 'نام درگاه',
+            status: 'وضعیت',
+            'status_label': 'وضعیت',
+            'created_at': 'تاریخ ایجاد',
+            action:"عملیات",
+            token:'توکن',
+            amount:'هزینه',
+            setting:'ویرایش',
+            factor:'صورت حساب',
+            disable:'غیرفعال شود'
         }
     }
 }

@@ -40,6 +40,7 @@ let logo = useField('logo')
 let color = useField('color')
 let menu = ref(false)
 let gateWayData = ref()
+let userLogo = ref()
 
 let swatchStyle = computed(() => {
     return {
@@ -53,16 +54,37 @@ let swatchStyle = computed(() => {
 })
 
 const submit = handleSubmit(values => {
-    createGateway()
+    if (route.params.id) {
+        updateGateway()
+    } else {
+        createGateway()
+    }
 })
+
+function updateGateway() {
+    formData.append('name', name.value.value)
+    formData.append('url', url.value.value)
+    formData.append('color', color.value.value)
+    formData.append('callback', callback.value.value)
+    formData.append('logo', logo.value.value[0])
+    Gateways.updateGateway(formData , gateWayData.value.id).then(
+        () => {
+            router.push('/gateways')
+        }
+    )
+}
 
 function createGateway() {
     formData.append('name', name.value.value)
     formData.append('url', url.value.value)
-    formData.append('color', 'green')
+    formData.append('color', color.value.value)
     formData.append('callback', callback.value.value)
     formData.append('logo', logo.value.value[0])
-    Gateways.createGateway(formData)
+    Gateways.createGateway(formData).then(
+        () => {
+            router.push('/gateways')
+        }
+    )
 }
 
 function editGateWay() {
@@ -71,8 +93,8 @@ function editGateWay() {
             url.value.value = r.data.data.gateway.url
             name.value.value = r.data.data.gateway.name
             callback.value.value = r.data.data.gateway.callback
-            color.value.value = color.value.value ? r.data.data.gateway.color : '#00D1BC'
-            logo.value.value = r.data.data.gateway.logo_url
+            color.value.value = r.data.data.gateway.color
+            userLogo.value = r.data.data.gateway.logo_url
         },
         (error) => {
 
@@ -82,9 +104,10 @@ function editGateWay() {
 
 
 onMounted(() => {
-    // color.value.value = 'red'
     if (route.params.id) {
         editGateWay()
+    } else {
+        color.value.value = '#00D1BC'
     }
 })
 </script>
@@ -145,8 +168,8 @@ onMounted(() => {
                 <v-col>
                     <v-row>
                         <v-col cols="12" lg="4" sm="6">
-                            <div class="d-flex align-center">
-                                <v-avatar v-if="route.params.id && logo.value.value" :image="logo.value.value" size="46"></v-avatar>
+                            <div class="d-flex gap-2">
+                                <v-avatar v-if="route.params.id" :image="userLogo" size="46"></v-avatar>
                                 <v-file-input accept="image/*" prepend-icon=""
                                               :error-messages="logo.errorMessage.value"
                                               append-inner-icon="mdi-file-image-plus" clearable color="primary"
@@ -162,7 +185,8 @@ onMounted(() => {
                                           label="آدرس callback" v-model="callback.value.value"></v-text-field>
                         </v-col>
                         <v-col cols="12" lg="3" sm="12">
-                            <v-btn v-if="route.params.id"  height="48" color="primary" block> ویرایش تنظیمات
+                            <v-btn v-if="route.params.id" type="submit" height="48" color="primary" block> ویرایش
+                                تنظیمات
                                 درگاه
                             </v-btn>
                             <v-btn v-else type="submit" height="48" color="primary" block>ثبت درگاه</v-btn>

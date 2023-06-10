@@ -25,6 +25,11 @@ let headers = ref([
     {title: 'action', align: 'end', key: 'action'},
 ])
 
+let inputs = ref([
+    {type: 'text', label: 'gatName', key: 'one'},
+    {type: 'select', label: 'type', key: 'one'}
+])
+
 
 function getData() {
     Gateways.getGateways(page.value).then(
@@ -41,7 +46,7 @@ function getData() {
 }
 
 function getDataFilters(filter) {
-    Gateways.getGateways(page.value, filter.label1, filter.label2).then(
+    Gateways.getGateways(page.value, filter.text1, filter.select1).then(
         (r) => {
             gateWaysData.value = r.data.data.gateways.data
             perPage.value = r.data.data.gateways.meta.per_page
@@ -80,7 +85,7 @@ onMounted(() => {
         </v-card-title>
         <filters-table label1="gatName" label2="type" remove="remove"
                        :status="status" search="search" @getDataFilters="getDataFilters"
-                       @removeDataFilters="getData"
+                       @removeDataFilters="getData" :inputs="inputs"
         />
         <v-divider class="mb-5"></v-divider>
         <DataTable :headers="headers"
@@ -88,6 +93,7 @@ onMounted(() => {
                    :page="page"
                    :total="total"
                    :perPage="perPage"
+                   local="gateWays"
         >
             <template v-slot:body="{item}">
                 <td class="text-center">{{ item.id }}</td>
@@ -113,7 +119,7 @@ onMounted(() => {
         </DataTable>
         <v-col cols="12">
             <div class="d-flex justify-center align-center">
-                <v-pagination active-color="primary" v-model="page" :length="paginationLength"></v-pagination>
+                <v-pagination active-color="primary" v-model="page"  total-visible="5" :length="paginationLength"></v-pagination>
             </div>
         </v-col>
     </v-card>

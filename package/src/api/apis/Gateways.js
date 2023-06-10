@@ -22,6 +22,14 @@ class Gateways {
     async getEditGateway(id){
         return await axiosIns.get(`panel/gateway/${id}/edit`)
     }
+
+    async updateGateway(formData , id){
+        return await axiosIns.put(`panel/gateway/${id}` , formData , {
+            headers: {
+                "Content-Type": "multipart/form-data",
+            },
+        })
+    }
 }
 
 export default new Gateways()
