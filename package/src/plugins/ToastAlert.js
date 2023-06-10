@@ -7,6 +7,6 @@ export const Toast = Seal.mixin({
     color: 'white',
     background: '#f27474',
     showConfirmButton: false,
-    timer: 5000,
+    timer: 9000,
     timerProgressBar: true
 })

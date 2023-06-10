@@ -18,6 +18,10 @@ class Gateways {
             },
         })
     }
+
+    async getEditGateway(id){
+        return await axiosIns.get(`panel/gateway/${id}/edit`)
+    }
 }
 
 export default new Gateways()

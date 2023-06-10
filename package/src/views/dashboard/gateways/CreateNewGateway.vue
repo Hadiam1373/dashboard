@@ -1,7 +1,11 @@
 <script setup>
 import Gateways from "@/api/apis/Gateways";
-import {computed, ref} from "vue";
+import {computed, onMounted, ref} from "vue";
 import {useField, useForm} from "vee-validate";
+import {useRoute, useRouter} from "vue-router";
+
+const route = useRoute()
+const router = useRouter()
 
 const {handleSubmit, handleReset} = useForm({
     validationSchema: {
@@ -14,8 +18,8 @@ const {handleSubmit, handleReset} = useForm({
             return 'لطفا آدرس درگاه را وراد نمایید'
         },
         callback(value) {
-            if (value) return true
-            return 'لطفا آدرس callback را وراد نمایید'
+            if (/^https?:/.test(value)) return true
+            return 'آدرس callback باید شامل https و کامل باشد '
         },
         logo(value) {
             if (value) return true
@@ -35,10 +39,11 @@ let callback = useField('callback')
 let logo = useField('logo')
 let color = useField('color')
 let menu = ref(false)
+let gateWayData = ref()
 
 let swatchStyle = computed(() => {
     return {
-        backgroundColor: color.value,
+        backgroundColor: color.value.value,
         cursor: 'pointer',
         height: '30px',
         width: '30px',
@@ -48,17 +53,40 @@ let swatchStyle = computed(() => {
 })
 
 const submit = handleSubmit(values => {
-    alert(values)
+    createGateway()
 })
 
-function createGateway(formData) {
-    formData.append('name', name.value)
-    formData.append('url', url.value)
-    formData.append('color', color.value)
-    formData.append('callback', callback.value)
-    formData.append('logo', logo.value)
+function createGateway() {
+    formData.append('name', name.value.value)
+    formData.append('url', url.value.value)
+    formData.append('color', 'green')
+    formData.append('callback', callback.value.value)
+    formData.append('logo', logo.value.value[0])
     Gateways.createGateway(formData)
 }
+
+function editGateWay() {
+    Gateways.getEditGateway(route.params.id).then(
+        (r) => {
+            url.value.value = r.data.data.gateway.url
+            name.value.value = r.data.data.gateway.name
+            callback.value.value = r.data.data.gateway.callback
+            color.value.value = color.value.value ? r.data.data.gateway.color : '#00D1BC'
+            logo.value.value = r.data.data.gateway.logo_url
+        },
+        (error) => {
+
+        }
+    )
+}
+
+
+onMounted(() => {
+    // color.value.value = 'red'
+    if (route.params.id) {
+        editGateWay()
+    }
+})
 </script>
 <template>
     <form @submit.prevent="submit">
@@ -66,10 +94,14 @@ function createGateway(formData) {
             <v-card-title>
                 <div class="d-flex justify-space-between align-center">
                     <div>
-                        {{ $vuetify.locale.t(`$vuetify.dashboard.gateWays.gatewaySetting`) }}
+                        <template v-if="route.params.id"> {{ 'تنظیمات درگاه ' + name.value.value }}</template>
+                        <template v-else>
+                            {{ $vuetify.locale.t(`$vuetify.dashboard.gateWays.gatewaySetting`) }}
+                        </template>
                     </div>
                     <div>
-                        <v-icon color="primary" @click="$router.push('/gateways/gatewaysList')" class="cursor-pointer"
+                        <v-icon color="primary" @click="$router.push('/gateways/gatewaysList')"
+                                class="cursor-pointer"
                                 size="large">mdi-keyboard-backspace
                         </v-icon>
                     </div>
@@ -81,14 +113,17 @@ function createGateway(formData) {
                     <v-row align="center">
                         <v-col cols="12" lg="4" sm="6">
                             <v-text-field variant="outlined" color="primary" v-model="name.value.value"
-                                          label="نام درگاه"></v-text-field>
+                                          label="نام درگاه"
+                                          :error-messages="name.errorMessage.value"></v-text-field>
                         </v-col>
                         <v-col cols="12" lg="4" sm="6">
                             <v-text-field variant="outlined" color="primary" v-model="url.value.value"
-                                          label="آدرس درگاه"></v-text-field>
+                                          label="آدرس درگاه"
+                                          :error-messages="url.errorMessage.value"></v-text-field>
                         </v-col>
                         <v-col cols="12" lg="4" sm="12">
-                            <v-text-field v-model="color.value.value" color="primary" label="رنگ" variant="outlined"
+                            <v-text-field v-model="color.value.value" :error-messages="color.errorMessage.value"
+                                          color="primary" label="رنگ" variant="outlined"
                                           solo>
                                 <template v-slot:append-inner>
                                     <v-menu v-model="menu" top :close-on-content-click="false">
@@ -97,7 +132,8 @@ function createGateway(formData) {
                                         </template>
                                         <v-card>
                                             <v-card-text class="pa-0">
-                                                <v-color-picker v-model="color.value.value" flat></v-color-picker>
+                                                <v-color-picker v-model="color.value.value"
+                                                                flat></v-color-picker>
                                             </v-card-text>
                                         </v-card>
                                     </v-menu>
@@ -107,18 +143,29 @@ function createGateway(formData) {
                     </v-row>
                 </v-col>
                 <v-col>
-                    <v-row align="center">
+                    <v-row>
                         <v-col cols="12" lg="4" sm="6">
-                            <v-file-input accept="image/*" hide-details prepend-icon=""
-                                          append-inner-icon="mdi-file-image-plus" clearable color="primary" label="لوگو"
-                                          variant="outlined" v-model="logo.value.value"></v-file-input>
+                            <div class="d-flex align-center">
+                                <v-avatar v-if="route.params.id && logo.value.value" :image="logo.value.value" size="46"></v-avatar>
+                                <v-file-input accept="image/*" prepend-icon=""
+                                              :error-messages="logo.errorMessage.value"
+                                              append-inner-icon="mdi-file-image-plus" clearable color="primary"
+                                              label="لوگو"
+                                              variant="outlined" v-model="logo.value.value">
+
+                                </v-file-input>
+                            </div>
                         </v-col>
                         <v-col cols="12" lg="5" sm="6">
-                            <v-text-field variant="outlined" hide-details color="primary"
+                            <v-text-field variant="outlined" color="primary"
+                                          :error-messages="callback.errorMessage.value"
                                           label="آدرس callback" v-model="callback.value.value"></v-text-field>
                         </v-col>
                         <v-col cols="12" lg="3" sm="12">
-                            <v-btn type="submit" height="48" color="primary" block>ثبت درگاه</v-btn>
+                            <v-btn v-if="route.params.id"  height="48" color="primary" block> ویرایش تنظیمات
+                                درگاه
+                            </v-btn>
+                            <v-btn v-else type="submit" height="48" color="primary" block>ثبت درگاه</v-btn>
                         </v-col>
                     </v-row>
                 </v-col>
@@ -126,7 +173,6 @@ function createGateway(formData) {
         </v-card>
     </form>
 </template>
-<!--<v-btn @click="$router.push('/gateways/gatewaysList')">back</v-btn>-->
 <style scoped>
 
 </style>
