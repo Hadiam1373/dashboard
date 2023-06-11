@@ -1,21 +1,13 @@
-<template>
+<script setup>
+import {ref} from 'vue';
+import VueDatePicker from '@vuepic/vue-datepicker';
+import '@vuepic/vue-datepicker/dist/main.css'
 
-</template>
-
-<script>
-import { useDate } from 'vuetify/labs/date'
-
-export default {
-    setup () {
-        const date = useDate()
-
-        const formatted = date.format('2010-04-13 00:00:00', 'fullDateWithWeekday')
-
-        console.log(formatted) // Tuesday, April 13, 2010
-    },
-}
+const date = ref();
 </script>
 
-<style scoped>
-
-</style>
+<template>
+    <VueDatePicker v-model="date" locale="fa"
+                   :day-names="['شنبه', '۱ شنبه', '۲ شنبه', '۳ شنبه', '۴ شنبه', '۵ شنبه', 'جمعه']">
+    </VueDatePicker>
+</template>

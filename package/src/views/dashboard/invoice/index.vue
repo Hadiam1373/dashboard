@@ -6,6 +6,9 @@ import {computed, onMounted, ref, watch} from "vue";
 import Invoice from "@/api/apis/Invoice";
 import {useRouter} from "vue-router";
 import QuestionModal from "@/components/shared/QuestionModal.vue";
+import Date from "@/components/shared/Date.vue";
+
+
 
 const router = useRouter()
 
@@ -99,7 +102,7 @@ onMounted(() => {
                         {{ $vuetify.locale.t(`$vuetify.dashboard.invoice.title`) }}
                     </span>
                 </div>
-                <vue3-persian-datetime-picker v-model="date"></vue3-persian-datetime-picker>
+
                 <div>
                     <v-btn color="primary" class="d-none d-lg-block d-sm-none" @click="router.push('/invoices/invoice-setting')">
                         {{ $vuetify.locale.t(`$vuetify.dashboard.invoice.create`) }}
@@ -173,6 +176,7 @@ onMounted(() => {
                 </td>
             </template>
         </DataTable>
+        <Date></Date>
         <v-col cols="12">
             <div class="d-flex justify-center align-center">
                 <v-pagination active-color="primary" v-model="page" :length="paginationLength"></v-pagination>

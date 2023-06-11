@@ -74,3 +74,22 @@ tr{
   font-size:1.5rem;
 }
 
+.dp__calendar_header_item{
+  font-size: 10px !important;
+}
+
+.dp__action_select{
+  min-width: 66px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 38px;
+}
+
+.dp__action_cancel{
+  min-width: 66px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 38px;
+}

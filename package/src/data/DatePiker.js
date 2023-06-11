@@ -1,5 +1,5 @@
 import theme from "@/plugins/theme";
-export const datePikerOption = {
+export let datePikerOption = {
     name: 'CustomDatePicker',
     props: {
         format: 'YYYY-MM-DD HH:mm',
