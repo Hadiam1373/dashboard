@@ -4,8 +4,9 @@ import {watch, onMounted, ref, computed} from "vue";
 import DataTable from "@/components/shared/DataTable.vue";
 import FiltersTable from "@/components/shared/FiltersTable.vue";
 import Status from "@/components/shared/Status.vue";
+import {useRouter} from "vue-router";
 
-
+const router = useRouter()
 let gateWaysData = ref()
 let perPage = ref()
 let total = ref()
@@ -77,14 +78,17 @@ onMounted(() => {
                     </span>
                 </div>
                 <div>
-                    <v-btn color="primary" @click="$router.push('/gateways/newGateways')">
+                    <v-btn color="primary" class="d-none d-lg-block d-sm-none"
+                           @click="router.push('/gateways/newGateways')">
                         {{ $vuetify.locale.t(`$vuetify.dashboard.gateWays.create`) }}
                     </v-btn>
+                    <v-icon class="d-lg-none" @click="router.push('/gateways/newGateways')" color="primary">mdi-plus
+                    </v-icon>
                 </div>
             </div>
         </v-card-title>
         <filters-table label1="gatName" label2="type" remove="remove"
-                       :status="status" search="search" @getDataFilters="getDataFilters"
+                       :item1="status" search="search" @getDataFilters="getDataFilters"
                        @removeDataFilters="getData" :inputs="inputs"
         />
         <v-divider class="mb-5"></v-divider>
@@ -98,7 +102,7 @@ onMounted(() => {
             <template v-slot:body="{item}">
                 <td class="text-center">{{ item.id }}</td>
                 <td class="text-center">{{ item.name }}</td>
-                <td class="text-center d-flex justify-center align-center">
+                <td class="text-center">
                     <status :value="item.status_label" :status="item.status"/>
                 </td>
                 <td class="text-center">{{ item.created_at }}</td>
@@ -106,20 +110,21 @@ onMounted(() => {
                     <v-btn size="small" color="secondary" class="mx-1 mt-2 mt-lg-0" prepend-icon="mdi-receipt">
                         {{ $vuetify.locale.t(`$vuetify.dashboard.gateWays.invoice`) }}
                     </v-btn>
-                    <v-btn @click="$router.push(`/gateways/newGateways/${item.id}`)" size="small" color="primary"
+                    <v-btn @click="router.push(`/gateways/newGateways/${item.id}`)" size="small" color="primary"
                            class="mx-1 mt-2 mt-lg-0" prepend-icon="mdi-cog">
                         {{ $vuetify.locale.t(`$vuetify.dashboard.gateWays.setting`) }}
                     </v-btn>
                 </td>
-                <td class="text-center d-flex align-center  d-lg-none">
+                <td class="text-center d-lg-none">
                     <v-icon class="mx-1" color="primary">mdi-receipt</v-icon>
-                    <v-icon class="mx-1" color="secondary">mdi-cog</v-icon>
+                    <v-icon class="mx-1" @click="router.push(`/gateways/newGateways/${item.id}`)" color="secondary">mdi-cog</v-icon>
                 </td>
             </template>
         </DataTable>
         <v-col cols="12">
             <div class="d-flex justify-center align-center">
-                <v-pagination active-color="primary" v-model="page"  total-visible="5" :length="paginationLength"></v-pagination>
+                <v-pagination active-color="primary" v-model="page" total-visible="3"
+                              :length="paginationLength"></v-pagination>
             </div>
         </v-col>
     </v-card>

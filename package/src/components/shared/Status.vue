@@ -32,7 +32,10 @@ let computedColor = computed(() => {
 </script>
 
 <template>
-    <v-chip class="max-width-chip" label :color="computedColor">{{ value }}</v-chip>
+    <div class="d-flex justify-center">
+        <v-chip class="max-width-chip d-none d-sm-none d-lg-block" label :color="computedColor">{{ value }}</v-chip>
+        <v-chip size="x-small" class="d-lg-none" label :color="computedColor">{{ value }}</v-chip>
+    </div>
 </template>
 
 

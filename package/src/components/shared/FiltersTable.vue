@@ -1,7 +1,7 @@
 <script setup>
 import {computed, ref} from "vue";
 
-const props = defineProps(['search', 'remove', 'status', 'inputs' , 'item1' ,'item2' ,'item3' ,'item4'])
+const props = defineProps(['search', 'remove', 'status', 'inputs', 'item1', 'item2', 'item3', 'item4', 'itemTitle1', 'itemValue1', 'itemTitle2', 'itemValue2', 'itemTitle3', 'itemValue3', 'itemTitle4', 'itemValue4'])
 let filters = ref({
     text1: '',
     text2: '',
@@ -56,32 +56,54 @@ function removeFilters() {
                             </v-text-field>
                             <!--                            select section -->
                             <v-select v-if="item.type === 'select' && item.key === 'one'" :key="index"
-                                      variant="outlined" :items="props.item1" color="primary" hide-details
+                                      variant="outlined" color="primary" hide-details
+                                      :items="props.item1"
+                                      :item-title="props.itemTitle1"
+                                      :item-value="props.itemValue1"
                                       v-model="filters.select1"
                                       :label="$vuetify.locale.t(`$vuetify.filters.${item.label}`)">
                             </v-select>
                             <v-select v-if="item.type === 'select' && item.key === 'two'" :key="index"
-                                      variant="outlined" :items="props.item2" color="primary" hide-details
+                                      variant="outlined" color="primary" hide-details
                                       v-model="filters.select2"
+                                      :items="props.item2"
+                                      :item-title="props.itemTitle2"
+                                      :item-value="props.itemValue2"
                                       :label="$vuetify.locale.t(`$vuetify.filters.${item.label}`)">
                             </v-select>
                             <v-select v-if="item.type === 'select' && item.key === 'tree'" :key="index"
-                                      variant="outlined" :items="props.item3" color="primary" hide-details
+                                      variant="outlined" color="primary" hide-details
                                       v-model="filters.select3"
+                                      :items="props.item3"
+                                      :item-title="props.itemTitle3"
+                                      :item-value="props.itemValue3"
                                       :label="$vuetify.locale.t(`$vuetify.filters.${item.label}`)">
                             </v-select>
                             <v-select v-if="item.type === 'select' && item.key === 'four'" :key="index"
-                                      variant="outlined" :items="props.item4" color="primary" hide-details
+                                      variant="outlined" color="primary" hide-details
                                       v-model="filters.select4"
+                                      :items="props.item4"
+                                      :item-title="props.itemTitle4"
+                                      :item-value="props.itemValue4"
                                       :label="$vuetify.locale.t(`$vuetify.filters.${item.label}`)">
                             </v-select>
                         </v-col>
-                        <v-col cols="12" lg="4" sm="12" class="text-end">
+                        <v-col cols="12" lg="4" md="12" sm="12" class="text-end d-none d-lg-block d-sm-block">
                             <v-btn @click="$emit('getDataFilters' , filters)" class="mx-2" color="primary"
                                    variant="outlined" size="large" prepend-icon="mdi-magnify">
                                 {{ $vuetify.locale.t(`$vuetify.filters.${props.search}`) }}
                             </v-btn>
                             <v-btn @click="removeFilters" class="mx-2" color="error" variant="outlined" size="large"
+                                   prepend-icon="mdi-close-circle-outline">
+                                {{ $vuetify.locale.t(`$vuetify.filters.${props.remove}`) }}
+                            </v-btn>
+                        </v-col>
+                        <v-col cols="12" lg="4" md="12" sm="12" class="text-end d-lg-none d-sm-none">
+                            <v-btn @click="$emit('getDataFilters' , filters)" class="mb-2" color="primary"
+                                   variant="outlined" block prepend-icon="mdi-magnify">
+                                {{ $vuetify.locale.t(`$vuetify.filters.${props.search}`) }}
+                            </v-btn>
+                            <v-btn @click="removeFilters" class="mt-2" color="error" variant="outlined" block
                                    prepend-icon="mdi-close-circle-outline">
                                 {{ $vuetify.locale.t(`$vuetify.filters.${props.remove}`) }}
                             </v-btn>

@@ -1,12 +1,12 @@
 export default {
     badge: 'نشان',
     close: 'بستن',
-    filter:'فیلتر',
-    filters:{
-        gatName:'نام درگاه',
-        type:'وضعیت',
-        search:'جستجو',
-        remove:'حذف فیلترها'
+    filter: 'فیلتر',
+    filters: {
+        gatName: 'نام درگاه',
+        type: 'وضعیت',
+        search: 'جستجو',
+        remove: 'حذف فیلترها'
     },
     dataIterator: {
         noResultsText: 'نتیجه‌ای یافت نشد',
@@ -152,32 +152,36 @@ export default {
             'monthly_average': 'میانگین ماهانه'
         },
         gateWays: {
-            title:'لیست درگاه ها',
-            create:'ایجاد درگاه',
+            title: 'لیست درگاه ها',
+            create: 'ایجاد درگاه',
             id: 'شناسه',
             name: 'نام درگاه',
             status: 'وضعیت',
             'status_label': 'وضعیت',
             'created_at': 'تاریخ ایجاد',
-            action:"عملیات",
-            invoice:'صورت حساب ها',
-            setting:'تنظیمات',
-            gatewaySetting:'تنظیمات درگاه'
+            action: "عملیات",
+            invoice: 'صورت حساب ها',
+            setting: 'تنظیمات',
+            gatewaySetting: 'تنظیمات درگاه'
         },
         invoice: {
-            title:'لیست صورت حساب ها',
-            create:'ایجاد صورت حساب',
+            title: 'لیست صورت حساب ها',
+            create: 'ایجاد صورت حساب',
             id: 'شناسه',
             name: 'نام درگاه',
             status: 'وضعیت',
             'status_label': 'وضعیت',
             'created_at': 'تاریخ ایجاد',
-            action:"عملیات",
-            token:'توکن',
-            amount:'هزینه',
-            setting:'ویرایش',
-            factor:'صورت حساب',
-            disable:'غیرفعال شود'
+            action: "عملیات",
+            token: 'توکن',
+            amount: 'هزینه',
+            setting: 'ویرایش',
+            factor: 'صورت حساب',
+            disable: 'غیرفعال شود',
+            filled: 'مقدار تکمیل شده',
+            user: 'کاربر',
+            'user_charged': 'مقدار شارژ شده',
+            'last_tx_id': 'آخرین تراکنش',
         }
     }
 }

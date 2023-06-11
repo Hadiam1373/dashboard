@@ -3,10 +3,10 @@ const props = defineProps(['headers', 'dataTable', 'page', 'total', 'perPage' , 
 </script>
 
 <template>
-        <v-table  class="mt-5" height="400px" fixed-header>
+        <v-table  class="mt-5"  height="300"  fixed-header>
             <thead>
             <tr>
-                <th class="text-center"
+                <th class="text-center text-no-wrap"
                     v-for="(item , index) in headers"
                     :key="index">
                     {{ $vuetify.locale.t(`$vuetify.dashboard.${props.local}.${item.title}`) }}
@@ -30,8 +30,8 @@ const props = defineProps(['headers', 'dataTable', 'page', 'total', 'perPage' , 
 
 <style scoped>
 .noData {
-    position: fixed;
+    position: absolute;
     top: 20%;
-    left: -8%;
+    left: 0;
 }
 </style>
