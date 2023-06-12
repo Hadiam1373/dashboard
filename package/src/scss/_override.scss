@@ -23,7 +23,7 @@ html {
 
 /* Define css class for global loading message to cover
    screen during axios operations */
-tr{
+tr {
   min-height: 65px;
 }
 
@@ -44,52 +44,60 @@ tr{
   top: 50%;
   left: 0;
   z-index: 10001;
-  color:white;
-  text-align:center;
-  font-weight:bold;
-  font-size:1.5rem;
+  color: white;
+  text-align: center;
+  font-weight: bold;
+  font-size: 1.5rem;
 }
-.v-locale--is-ltr .loading-indicator:after{
+
+.v-locale--is-ltr .loading-indicator:after {
   content: 'Loading ...' !important;
   position: fixed;
   width: 100%;
   top: 50%;
   left: 0;
   z-index: 10001;
-  color:white;
-  text-align:center;
-  font-weight:bold;
-  font-size:1.5rem;
+  color: white;
+  text-align: center;
+  font-weight: bold;
+  font-size: 1.5rem;
 }
-.v-locale--is-rtl .loading-indicator:after{
-  content: 'در حال بارگذاری ...'!important;
+
+.v-locale--is-rtl .loading-indicator:after {
+  content: 'در حال بارگذاری ...' !important;
   position: fixed;
   width: 100%;
   top: 50%;
   left: 0;
   z-index: 10001;
-  color:white;
-  text-align:center;
-  font-weight:bold;
-  font-size:1.5rem;
+  color: white;
+  text-align: center;
+  font-weight: bold;
+  font-size: 1.5rem;
 }
 
-.dp__calendar_header_item{
+.dp__calendar_header_item {
   font-size: 10px !important;
 }
 
-.dp__action_select{
-  min-width: 66px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 38px;
+.dp__pointer {
+  text-align: left;
 }
 
-.dp__action_cancel{
+.dp__action_select {
   min-width: 66px;
   display: flex;
   align-items: center;
   justify-content: center;
   min-height: 38px;
+  margin: 0 10px
+}
+
+.dp__action_cancel {
+  min-width: 66px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 38px;
+  margin: 0 10px
 }

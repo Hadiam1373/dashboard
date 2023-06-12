@@ -1,6 +1,7 @@
 export default {
     badge: 'Badge',
     close: 'Close',
+    submit:'submit',
     filter:'Filters',
     filters:{
         gatName:'',

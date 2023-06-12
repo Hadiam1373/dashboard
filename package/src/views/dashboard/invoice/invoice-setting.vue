@@ -1,19 +1,88 @@
 <script setup>
 import {useRoute, useRouter} from "vue-router";
+import Invoice from "@/api/apis/Invoice";
+import {onMounted, ref} from "vue";
+import Date from "@/components/shared/Date.vue";
+import {useField, useForm} from "vee-validate";
 
 const route = useRoute()
 const router = useRouter()
+const gates = ref()
+let formData = new FormData()
+
+const {handleSubmit, handleReset} = useForm({
+    validationSchema: {
+        title(value) {
+            if (value) return true
+            return 'لطفا صورت حساب را وراد نمایید'
+        },
+        amount(value) {
+            if (value) return true
+            return 'لطفا هزینه را وراد نمایید'
+        },
+        gateway(value) {
+            if (value) return true
+            return 'لطفا درگاه را وراد انتخاب نمایید'
+        },
+        mobile(value) {
+            if (value) return true
+            return 'لطفا شماره تماس را وراد نمایید'
+        },
+        description(value) {
+            if (value) return true
+            return 'لطفا توضیحات را وراد نمایید'
+        }
+    }
+})
+// form
+let title = useField('title')
+let amount = useField('amount')
+let gateway = useField('gateway')
+let expiration = useField('expiration')
+let description = useField('description')
+let mobile = useField('mobile')
+
+const submit = handleSubmit(values => {
+    storeInvoice()
+})
+
+function getGateways() {
+    Invoice.createInvoice().then(
+        (r) => {
+            gates.value = r.data.data.gateways
+        }
+    )
+}
+
+function storeInvoice() {
+    formData.append('title', title.value.value)
+    formData.append('amount', amount.value.value)
+    formData.append('gateway_id', gateway.value.value)
+    formData.append('expiration', expiration.value.value)
+    formData.append('description', description.value.value)
+    formData.append('mobile', mobile.value.value)
+    Invoice.StoreInvoice(formData).then(
+        (r) => {
+            if (r.data.data.status !== 'error')
+                router.push('/invoices')
+        }
+    )
+}
+
+onMounted(() => {
+    getGateways()
+})
 </script>
 
 <template>
-    <form>
+    <form @submit.prevent="submit">
         <v-card class="pa-5" min-height="300">
             <v-card-title>
                 <div class="d-flex justify-space-between align-center">
                     <div>
-<!--                        <template v-if="route.params.id"> {{ 'تنظیمات درگاه ' + name.value.value }}</template>-->
-                        <template>
-                            {{ $vuetify.locale.t(`$vuetify.dashboard.gateWays.gatewaySetting`) }}
+                        <template v-if="route.params.id"> {{ 'تنظیمات درگاه ' + name.value.value }}</template>
+                        <template v-else>
+                            {{ $vuetify.locale.t(`$vuetify.dashboard.invoice.create`) }}
                         </template>
                     </div>
                     <div>
@@ -25,68 +94,50 @@ const router = useRouter()
                 </div>
             </v-card-title>
             <v-divider class="mt-5 mb-5"></v-divider>
-<!--            <v-row class="mt-5">-->
-<!--                <v-col cols="12">-->
-<!--                    <v-row align="center">-->
-<!--                        <v-col cols="12" lg="4" sm="6">-->
-<!--                            <v-text-field variant="outlined" color="primary" v-model="name.value.value"-->
-<!--                                          label="نام درگاه"-->
-<!--                                          :error-messages="name.errorMessage.value"></v-text-field>-->
-<!--                        </v-col>-->
-<!--                        <v-col cols="12" lg="4" sm="6">-->
-<!--                            <v-text-field variant="outlined" color="primary" v-model="url.value.value"-->
-<!--                                          label="آدرس درگاه"-->
-<!--                                          :error-messages="url.errorMessage.value"></v-text-field>-->
-<!--                        </v-col>-->
-<!--                        <v-col cols="12" lg="4" sm="12">-->
-<!--                            <v-text-field v-model="color.value.value" :error-messages="color.errorMessage.value"-->
-<!--                                          color="primary" label="رنگ" variant="outlined"-->
-<!--                                          solo>-->
-<!--                                <template v-slot:append-inner>-->
-<!--                                    <v-menu v-model="menu" top :close-on-content-click="false">-->
-<!--                                        <template v-slot:activator="{ props }">-->
-<!--                                            <div :style="swatchStyle" v-bind="props"/>-->
-<!--                                        </template>-->
-<!--                                        <v-card>-->
-<!--                                            <v-card-text class="pa-0">-->
-<!--                                                <v-color-picker v-model="color.value.value"-->
-<!--                                                                flat></v-color-picker>-->
-<!--                                            </v-card-text>-->
-<!--                                        </v-card>-->
-<!--                                    </v-menu>-->
-<!--                                </template>-->
-<!--                            </v-text-field>-->
-<!--                        </v-col>-->
-<!--                    </v-row>-->
-<!--                </v-col>-->
-<!--                <v-col>-->
-<!--                    <v-row>-->
-<!--                        <v-col cols="12" lg="4" sm="6">-->
-<!--                            <div class="d-flex align-center">-->
-<!--                                <v-avatar v-if="route.params.id && logo.value.value" :image="logo.value.value" size="46"></v-avatar>-->
-<!--                                <v-file-input accept="image/*" prepend-icon=""-->
-<!--                                              :error-messages="logo.errorMessage.value"-->
-<!--                                              append-inner-icon="mdi-file-image-plus" clearable color="primary"-->
-<!--                                              label="لوگو"-->
-<!--                                              variant="outlined" v-model="logo.value.value">-->
-
-<!--                                </v-file-input>-->
-<!--                            </div>-->
-<!--                        </v-col>-->
-<!--                        <v-col cols="12" lg="5" sm="6">-->
-<!--                            <v-text-field variant="outlined" color="primary"-->
-<!--                                          :error-messages="callback.errorMessage.value"-->
-<!--                                          label="آدرس callback" v-model="callback.value.value"></v-text-field>-->
-<!--                        </v-col>-->
-<!--                        <v-col cols="12" lg="3" sm="12">-->
-<!--                            <v-btn v-if="route.params.id"  height="48" color="primary" block> ویرایش تنظیمات-->
-<!--                                درگاه-->
-<!--                            </v-btn>-->
-<!--                            <v-btn v-else type="submit" height="48" color="primary" block>ثبت درگاه</v-btn>-->
-<!--                        </v-col>-->
-<!--                    </v-row>-->
-<!--                </v-col>-->
-<!--            </v-row>-->
+            <v-row align="center">
+                <v-col cols="12" lg="4" sm="6">
+                    <v-text-field variant="outlined" color="primary"
+                                  label="عنوان صورت حساب" v-model="title.value.value"
+                                  :error-messages="title.errorMessage.value">
+                    </v-text-field>
+                </v-col>
+                <v-col cols="12" lg="4" sm="6">
+                    <v-select variant="outlined" color="primary"
+                              label="درگاه"
+                              :error-messages="gateway.errorMessage.value"
+                              :items="gates"
+                              item-title="name"
+                              item-value="id"
+                              v-model="gateway.value.value"
+                    >
+                    </v-select>
+                </v-col>
+                <v-col cols="12" lg="4" sm="6">
+                    <v-text-field variant="outlined" color="primary"
+                                  label="هزینه صورت حساب" v-model="amount.value.value"
+                                  :error-messages="amount.errorMessage.value">
+                    </v-text-field>
+                </v-col>
+                <v-col cols="12" lg="4" sm="6">
+                    <v-text-field variant="outlined" color="primary"
+                                  label="شماره موبایل مشتری" v-model="mobile.value.value"
+                                  :error-messages="mobile.errorMessage.value">
+                    </v-text-field>
+                </v-col>
+                <v-col cols="12" lg="4" sm="6">
+                    <Date @setDate="(value) => expiration.value.value = value"/>
+                </v-col>
+                <v-col cols="12" lg="12" sm="12">
+                    <v-textarea v-model="description.value.value" variant="outlined" label="توضیحات" rows="3" no-resize
+                                :error-messages="description.errorMessage.value"></v-textarea>
+                </v-col>
+                <v-col cols="12" lg="2" sm="12" class="text-end">
+                    <v-btn v-if="route.params.id" type="submit" height="48" color="primary" block>
+                        ویرایش صورت حساب
+                    </v-btn>
+                    <v-btn v-else type="submit" height="48" color="primary" block>ثبت صورت حساب</v-btn>
+                </v-col>
+            </v-row>
         </v-card>
     </form>
 </template>

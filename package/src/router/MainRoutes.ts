@@ -33,7 +33,13 @@ const MainRoutes = {
             name: 'Invoice',
             path: '/invoices',
             component: () => import('@/views/dashboard/invoice/index.vue'),
+            redirect: '/invoices/invoice-list',
             children: [
+                {
+                    name: 'InvoiceList',
+                    path: '/invoices/invoice-list',
+                    component: () => import('@/views/dashboard/invoice/InvoiceList.vue'),
+                },
                 {
                     name: 'InvoiceSetting',
                     path: '/invoices/invoice-setting',

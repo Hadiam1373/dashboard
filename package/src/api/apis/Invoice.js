@@ -11,6 +11,18 @@ class Invoice {
         })
     }
 
+    async createInvoice(){
+        return await axiosIns.get('panel/invoice/create')
+    }
+
+    async StoreInvoice(formData) {
+        return await axiosIns.post('panel/invoice', formData, {
+            headers: {
+                "Content-Type": "multipart/form-data",
+            }
+        })
+    }
+
     async rejectInvoice(id){
         return await axiosIns.delete(`panel/invoice/${id}`)
     }

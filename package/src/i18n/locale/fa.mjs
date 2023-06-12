@@ -1,6 +1,7 @@
 export default {
     badge: 'نشان',
     close: 'بستن',
+    submit:'تایید',
     filter: 'فیلتر',
     filters: {
         gatName: 'نام درگاه',
