@@ -6,7 +6,7 @@ let router = useRouter()
 export function showMessage(error) {
         const errorMessage = Object.values(error.response.data.message).flat().join('<br>');
         // if restive Unauthenticated error
-        if (error.response.status === 401 || error.response.message === 'Unauthenticated.') {
+        if (error.response.status === 401 || error.response.status === 403 || error.response.message === 'Unauthenticated.') {
             removeItem('userData');
             removeItem('accessToken');
             Toast.fire({

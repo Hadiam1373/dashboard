@@ -1,4 +1,3 @@
-import axios from "axios";
 import axiosIns from "@/api/fetch/interceptors";
 
 class Auth {
@@ -15,6 +14,12 @@ class Auth {
 
     async logout(){
         return await axiosIns.get('api/logout')
+    }
+
+    async getQRCODE(password){
+        return await axiosIns.post('panel/settings/confirm/password' , {
+            password:password
+        })
     }
 }
 

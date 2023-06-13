@@ -11,6 +11,14 @@ class Invoice {
         })
     }
 
+    async updateInvoice(formData , id){
+        return await axiosIns.post(`panel/invoice/${id}` , formData , {
+            headers: {
+                "Content-Type": "multipart/form-data",
+            },
+        })
+    }
+
     async createInvoice(){
         return await axiosIns.get('panel/invoice/create')
     }
@@ -21,6 +29,10 @@ class Invoice {
                 "Content-Type": "multipart/form-data",
             }
         })
+    }
+
+    async editInvoice(id){
+        return await axiosIns.get(`panel/invoice/${id}/edit`)
     }
 
     async rejectInvoice(id){

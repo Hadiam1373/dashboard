@@ -42,11 +42,16 @@ const MainRoutes = {
                 },
                 {
                     name: 'InvoiceSetting',
-                    path: '/invoices/invoice-setting',
+                    path: '/invoices/invoice-setting/:id?',
                     component: () => import('@/views/dashboard/invoice/invoice-setting.vue'),
                 },
             ]
         },
+        {
+            name: 'Setting',
+            path: '/setting',
+            component: () => import('@/views/dashboard/setting/index.vue'),
+        }
     ]
 };
 

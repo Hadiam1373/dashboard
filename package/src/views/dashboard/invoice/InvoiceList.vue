@@ -146,7 +146,7 @@ onMounted(() => {
                            class="mx-1 mt-2 mt-lg-0" prepend-icon="mdi-receipt">
                         {{ $vuetify.locale.t(`$vuetify.dashboard.invoice.factor`) }}
                     </v-btn>
-                    <v-btn size="small" class="mx-1 mt-2 mt-lg-0" color="info" prepend-icon="mdi-pen">
+                    <v-btn size="small" @click="router.push(`/invoices/invoice-setting/${item.id}`)" class="mx-1 mt-2 mt-lg-0" color="info" prepend-icon="mdi-pen">
                         {{ $vuetify.locale.t(`$vuetify.dashboard.invoice.setting`) }}
                     </v-btn>
                     <question-modal  :dialog="dialog"

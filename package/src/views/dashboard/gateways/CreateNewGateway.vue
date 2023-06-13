@@ -3,6 +3,7 @@ import Gateways from "@/api/apis/Gateways";
 import {computed, onMounted, ref} from "vue";
 import {useField, useForm} from "vee-validate";
 import {useRoute, useRouter} from "vue-router";
+import {base642Binary} from "@/tools/base642Binary";
 
 const route = useRoute()
 const router = useRouter()
@@ -67,9 +68,13 @@ function updateGateway() {
     formData.append('color', color.value.value)
     formData.append('callback', callback.value.value)
     formData.append('logo', logo.value.value[0])
-    Gateways.updateGateway(formData , gateWayData.value.id).then(
+    formData.append('_method', 'PATCH')
+    Gateways.updateGateway(formData, route.params.id).then(
         () => {
             router.push('/gateways')
+        },
+        (error) => {
+            router.go(0)
         }
     )
 }
@@ -97,7 +102,7 @@ function editGateWay() {
             userLogo.value = r.data.data.gateway.logo_url
         },
         (error) => {
-
+            router.push('/gateways/gatewaysList')
         }
     )
 }
