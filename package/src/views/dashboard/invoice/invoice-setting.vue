@@ -4,6 +4,7 @@ import Invoice from "@/api/apis/Invoice";
 import {onMounted, ref} from "vue";
 import Date from "@/components/shared/Date.vue";
 import {useField, useForm} from "vee-validate";
+import Gateways from "@/api/apis/Gateways";
 
 const route = useRoute()
 const router = useRouter()
@@ -43,7 +44,11 @@ let description = useField('description')
 let mobile = useField('mobile')
 
 const submit = handleSubmit(values => {
-    storeInvoice()
+    if (route.params.id) {
+        updateInvoice()
+    } else {
+        storeInvoice()
+    }
 })
 
 function getGateways() {
@@ -65,12 +70,57 @@ function storeInvoice() {
         (r) => {
             if (r.data.data.status !== 'error')
                 router.push('/invoices')
+        },
+        (error) => {
+           router.go(0)
         }
     )
 }
 
+function updateInvoice() {
+    formData.append('gateway_name', gateway.value.value)
+    formData.append('title', title.value.value)
+    formData.append('amount', amount.value.value)
+    formData.append('mobile', mobile.value.value)
+    formData.append('expired_at', expiration.value.value)
+    formData.append('_method', 'PATCH')
+    formData.append('description', description.value.value)
+    Invoice.updateInvoice(formData, route.params.id).then(
+        (r) => {
+            if (r.data.data.status !== 'error')
+                router.push('/invoices')
+        },
+        (error) => {
+            router.go(0)
+        }
+    )
+}
+
+function getEditedInvoice() {
+    Invoice.editInvoice(route.params.id).then(
+        (r) => {
+            gateway.value.value = r.data.data.invoice.gateway_name
+            title.value.value = r.data.data.invoice.title
+            amount.value.value = r.data.data.invoice.amount
+            mobile.value.value = r.data.data.invoice.mobile
+            expiration.value.value = r.data.data.invoice.expired_at
+            description.value.value = r.data.data.invoice.description
+
+        },
+        (error) => {
+            router.push('/invoices/invoice-list')
+        }
+    )
+}
+
+function setTime(value){
+   expiration.value.value = value
+}
+
 onMounted(() => {
-    getGateways()
+    if (route.params.id) {
+        getEditedInvoice()
+    }
 })
 </script>
 
@@ -80,7 +130,7 @@ onMounted(() => {
             <v-card-title>
                 <div class="d-flex justify-space-between align-center">
                     <div>
-                        <template v-if="route.params.id"> {{ 'تنظیمات درگاه ' + name.value.value }}</template>
+                        <template v-if="route.params.id"> {{ 'ویرایش صورت حساب ' + title.value.value }}</template>
                         <template v-else>
                             {{ $vuetify.locale.t(`$vuetify.dashboard.invoice.create`) }}
                         </template>
@@ -125,7 +175,7 @@ onMounted(() => {
                     </v-text-field>
                 </v-col>
                 <v-col cols="12" lg="4" sm="6">
-                    <Date @setDate="(value) => expiration.value.value = value"/>
+                    <Date @setDate =" (n) => setTime(n)" />
                 </v-col>
                 <v-col cols="12" lg="12" sm="12">
                     <v-textarea v-model="description.value.value" variant="outlined" label="توضیحات" rows="3" no-resize

@@ -1,6 +1,7 @@
 <script setup>
 import Icon from '../Icon.vue';
-
+import {useRouter} from "vue-router";
+const router = useRouter()
 const props = defineProps({item: Object, level: Number});
 </script>
 
@@ -23,6 +24,7 @@ const props = defineProps({item: Object, level: Number});
         <v-list-item
                 v-for="(item , index) in item.children"
                 :key="index"
+                :to="item.to"
                 :title="$vuetify.locale.t(`$vuetify.sidebar.${item.title}`)"
                 :value="item.title"
                 active-color="primary"

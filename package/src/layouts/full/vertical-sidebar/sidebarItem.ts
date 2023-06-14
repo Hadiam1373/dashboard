@@ -56,14 +56,33 @@ const sidebarItem: menu[] = [
         to: '/profits',
     },
     {
+        title: 'Kyc List',
+        icon: 'mdi-fingerprint',
+        to: '/kyc-list',
+    },
+    {
         title: 'wallets',
         icon: 'mdi-wallet',
         to: '/wallets',
     },
     {
         title: 'transactions',
-        icon: 'mdi-wallet',
+        icon: 'mdi-swap-horizontal',
         to: '/transactions',
+        children: [
+            {
+                title:'Deposit List',
+                to: '/transactions/deposit-list'
+            },
+            {
+                title:'Withdraw List',
+                to: '/transactions/withdraw-list'
+            },
+            {
+                title:'suspend List',
+                to: '/transactions/suspend-List'
+            }
+        ],
     },
     {
         title: 'tickets',
@@ -73,14 +92,14 @@ const sidebarItem: menu[] = [
     {
         title: 'withdraw',
         icon: 'mdi-wallet-travel',
-        children:[
+        children: [
             {
-                title:'withdraw requests list',
-                to:'/'
+                title: 'withdraw requests list',
+                to: '/'
             },
             {
-                title:'create withdraw request',
-                to:'/'
+                title: 'create withdraw request',
+                to: '/'
             },
         ]
     },

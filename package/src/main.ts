@@ -12,6 +12,7 @@ import {options} from "@/theme/sweet-alert-theme";
 import 'sweetalert2/dist/sweetalert2.min.css';
 import VueDatePicker from '@vuepic/vue-datepicker';
 import '@vuepic/vue-datepicker/dist/main.css'
+import VOtpInput from "vue3-otp-input";
 
 
 const app = createApp(App);
@@ -22,4 +23,5 @@ app.component('VueDatePicker', VueDatePicker);
 app.use(Maska);
 app.use(VueApexCharts);
 app.use(VueSweetalert2, options);
+app.component('v-otp-input', VOtpInput)
 app.use(vuetify).mount('#app');

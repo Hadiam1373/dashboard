@@ -24,7 +24,7 @@ class Gateways {
     }
 
     async updateGateway(formData , id){
-        return await axiosIns.put(`panel/gateway/${id}` , formData , {
+        return await axiosIns.post(`panel/gateway/${id}` , formData , {
             headers: {
                 "Content-Type": "multipart/form-data",
             },

@@ -40,9 +40,6 @@ function getData() {
             total.value = r.data.data.gateways.meta.total
             status.value = r.data.data.status
         },
-        (error) => {
-            console.log(error)
-        }
     )
 }
 
@@ -87,7 +84,7 @@ onMounted(() => {
                 </div>
             </div>
         </v-card-title>
-        <filters-table label1="gatName" label2="type" remove="remove"
+        <filters-table  remove="remove"
                        :item1="status" search="search" @getDataFilters="getDataFilters"
                        @removeDataFilters="getData" :inputs="inputs"
         />

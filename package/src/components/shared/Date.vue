@@ -4,8 +4,8 @@ import '@vuepic/vue-datepicker/dist/main.css'
 import {useTheme, useLocale} from 'vuetify'
 import {faIR} from 'date-fns/locale';
 import {computed, ref} from 'vue';
-defineProps(['modelValue'])
-const emit = defineEmits(['setDate'])
+const props = defineProps(['modelValue'])
+// const emit = defineEmits(['setDate'])
 
 const date = ref(Date.now());
 const theme = useTheme()
@@ -16,10 +16,10 @@ let computedTheme = computed(() => {
     return theme.global.name.value !== 'light';
 })
 
-const handleDate = (modelData) => {
-    date.value = modelData;
-    emit('setDate' , modelData)
-}
+// const handleDate = (modelData) => {
+//     date.value = modelData;
+//     emit('setDate')
+// }
 
 let computedLocal = computed(() => {
     if (locale.current.value === 'fa') {
@@ -50,8 +50,8 @@ const format = (date) => {
 
 
 <template>
-    <VueDatePicker :enable-time-picker="false" :format-locale="faIR" required
-                   :model-value="date"  @update:model-value="handleDate"
+    <VueDatePicker  :format-locale="faIR" required
+                   :model-value="date"  @update:model-value="$emit('setDate' , date)"
                    :locale="locale.current.value"
                    :format="format"
                    :dark="computedTheme" model-type='timestamp' input-class-name="v-field__input v-field--variant-outlined"

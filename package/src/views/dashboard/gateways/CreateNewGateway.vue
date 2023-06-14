@@ -3,7 +3,7 @@ import Gateways from "@/api/apis/Gateways";
 import {computed, onMounted, ref} from "vue";
 import {useField, useForm} from "vee-validate";
 import {useRoute, useRouter} from "vue-router";
-import {setFormData} from "@/tools/formData";
+import {base642Binary} from "@/tools/base642Binary";
 
 const route = useRoute()
 const router = useRouter()
@@ -61,36 +61,31 @@ const submit = handleSubmit(values => {
         createGateway()
     }
 })
-let dataOfForm = ref([
-    {name: 'name', value: name.value},
-    {name: 'url', value: url.value},
-    {name: 'color', value: color.value},
-    {name: 'callback', callback: callback.value},
-    {name: 'logo', value: logo.value},
-])
 
 function updateGateway() {
-    // formData.append('name', name.value.value)
-    // formData.append('url', url.value.value)
-    // formData.append('color', color.value.value)
-    // formData.append('callback', callback.value.value)
-    // formData.append('logo', logo.value.value[0])
-    const data = setFormData(dataOfForm.value)
-    Gateways.updateGateway(data, route.params.id).then(
+    formData.append('name', name.value.value)
+    formData.append('url', url.value.value)
+    formData.append('color', color.value.value)
+    formData.append('callback', callback.value.value)
+    formData.append('logo', logo.value.value[0])
+    formData.append('_method', 'PATCH')
+    Gateways.updateGateway(formData, route.params.id).then(
         () => {
             router.push('/gateways')
+        },
+        (error) => {
+            router.go(0)
         }
     )
 }
 
 function createGateway() {
-    // formData.append('name', name.value.value)
-    // formData.append('url', url.value.value)
-    // formData.append('color', color.value.value)
-    // formData.append('callback', callback.value.value)
-    // formData.append('logo', logo.value.value[0])
-    const data = setFormData(dataOfForm.value)
-    Gateways.createGateway(data).then(
+    formData.append('name', name.value.value)
+    formData.append('url', url.value.value)
+    formData.append('color', color.value.value)
+    formData.append('callback', callback.value.value)
+    formData.append('logo', logo.value.value[0])
+    Gateways.createGateway(formData).then(
         () => {
             router.push('/gateways')
         }
@@ -106,6 +101,9 @@ function editGateWay() {
             color.value.value = r.data.data.gateway.color
             userLogo.value = r.data.data.gateway.logo_url
         },
+        (error) => {
+            router.push('/gateways/gatewaysList')
+        }
     )
 }
 
