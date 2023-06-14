@@ -6,7 +6,6 @@ import {lang} from "@/api/fetch/config";
 
 const axiosIns = axios.create({
 // You can add your headers here
-// ================================
     baseURL: socketUrl,
     headers: {
         'Cache-Control': 'no-cache',

@@ -3,6 +3,7 @@ import Gateways from "@/api/apis/Gateways";
 import {computed, onMounted, ref} from "vue";
 import {useField, useForm} from "vee-validate";
 import {useRoute, useRouter} from "vue-router";
+import {setFormData} from "@/tools/formData";
 
 const route = useRoute()
 const router = useRouter()
@@ -60,14 +61,22 @@ const submit = handleSubmit(values => {
         createGateway()
     }
 })
+let dataOfForm = ref([
+    {name: 'name', value: name.value},
+    {name: 'url', value: url.value},
+    {name: 'color', value: color.value},
+    {name: 'callback', callback: callback.value},
+    {name: 'logo', value: logo.value},
+])
 
 function updateGateway() {
-    formData.append('name', name.value.value)
-    formData.append('url', url.value.value)
-    formData.append('color', color.value.value)
-    formData.append('callback', callback.value.value)
-    formData.append('logo', logo.value.value[0])
-    Gateways.updateGateway(formData , gateWayData.value.id).then(
+    // formData.append('name', name.value.value)
+    // formData.append('url', url.value.value)
+    // formData.append('color', color.value.value)
+    // formData.append('callback', callback.value.value)
+    // formData.append('logo', logo.value.value[0])
+    const data = setFormData(dataOfForm.value)
+    Gateways.updateGateway(data, route.params.id).then(
         () => {
             router.push('/gateways')
         }
@@ -75,12 +84,13 @@ function updateGateway() {
 }
 
 function createGateway() {
-    formData.append('name', name.value.value)
-    formData.append('url', url.value.value)
-    formData.append('color', color.value.value)
-    formData.append('callback', callback.value.value)
-    formData.append('logo', logo.value.value[0])
-    Gateways.createGateway(formData).then(
+    // formData.append('name', name.value.value)
+    // formData.append('url', url.value.value)
+    // formData.append('color', color.value.value)
+    // formData.append('callback', callback.value.value)
+    // formData.append('logo', logo.value.value[0])
+    const data = setFormData(dataOfForm.value)
+    Gateways.createGateway(data).then(
         () => {
             router.push('/gateways')
         }
@@ -96,9 +106,6 @@ function editGateWay() {
             color.value.value = r.data.data.gateway.color
             userLogo.value = r.data.data.gateway.logo_url
         },
-        (error) => {
-
-        }
     )
 }
 
