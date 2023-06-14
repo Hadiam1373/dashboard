@@ -1,13 +1,22 @@
 export default {
     badge: 'نشان',
     close: 'بستن',
-    submit:'تایید',
+    submit: 'تایید',
     filter: 'فیلتر',
     filters: {
         gatName: 'نام درگاه',
         type: 'وضعیت',
         search: 'جستجو',
-        remove: 'حذف فیلترها'
+        remove: 'حذف فیلترها',
+        profit: 'میزان سود',
+        email: 'ایمیل یا نام کاربر',
+        walletId: 'شناسه ولت',
+        'transaction_hash': 'شناسه تراکنش',
+        user: 'کاربر',
+        address: 'آدرس',
+        network: 'شبکه',
+        sender_wallet: ' آدرس کیف پول فرستنده',
+        receiver_wallet: 'آدرس کیف پول گیرنده'
     },
     dataIterator: {
         noResultsText: 'نتیجه‌ای یافت نشد',
@@ -88,6 +97,7 @@ export default {
         invoices: 'صورت حساب',
         upgrade: 'ارتقا حساب کاربری',
         'invite friends': 'دعوت از دوستان',
+        'Kyc List': 'لیست احراز هویت ها',
         profits: 'درآمد ها',
         wallets: 'کیف پول',
         transactions: 'تراکنش ها',
@@ -96,6 +106,9 @@ export default {
         'withdraw requests list': 'لیست در خواست ها',
         'create withdraw request': 'ایجاد درخواست',
         setting: 'تنظیمات',
+        'Deposit List': 'لیست واریز',
+        'Withdraw List': 'لیست برداشت',
+        'suspend List': 'لیست تعلیق',
         'change password': 'تغییر رمز عبور',
         documentation: 'مستندات درگاه',
         'changelog history': 'تاریخچه تغییرات',
@@ -183,6 +196,43 @@ export default {
             user: 'کاربر',
             'user_charged': 'مقدار شارژ شده',
             'last_tx_id': 'آخرین تراکنش',
+        },
+        profit: {
+            id: 'شناسه',
+            amount: 'مقدار (USDT)',
+            user: 'کاربر',
+            package: 'پکیج',
+            status: 'وضعیت',
+            date: 'تاریخ ایجاد'
+        },
+        kycList: {
+            id: 'شناسه',
+            status: 'وضعیت',
+            action: "عملیات",
+            user: 'کاربر',
+            date: 'تاریخ ایجاد'
+        },
+        wallet: {
+            id: 'شناسه',
+            user: 'کاربر',
+            date: 'تاریخ ایجاد',
+            action: "عملیات",
+            address: 'آدرس ولت',
+            network: 'شبکه',
+            transactions: 'تراکنش ها'
+        },
+        transaction: {
+            wallet_id: 'شناسه',
+            user: 'کاربر',
+            transaction_hash: 'شناسه تراکنش',
+            sender_wallet_address: 'کیف پول مبدا',
+            receiver_wallet_address: 'کیف پول مقصد',
+            amount: 'مقدار (USDT)',
+            fee: 'هزینه (USDT)',
+            status: 'وضعیت',
+            deposit_transaction: 'تراکنش واریزی',
+            network: 'شبکه',
+            created_time: 'تاریخ ایجاد'
         }
     }
 }

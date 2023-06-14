@@ -18,12 +18,6 @@ const {handleSubmit, handleReset} = useForm({
             }
             return true
         },
-        fee(value) {
-            if (!value) {
-                return 'لطفا کارمزد را وارد نمایید'
-            }
-            return true
-        }
     }
 })
 
@@ -36,7 +30,7 @@ let token = useField('token')
 let callback = useField('callback')
 let fee = useField('fee')
 let formData = new FormData()
-let redirect = useField('redirect')
+let redirect = ref()
 const items = ref([
     {title: 'فعال', value: true},
     {title: 'غیر فعال', value: false}
@@ -45,17 +39,17 @@ const items = ref([
 function getSetting() {
     Setting.getDataSetting().then(
         (r) => {
-            mobile.value.value = r.data.data.settings.user.mobile
-            email.value.value = r.data.data.settings.user.email
-            token.value.value = r.data.data.settings.token
-            callback.value.value = r.data.data.settings.callback
+            mobile.value.value = r.data.data.mobile
+            email.value.value = r.data.data.email
+            token.value.value = r.data.data.token
+            callback.value.value = r.data.data.callback
             fee.value.value = r.data.data.fee
-            if (r.data.data.settings.auto_redirect === true) {
-                redirect.value.value = 'فعال'
-            } else {
-                redirect.value.value = 'غیر فعال'
-            }
-
+            redirect.value = r.data.data.auto_redirect
+            // if (r.data.data.auto_redirect === true) {
+            //     redirect.value.value = 'فعال'
+            // } else {
+            //     redirect.value.value = 'غیر فعال'
+            // }
         }
     )
 }
@@ -63,16 +57,16 @@ function getSetting() {
 function updateSetting() {
     formData.append('callback', callback.value.value)
     formData.append('mobile', mobile.value.value)
-    formData.append('fee', fee.value.value)
-    if (redirect.value.value === 'فعال') {
-        formData.append('auto_redirect', true)
-    }else {
-        formData.append('auto_redirect', false)
-    }
+    formData.append('auto_redirect', redirect.value.value)
+    // if (redirect.value.value === 'فعال') {
+    //     formData.append('auto_redirect', true)
+    // }else {
+    //     formData.append('auto_redirect', false)
+    // }
 
     Setting.updateSetting(formData).then(
         () => {
-
+            loading.value = false
         },
         (error) => {
             loading.value = false
@@ -81,6 +75,7 @@ function updateSetting() {
 }
 
 const submit = handleSubmit(values => {
+    alert(values)
     updateSetting()
     loading.value = false
 })
@@ -136,7 +131,7 @@ onMounted(() => {
                         </v-row>
                         <v-row align="center">
                             <v-col cols="12" lg="6" sm="6">
-                                <v-text-field variant="outlined" color="primary"
+                                <v-text-field variant="outlined" color="primary" disabled
                                               label="کارمزد تراکنش" v-model="fee.value.value"
                                               :error-messages="fee.errorMessage.value">
                                 </v-text-field>
@@ -144,11 +139,10 @@ onMounted(() => {
                             <v-col cols="12" lg="6" sm="6">
                                 <v-select variant="outlined" color="primary"
                                           label="ریدایرکت خودکار به پنل"
-                                          :error-messages="redirect.errorMessage.value"
                                           :items="items"
                                           item-title="title"
                                           item-value="value"
-                                          v-model="redirect.value.value"
+                                          v-model="redirect"
                                           return-object
                                           messages = 'با فعال بودن این گزینه ، چنانچه قبلا در پنل وارد شده باشید دیگر صفحه نخست سایت را مشاهده نخواهید کرد.'
                                 >

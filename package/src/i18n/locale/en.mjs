@@ -7,7 +7,9 @@ export default {
         gatName:'',
         type:'',
         search:'',
-        remove:''
+        remove:'',
+        profit:'',
+        email:''
     },
     dataIterator: {
         noResultsText: 'No matching records found',
@@ -89,6 +91,7 @@ export default {
         upgrade: 'Upgrade',
         'invite friends': 'Invite Friends',
         profits: 'Profits',
+        'Kyc List':'Kyc List',
         wallets: 'Wallets',
         transactions: 'Transactions',
         tickets: 'Tickets',

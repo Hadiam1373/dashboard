@@ -88,7 +88,7 @@ function removeFilters() {
                                       :label="$vuetify.locale.t(`$vuetify.filters.${item.label}`)">
                             </v-select>
                         </v-col>
-                        <v-col cols="12" lg="4" md="12" sm="12" class="text-end d-none d-lg-block d-sm-block">
+                        <v-col  class="text-end d-none d-lg-block d-sm-block">
                             <v-btn @click="$emit('getDataFilters' , filters)" class="mx-2" color="primary"
                                    variant="outlined" size="large" prepend-icon="mdi-magnify">
                                 {{ $vuetify.locale.t(`$vuetify.filters.${props.search}`) }}
@@ -98,7 +98,7 @@ function removeFilters() {
                                 {{ $vuetify.locale.t(`$vuetify.filters.${props.remove}`) }}
                             </v-btn>
                         </v-col>
-                        <v-col cols="12" lg="4" md="12" sm="12" class="text-end d-lg-none d-sm-none">
+                        <v-col cols="12" class="text-end d-lg-none d-sm-none">
                             <v-btn @click="$emit('getDataFilters' , filters)" class="mb-2" color="primary"
                                    variant="outlined" block prepend-icon="mdi-magnify">
                                 {{ $vuetify.locale.t(`$vuetify.filters.${props.search}`) }}
