@@ -70,25 +70,77 @@ const MainRoutes = {
         {
             name: 'Transactions',
             path: '/transactions',
+            redirect: '/transactions/withdraw-list',
             component: () => import('@/views/dashboard/transactions/index.vue'),
             children: [
                 {
                     name: 'WithdrawList',
-                    path: '/transactions/withdraw-list',
+                    path: 'withdraw-list',
                     component: () => import('@/views/dashboard/transactions/withdraw-list.vue'),
                 },
                 {
                     name: 'DepositList',
-                    path: '/transactions/deposit-list',
+                    path: 'deposit-list',
                     component: () => import('@/views/dashboard/transactions/deposit-list.vue'),
                 },
                 {
                     name: 'suspendList',
-                    path: '/transactions/suspend-List',
+                    path: 'suspend-List',
                     component: () => import('@/views/dashboard/transactions/suspend-List.vue'),
                 }
             ]
         },
+        {
+            name: 'Users',
+            path: '/users',
+            redirect: '/users/users-list',
+            component: () => import('@/views/dashboard/users/index.vue'),
+            children: [
+                {
+                    name: 'UsersList',
+                    path: 'users-list',
+                    redirect: '/users/users-list/show-user-list',
+                    component: () => import('@/views/dashboard/users/user-list/index.vue'),
+                    children:[
+                        {
+                            name: 'UserList',
+                            path: 'show-user-list',
+                            component: () => import('@/views/dashboard/users/user-list/user-list.vue'),
+                        },
+                        {
+                            name: 'EditUserData',
+                            path: 'edit-user-data/:id',
+                            component: () => import('@/views/dashboard/users/user-list/edit-user-data.vue'),
+                        },
+                        {
+                            name: 'EditPassword',
+                            path: 'edit-password',
+                            component: () => import('@/views/dashboard/users/user-list/edit-password.vue'),
+                        },
+                        {
+                            name: 'EditRole',
+                            path: 'edit-role',
+                            component: () => import('@/views/dashboard/users/user-list/edit-role.vue'),
+                        }
+                    ]
+                },
+                {
+                    name: 'CreateUser',
+                    path: 'create-user',
+                    component: () => import('@/views/dashboard/users/create-user.vue'),
+                },
+                {
+                    name: 'UserRoles',
+                    path: 'user-roles',
+                    component: () => import('@/views/dashboard/users/roles.vue'),
+                },
+                {
+                    name: 'Permissions',
+                    path: 'permissions',
+                    component: () => import('@/views/dashboard/users/permissions.vue'),
+                },
+            ]
+        }
     ]
 };
 

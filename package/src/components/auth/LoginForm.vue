@@ -12,7 +12,7 @@ const router = useRouter()
 const {handleSubmit, handleReset} = useForm({
     validationSchema: {
         email(value) {
-            if (/^[a-z.-]+@[a-z.-]+\.[a-z]+$/i.test(value)) return true
+            if (/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(value)) return true
             return vuetify.locale.t('$vuetify.error.email')
         },
 

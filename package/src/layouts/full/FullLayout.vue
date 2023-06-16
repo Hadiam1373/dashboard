@@ -11,7 +11,7 @@ import MainView from './Main.vue';
             <!-- <VerticalSidebarVue />
             <VerticalHeaderVue  /> -->
             <MainView />
-            <v-main>
+            <v-main scrollable>
                 <v-container fluid class="page-wrapper">
                     <div class="maxWidth">
                         <RouterView />

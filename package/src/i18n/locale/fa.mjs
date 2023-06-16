@@ -10,6 +10,7 @@ export default {
         remove: 'حذف فیلترها',
         profit: 'میزان سود',
         email: 'ایمیل یا نام کاربر',
+        userEmail:'ایمیل',
         walletId: 'شناسه ولت',
         'transaction_hash': 'شناسه تراکنش',
         user: 'کاربر',
@@ -102,7 +103,7 @@ export default {
         wallets: 'کیف پول',
         transactions: 'تراکنش ها',
         tickets: 'تیکت ها',
-        withdraw: 'درخواست برداشت',
+        withdraw: 'برداشت',
         'withdraw requests list': 'لیست در خواست ها',
         'create withdraw request': 'ایجاد درخواست',
         setting: 'تنظیمات',
@@ -112,7 +113,13 @@ export default {
         'change password': 'تغییر رمز عبور',
         documentation: 'مستندات درگاه',
         'changelog history': 'تاریخچه تغییرات',
-        Logout: 'خروج'
+        Logout: 'خروج',
+        user:'کاربران',
+        UserList:'نمایش کاربران',
+        CreateUser:'ایجاد کاربر',
+        UserRoles:'مدیریت نقش ها',
+        Permissions:'مدیریت دسترسی ها',
+        users:'کاربران'
     },
     login: {
         title: 'هنوز ثبت نام نکرده اید ؟',
@@ -233,6 +240,15 @@ export default {
             deposit_transaction: 'تراکنش واریزی',
             network: 'شبکه',
             created_time: 'تاریخ ایجاد'
+        },
+        user:{
+            id:'شناسه',
+            name:'نام کاربر',
+            email:'ایمیل',
+            amount:'موجودی',
+            roles:'نقش',
+            created_at:'تاریخ عضویت',
+            action:'عملیات',
         }
     }
 }

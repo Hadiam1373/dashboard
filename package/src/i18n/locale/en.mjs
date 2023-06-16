@@ -102,7 +102,13 @@ export default {
         'change password': 'Change Password',
         documentation: 'Documentation',
         'changelog history': 'Changelog History',
-        Logout: 'Logout'
+        Logout: 'Logout',
+        user:'user',
+        UserList:'User List',
+        CreateUser:'Create User',
+        UserRoles:'User Roles',
+        Permissions:'Permissions',
+        users:'Users'
     },
     login: {
         title: 'still not registred ?',

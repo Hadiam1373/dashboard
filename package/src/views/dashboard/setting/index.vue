@@ -75,7 +75,6 @@ function updateSetting() {
 }
 
 const submit = handleSubmit(values => {
-    alert(values)
     updateSetting()
     loading.value = false
 })

@@ -66,20 +66,41 @@ const sidebarItem: menu[] = [
         to: '/wallets',
     },
     {
-        title: 'transactions',
-        icon: 'mdi-swap-horizontal',
-        to: '/transactions',
+        title: 'users',
+        icon: 'mdi-account',
         children: [
             {
-                title:'Deposit List',
+                title: 'UserList',
+                to:'/users/users-list'
+            },
+            {
+                title: 'CreateUser',
+                to:'/users/create-user'
+            },
+            {
+                title: 'UserRoles',
+                to:'/users/user-roles'
+            },
+            {
+                title: 'Permissions',
+                to:'/users/permissions'
+            }
+        ]
+    },
+    {
+        title: 'transactions',
+        icon: 'mdi-swap-horizontal',
+        children: [
+            {
+                title: 'Deposit List',
                 to: '/transactions/deposit-list'
             },
             {
-                title:'Withdraw List',
+                title: 'Withdraw List',
                 to: '/transactions/withdraw-list'
             },
             {
-                title:'suspend List',
+                title: 'suspend List',
                 to: '/transactions/suspend-List'
             }
         ],
@@ -95,11 +116,9 @@ const sidebarItem: menu[] = [
         children: [
             {
                 title: 'withdraw requests list',
-                to: '/'
             },
             {
                 title: 'create withdraw request',
-                to: '/'
             },
         ]
     },
@@ -117,12 +136,7 @@ const sidebarItem: menu[] = [
         title: 'documentation',
         icon: 'mdi-file-document-outline',
         to: '/gateway-documentation',
-    },
-    {
-        title: 'changelog history',
-        icon: 'mdi-history',
-        to: '/changelog-history',
-    },
+    }
 ];
 
 export default sidebarItem;

@@ -1,7 +1,9 @@
 <script setup>
 import FiltersTable from "@/components/shared/FiltersTable.vue";
 import DataTable from "@/components/shared/DataTable.vue";
-import {ref} from "vue";
+import {computed, onMounted, ref} from "vue";
+import Transaction from "@/api/apis/Transaction";
+
 let inputs = ref([
     {type: 'text', label: 'transaction_hash', key: 'one'},
     {type: 'text', label: 'walletId', key: 'two'},
@@ -24,39 +26,59 @@ let headers = ref([
     {title: 'network', align: 'end', key: 'network'},
     {title: 'created_time', align: 'end', key: 'created_at'},
 ])
+
+let transactionData = ref()
+
+let perPage = ref()
+let total = ref()
+let page = ref(1)
+
+let paginationLength = computed(() => {
+    let length = Math.ceil(total.value / perPage.value)
+    return length > 1 ? length : 0
+})
+
 function getDataFilters() {
 
 }
 
 function getData() {
-
+    Transaction.getTransaction().then(
+        (r) => {
+            transactionData.value = r.data.data.transactions.data
+        }
+    )
 }
+
+onMounted(() => {
+    getData()
+})
 </script>
 <template>
     <filters-table remove="remove"
-                   item1=""  item2="" search="search" @getDataFilters="getDataFilters"
+                   search="search" @getDataFilters="getDataFilters"
                    @removeDataFilters="getData" :inputs="inputs"
     />
     <v-divider class="mb-5"></v-divider>
     <DataTable :headers="headers"
-               :dataTable="walletsData"
+               :dataTable="transactionData"
                :page="page"
                :total="total"
                :perPage="perPage"
                local="transaction"
     >
         <template v-slot:body="{item}">
-            <td class="text-center">{{ item.id }}</td>
-            <td class="text-center">{{ item.user_id }}</td>
-            <td class="text-center">{{ item.address}}</td>
-            <td class="text-center">{{ item.type}}</td>
-            <td class="text-center">{{ item.created_at}}</td>
-            <td class="text-center">
-                <v-btn @click="router.push(`/gateways/newGateways/${item.id}`)" size="small" color="primary"
-                       class="mx-1 mt-2 mt-lg-0">
-                    تراکنش ها
-                </v-btn>
-            </td>
+            <td class="text-center">{{ item.wallet_address_id }}</td>
+            <td class="text-center">{{ item.user }}</td>
+            <td class="text-center">{{ item.transaction_id }}</td>
+            <td class="text-center">{{ item.ownerAddress }}</td>
+            <td class="text-center">{{ item.toAddress }}</td>
+            <td class="text-center">{{ item.amount }}</td>
+            <td class="text-center">{{ item.fee }}</td>
+            <td class="text-center">{{ item.status }}</td>
+            <td class="text-center">{{ item.base_tx_id }}</td>
+            <td class="text-center">{{ item.network }}</td>
+            <td class="text-center">{{ item.created_at }}</td>
         </template>
     </DataTable>
     <v-col cols="12">
@@ -66,7 +88,6 @@ function getData() {
         </div>
     </v-col>
 </template>
-
 
 
 <style scoped>
