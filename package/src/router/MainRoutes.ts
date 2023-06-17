@@ -109,17 +109,17 @@ const MainRoutes = {
                         },
                         {
                             name: 'EditUserData',
-                            path: 'edit-user-data/:id',
+                            path: 'edit-user-data/:id?',
                             component: () => import('@/views/dashboard/users/user-list/edit-user-data.vue'),
                         },
                         {
                             name: 'EditPassword',
-                            path: 'edit-password',
+                            path: 'edit-password/:id?',
                             component: () => import('@/views/dashboard/users/user-list/edit-password.vue'),
                         },
                         {
                             name: 'EditRole',
-                            path: 'edit-role',
+                            path: 'edit-role/:id?',
                             component: () => import('@/views/dashboard/users/user-list/edit-role.vue'),
                         }
                     ]
@@ -132,12 +132,25 @@ const MainRoutes = {
                 {
                     name: 'UserRoles',
                     path: 'user-roles',
-                    component: () => import('@/views/dashboard/users/roles.vue'),
+                    redirect: '/users/user-roles/role-list',
+                    component: () => import('@/views/dashboard/users/roles/index.vue'),
+                    children: [
+                        {
+                            name: 'EditRoles',
+                            path: 'edit-roles/:id?',
+                            component: () => import('@/views/dashboard/users/roles/new-role.vue'),
+                        },
+                        {
+                            name: 'Role',
+                            path: 'role-list',
+                            component: () => import('@/views/dashboard/users/roles/roles.vue'),
+                        }
+                    ]
                 },
                 {
                     name: 'Permissions',
                     path: 'permissions',
-                    component: () => import('@/views/dashboard/users/permissions.vue'),
+                    component: () => import('@/views/dashboard/users/permissions/permissions.vue'),
                 },
             ]
         }

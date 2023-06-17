@@ -16,6 +16,8 @@ export default {
         user: 'کاربر',
         address: 'آدرس',
         network: 'شبکه',
+        name:'نام',
+        label:'برچسب',
         sender_wallet: ' آدرس کیف پول فرستنده',
         receiver_wallet: 'آدرس کیف پول گیرنده'
     },
@@ -249,6 +251,21 @@ export default {
             roles:'نقش',
             created_at:'تاریخ عضویت',
             action:'عملیات',
+        },
+        roles:{
+            id:'شناسه',
+            name:'نام',
+            label:'برچسب',
+            roles:'نوع دسترسی',
+            rolesCount:'تعداد دسترسی',
+            action:'عملیات'
+        },
+        permissions:{
+            id:'شناسه',
+            name:'نام',
+            label:'برچسب',
+            description:'توضیحات',
+            action:'عملیات'
         }
     }
 }

@@ -43,9 +43,12 @@ let mobile = useField('mobile')
 let name = useField('name')
 let status = useField('status')
 let wallet = useField('wallet')
-let userPackage = useField('package')
+let userPackage = useField('userPackage')
+let thisPackage = ref([])
+let id = ref()
 let token = ref()
 let callBack = ref()
+let loading = ref(false)
 let redirect = ref()
 let userStatus = ref([])
 const items = ref([
@@ -53,9 +56,33 @@ const items = ref([
     {title: 'غیر فعال', value: false}
 ])
 
-function updateData(){
-
+function updateData() {
+    loading.value = true
+    formData.append('email', email.value.value)
+    formData.append('mobile', mobile.value.value)
+    formData.append('name', name.value.value)
+    formData.append('status', status.value.value)
+    formData.append('amount', wallet.value.value)
+    formData.append('active_package_id', userPackage.value.value)
+    formData.append('token', token.value)
+    formData.append('callback', callBack.value)
+    formData.append('auto_redirect', redirect.value)
+    formData.append('id', route.params.id)
+    formData.append('_method', 'PATCH')
+    Users.updateUser(formData, route.params.id).then(
+        () => {
+            loading.value = false
+        },
+        (error) => {
+            loading.value = false
+        }
+    )
 }
+
+const submit = handleSubmit(values => {
+    updateData()
+})
+
 function getData() {
     const id = route.params.id
     Users.getEditedData(id).then(
@@ -66,7 +93,12 @@ function getData() {
             status.value.value = r.data.data.status
             userStatus.value.push(r.data.data.status)
             wallet.value.value = r.data.data.purse_amount
-            userPackage.value.value = r.data.data.packages
+            r.data.data.packages.forEach((pack) => {
+                if (pack.id === r.data.data.active_package_id) {
+                    thisPackage.value.push(pack)
+                    userPackage.value.value = pack.id
+                }
+            })
             callBack.value = r.data.data.settings_callback
             redirect.value = r.data.data.$settings_auto_redirect
             token.value = r.data.data.token
@@ -76,6 +108,7 @@ function getData() {
 
 onMounted(() => {
     getData()
+    console.log(userPackage.value.value)
 })
 </script>
 
@@ -142,12 +175,12 @@ onMounted(() => {
                     <v-col cols="12" sm="6" lg="4">
                         <v-select variant="outlined" color="primary"
                                   label="پکیج فعال"
-                                  :items="userPackage.value.value"
-                                  :error-messages="userPackage.errorMessage.value"
+                                  :items="thisPackage"
                                   item-title="name"
                                   item-value="id"
                                   v-model="userPackage.value.value"
-                        >
+                                  :error-messages="userPackage.errorMessage.value">
+                            >
                         </v-select>
                     </v-col>
                     <v-col cols="12" sm="6" lg="4">
@@ -171,7 +204,8 @@ onMounted(() => {
             </v-card-text>
             <v-card-actions>
                 <div class="d-flex justify-end w-100 mt-5">
-                    <v-btn size="x-large" variant="flat" color="primary">ویرایش اطلاعات</v-btn>
+                    <v-btn type="submit" :loading="loading" size="large" variant="flat" color="primary">ویرایش اطلاعات
+                    </v-btn>
                 </div>
             </v-card-actions>
         </v-card>

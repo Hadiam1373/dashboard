@@ -173,6 +173,14 @@ export default {
             invoice:'invoices',
             setting:'setting',
             gatewaySetting:'gateway setting'
+        },
+        roles:{
+            id:'',
+            name:'',
+            label:'',
+            roles:'',
+            rolesCount:'',
+            action:''
         }
     }
 }
