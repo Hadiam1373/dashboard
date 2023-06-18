@@ -102,3 +102,10 @@ tr {
   min-height: 38px;
   margin: 0 10px
 }
+
+.tooltip-width{
+  overflow: hidden;
+  cursor: pointer;
+  width: 60px !important;
+  display: flex;
+}

@@ -231,17 +231,20 @@ export default {
             transactions: 'تراکنش ها'
         },
         transaction: {
-            wallet_id: 'شناسه',
+            wallet_id: 'شناسه کیف پول',
             user: 'کاربر',
             transaction_hash: 'شناسه تراکنش',
             sender_wallet_address: 'کیف پول مبدا',
             receiver_wallet_address: 'کیف پول مقصد',
             amount: 'مقدار (USDT)',
-            fee: 'هزینه (USDT)',
+            fee: 'مبلغ نهایی (USDT)',
             status: 'وضعیت',
+            withdraw_status:'وضعیت تخلیه',
+            status_callback:'وضعیت callback',
             deposit_transaction: 'تراکنش واریزی',
             network: 'شبکه',
-            created_time: 'تاریخ ایجاد'
+            created_time: 'تاریخ ایجاد',
+            action:'عملیات'
         },
         user:{
             id:'شناسه',

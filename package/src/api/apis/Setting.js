@@ -6,10 +6,16 @@ class Setting {
     }
 
     async updateSetting(formData) {
-        return await axiosIns.post('panel/settings/update', formData , {
+        return await axiosIns.post('panel/settings/update', formData, {
             headers: {
                 "Content-Type": "multipart/form-data",
             }
+        })
+    }
+
+    async confirmGoogleCode(code) {
+        return await axiosIns.post('panel/settings/confirm/code', {
+            google_verify_code: code
         })
     }
 }

@@ -150,7 +150,20 @@ const MainRoutes = {
                 {
                     name: 'Permissions',
                     path: 'permissions',
-                    component: () => import('@/views/dashboard/users/permissions/permissions.vue'),
+                    redirect: '/users/permissions/PermissionsList',
+                    component: () => import('@/views/dashboard/users/permissions/index.vue'),
+                    children: [
+                        {
+                            name: 'EditPermissions',
+                            path: 'editPermissions/:id?',
+                            component: () => import('@/views/dashboard/users/permissions/new-permissions.vue')
+                        },
+                        {
+                            name: 'PermissionsList',
+                            path: 'PermissionsList',
+                            component: () => import('@/views/dashboard/users/permissions/permissions.vue')
+                        }
+                    ]
                 },
             ]
         }

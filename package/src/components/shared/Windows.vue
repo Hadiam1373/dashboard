@@ -5,6 +5,7 @@ import {computed, onMounted, ref} from "vue";
 import {useField, useForm} from "vee-validate";
 import vuetify from "@/plugins/vuetify";
 import Authentication from "@/api/apis/Authentication";
+import Setting from "@/api/apis/Setting";
 
 
 const {handleSubmit, handleReset} = useForm({
@@ -22,19 +23,23 @@ let step = ref(1)
 let otp = ref(null)
 const password = useField('password')
 let loading = ref(false)
-const QR = ref(null)
+let QR = ref()
 
 
 function setOtp(val) {
     otp.value = val
-    step.value++
+    Setting.confirmGoogleCode(val).then(
+        () => {
+            step.value++
+        }
+    )
 }
 
 function getQRCode() {
     loading.value = true
     Authentication.getQRCODE(password.value.value).then(
         (r) => {
-            QR.value = r.data.qrCodeImage
+            QR.value = `data:image/svg+xml;base64,${r.data.data.qrCodeImage_base64}`
             if (r) {
                 step.value++
                 loading.value = false
@@ -107,7 +112,13 @@ const currentSubTitle = computed(() => {
                 </v-window-item>
 
                 <v-window-item :value="2">
-                    <QRCodeVue3/>
+                    <v-row align="center" justify="center">
+                        <v-col cols="12" class="mb-5 text-center mt-5">
+                            <img
+                                    v-bind:src="QR"
+                                    alt="qrcode"/>
+                        </v-col>
+                    </v-row>
 
                     <v-row align="center" justify="center" class="mb-5">
                         <code-input @getOtp="(n) => setOtp(n)"/>
@@ -133,7 +144,7 @@ const currentSubTitle = computed(() => {
 
             <v-card-actions>
                 <v-btn
-                        v-if="step > 1"
+                        v-if="step === 2"
                         variant="flat"
                         color="secondary"
                         @click="step--"

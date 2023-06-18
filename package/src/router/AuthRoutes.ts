@@ -15,6 +15,11 @@ const AuthRoutes = {
             path: '/auth/register',
             component: () => import('@/views/auth/Register.vue')
         },
+        {
+            name: '2FA',
+            path: '/auth/2FA',
+            component: () => import('@/views/auth/Login-2FA.vue')
+        },
     ]
 };
 

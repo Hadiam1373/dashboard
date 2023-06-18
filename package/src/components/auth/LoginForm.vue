@@ -36,7 +36,13 @@ function Login() {
             setItem('userData', JSON.stringify(data), '36000000')
             setItem('accessToken', token, '36000000')
             loading.value = false
-            router.push('/')
+            console.log(data.tow_factor_status)
+            if (data.tow_factor_status === 'passed') {
+                router.push('/auth/2FA')
+            } else if (data.tow_factor_status === 'not_passed') {
+                router.push('/')
+            }
+
         },
         (error) => {
             loading.value = false

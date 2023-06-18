@@ -6,12 +6,12 @@ const otpInput = ref(null);
 const bindModal = ref("");
 </script>
 <template>
-    <div style="display: flex; flex-direction: row">
+    <div style="direction: ltr">
         <v-otp-input
                 ref="otpInput"
                 v-model:value="bindModal"
                 input-classes="otp-input isTheme"
-                separator="-"
+                separator=""
                 :num-inputs="6"
                 :should-auto-focus="true"
                 input-type="letter-numeric"
@@ -27,9 +27,9 @@ const bindModal = ref("");
 </template>
 <style>
 .otp-input {
-    width: 50px;
-    height: 50px;
-    padding: 5px;
+    width: 40px;
+    height: 40px;
+    padding: 4px;
     margin: 0 10px;
     font-size: 20px;
     border-radius: 4px;

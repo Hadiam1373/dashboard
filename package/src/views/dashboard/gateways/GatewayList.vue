@@ -44,16 +44,13 @@ function getData() {
 }
 
 function getDataFilters(filter) {
-    Gateways.getGateways(page.value, filter.text1, filter.select1).then(
+    Gateways.getGateways(page.value, filter.select1, filter.text1).then(
         (r) => {
             gateWaysData.value = r.data.data.gateways.data
             perPage.value = r.data.data.gateways.meta.per_page
             total.value = r.data.data.gateways.meta.total
             status.value = r.data.data.status
         },
-        (error) => {
-            console.log(error)
-        }
     )
 }
 
@@ -84,7 +81,7 @@ onMounted(() => {
                 </div>
             </div>
         </v-card-title>
-        <filters-table  remove="remove"
+        <filters-table remove="remove"
                        :item1="status" search="search" @getDataFilters="getDataFilters"
                        @removeDataFilters="getData" :inputs="inputs"
         />
@@ -114,7 +111,9 @@ onMounted(() => {
                 </td>
                 <td class="text-center d-lg-none">
                     <v-icon class="mx-1" color="primary">mdi-receipt</v-icon>
-                    <v-icon class="mx-1" @click="router.push(`/gateways/newGateways/${item.id}`)" color="secondary">mdi-cog</v-icon>
+                    <v-icon class="mx-1" @click="router.push(`/gateways/newGateways/${item.id}`)" color="secondary">
+                        mdi-cog
+                    </v-icon>
                 </td>
             </template>
         </DataTable>

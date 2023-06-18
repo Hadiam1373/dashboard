@@ -42,7 +42,7 @@ function getDataFilters(filter) {
 }
 
 function deleteItem(id) {
-    Users.removeRoles(id).then(
+    Users.removePermissions(id).then(
         () => {
             dialog.value = false
             getData()
@@ -72,7 +72,7 @@ onMounted(() => {
                     </span>
                 </div>
                 <div>
-                    <v-btn color="primary" variant="flat" @click="router.push(`/users/user-roles/edit-roles`)">ایجاد دسترسی</v-btn>
+                    <v-btn color="primary" variant="flat" @click="router.push(`editPermissions`)">ایجاد دسترسی</v-btn>
                 </div>
             </div>
             <filters-table remove="remove"
@@ -95,7 +95,7 @@ onMounted(() => {
                 <td class="text-center">{{ item.display_name }}</td>
                 <td class="text-center">{{ item.description }}</td>
                 <td class="text-center d-none d-lg-flex  align-center d-sm-none">
-                    <v-btn size="small" @click="router.push(`edit-roles/${item.id}`)"
+                    <v-btn size="small" @click="router.push(`editPermissions/${item.id}`)"
                            class="mx-1 mt-2 mt-lg-0" color="info" prepend-icon="mdi-pen">
                         {{ $vuetify.locale.t(`$vuetify.dashboard.invoice.setting`) }}
                     </v-btn>
@@ -112,7 +112,7 @@ onMounted(() => {
                 </td>
                 <td class="text-center d-lg-none">
                     <div class="d-flex align-center w-100">
-                        <v-icon class="mx-1" color="info" @click="router.push(`edit-roles/${item.id}`)">mdi-pen</v-icon>
+                        <v-icon class="mx-1" color="info" @click="router.push(`editPermissions/${item.id}`)">mdi-pen</v-icon>
                         <question-modal class="mx-1" :dialog="dialog"
                                         title="آیا از غیر فعال کردن این دسترسی اطمینان دارید؟" ok="بله"
                                         cancel="انصراف" @confirm="deleteItem(item.id)" @reject="dialog = false">

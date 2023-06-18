@@ -2,6 +2,7 @@ import {createRouter, createWebHistory} from 'vue-router';
 import MainRoutes from './MainRoutes';
 import AuthRoutes from './AuthRoutes';
 import {clearItem, getItem} from "@/storage";
+import Authentication from "@/api/apis/Authentication";
 
 export const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),

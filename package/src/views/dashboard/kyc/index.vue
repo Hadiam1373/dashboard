@@ -1,18 +1,26 @@
 <script setup>
-
 import FiltersTable from "@/components/shared/FiltersTable.vue";
 import Status from "@/components/shared/Status.vue";
 import DataTable from "@/components/shared/DataTable.vue";
-import {ref} from "vue";
+import {computed, onMounted, ref} from "vue";
 import Profit from "@/api/apis/Profit";
 import {useRouter} from "vue-router";
+import KYC from "@/api/apis/KYC";
+import UserDataModal from "@/components/shared/User-Data-Modal.vue";
 
 const router = useRouter()
 let page = ref(1)
 let status = ref()
-let profitData = ref()
+let kycList = ref()
 let perPage = ref()
 let total = ref()
+let userData = ref()
+let loading = ref(false)
+
+let paginationLength = computed(() => {
+    let length = Math.ceil(total.value / perPage.value)
+    return length > 1 ? length : 0
+})
 
 let inputs = ref([
     {type: 'text', label: 'email', key: 'one'},
@@ -27,20 +35,42 @@ let headers = ref([
     {title: 'action', align: 'end', key: 'action'},
 ])
 
-function getDataFilters() {
 
+function getDataFilters(filter) {
+    KYC.getKycList(page.value, filter.text1, filter.select1).then(
+        (r) => {
+            kycList.value = r.data.data.user_metas.data
+            status.value = r.data.data.statuses
+            perPage.value = r.data.data.gateways.meta.per_page
+            total.value = r.data.data.gateways.meta.total
+            status.value = r.data.data.status
+        }
+    )
+}
+
+function getUserData(id) {
+    KYC.getUserData(id).then(
+        (r) => {
+            userData.value = r.data.data.user_meta
+            loading.value = true
+        }
+    )
 }
 
 function getData() {
-    Profit.getProfit(page.value, status.value).then(
+    KYC.getKycList().then(
         (r) => {
-            profitData.value = r.data.data.profits.data
-            perPage.value = r.data.data.profits.meta.per_page
-            total.value = r.data.data.profits.meta.total
-            status.value = r.data.data.status
-        },
+            kycList.value = r.data.data.user_metas.data
+            status.value = r.data.data.statuses
+            perPage.value = r.data.data.user_metas.meta.per_page
+            total.value = r.data.data.user_metas.meta.total
+        }
     )
 }
+
+onMounted(() => {
+    getData()
+})
 </script>
 
 <template>
@@ -55,12 +85,12 @@ function getData() {
             </div>
         </v-card-title>
         <filters-table remove="remove"
-                       item1="" search="search" @getDataFilters="getDataFilters"
+                       :item1="status" search="search" @getDataFilters="getDataFilters"
                        @removeDataFilters="getData" :inputs="inputs"
         />
         <v-divider class="mb-5"></v-divider>
         <DataTable :headers="headers"
-                   :dataTable="profitData"
+                   :dataTable="kycList"
                    :page="page"
                    :total="total"
                    :perPage="perPage"
@@ -70,23 +100,15 @@ function getData() {
                 <td class="text-center">{{ item.id }}</td>
                 <td class="text-center">{{ item.name }}</td>
                 <td class="text-center">
-                    <status :value="item.status_label" :status="item.status"/>
+                    <status :value="item.status" :status="item.status"/>
                 </td>
                 <td class="text-center">{{ item.created_at }}</td>
-                <td class="text-center d-none d-lg-table-cell d-sm-none">
-                    <v-btn size="small" color="secondary" class="mx-1 mt-2 mt-lg-0" prepend-icon="mdi-receipt">
-                        {{ $vuetify.locale.t(`$vuetify.dashboard.gateWays.invoice`) }}
+                <td class="text-center">
+                    <v-btn size="x-small" color="info" @click="getUserData(item.id)" class="mx-1 mt-2 mt-lg-0" icon="mdi-eye-outline">
+                        <UserDataModal  :data="userData" :loading="loading"/>
                     </v-btn>
-                    <v-btn @click="router.push(`/gateways/newGateways/${item.id}`)" size="small" color="primary"
-                           class="mx-1 mt-2 mt-lg-0" prepend-icon="mdi-cog">
-                        {{ $vuetify.locale.t(`$vuetify.dashboard.gateWays.setting`) }}
-                    </v-btn>
-                </td>
-                <td class="text-center d-lg-none">
-                    <v-icon class="mx-1" color="primary">mdi-receipt</v-icon>
-                    <v-icon class="mx-1" @click="router.push(`/gateways/newGateways/${item.id}`)" color="secondary">
-                        mdi-cog
-                    </v-icon>
+                    <v-btn size="x-small" color="error" class="mx-1 mt-2 mt-lg-0" icon="mdi-window-close"></v-btn>
+                    <v-btn size="x-small" color="success" class="mx-1 mt-2 mt-lg-0" icon="mdi-check"></v-btn>
                 </td>
             </template>
         </DataTable>

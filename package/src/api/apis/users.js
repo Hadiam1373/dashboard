@@ -70,7 +70,7 @@ class Users {
     }
 
     async getRoles(page, name, display_name) {
-        return await axiosIns.get('panel/roles' , {
+        return await axiosIns.get('panel/roles', {
             params: {
                 ...(page ? {page: page} : {}),
                 ...(name ? {name: name} : {}),
@@ -101,7 +101,7 @@ class Users {
     }
 
     async getPermissions(page, name, display_name) {
-        return await axiosIns.get('panel/permissions' , {
+        return await axiosIns.get('panel/permissions', {
             params: {
                 ...(page ? {page: page} : {}),
                 ...(name ? {name: name} : {}),
@@ -109,6 +109,18 @@ class Users {
             }
         })
     }
+
+    async updatePermissions(id, name, label, des) {
+        return await axiosIns.patch(`panel/permissions/${id}`
+            , {
+                "name": name,
+                "display_name": label,
+                "description": des
+            }
+        )
+    }
+
+
 
     async removePermissions(id) {
         return await axiosIns.delete(`panel/permissions/${id}`)
@@ -118,16 +130,12 @@ class Users {
         return await axiosIns.get(`panel/permissions/${id}/edit`)
     }
 
-    async permissionsCreateOption() {
-        return await axiosIns.get(`panel/permissions/create`)
-    }
 
-    async cretePermissions(name, label, description, permissions) {
+    async cretePermissions(name, label, description) {
         return await axiosIns.post('panel/permissions', {
-            display_name: name,
-            name: label,
+            display_name: label,
+            name: name,
             description: description,
-            permissions: permissions
         })
     }
 }

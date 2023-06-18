@@ -8,17 +8,27 @@ class Auth {
         })
     }
 
-    async singUp(data){
-       return await axiosIns.post('api/signup' , data)
+    async singUp(data) {
+        return await axiosIns.post('api/signup', data)
     }
 
-    async logout(){
+    async logout() {
         return await axiosIns.get('api/logout')
     }
 
-    async getQRCODE(password){
-        return await axiosIns.post('panel/settings/confirm/password' , {
-            password:password
+    async getQRCODE(password) {
+        return await axiosIns.post('panel/settings/confirm/password', {
+            password: password
+        })
+    }
+
+    async is2Fa() {
+        return await axiosIns.get('two-factor/auth')
+    }
+
+    async confirmedIs2Fa(code) {
+        return await axiosIns.post('two-factor/auth/confirm', {
+            google_verify_code: code
         })
     }
 }
