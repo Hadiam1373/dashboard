@@ -32,18 +32,33 @@ let transactionData = ref()
 let perPage = ref()
 let total = ref()
 let page = ref(1)
+let status = ref()
 
 let paginationLength = computed(() => {
     let length = Math.ceil(total.value / perPage.value)
     return length > 1 ? length : 0
 })
 
-function getDataFilters() {
+function getDataFilters(filter) {
+    Transaction.getTransaction(
+        page.value, filter.text1, filter.text2, filter.select1,
+        filter.text3, filter.text4, filter.select2
+    ).then(
+        (r) => {
+            transactionData.value = r.data.data.transactions.data
+            perPage.value = r.data.data.transactions.meta.per_page
+            total.value = r.data.data.transactions.meta.total
+            status.value = r.data.data.status
+        }
+    )
+}
 
+async function copyCode(value) {
+    await navigator.clipboard.writeText(value);
 }
 
 function getData() {
-    Transaction.getTransaction().then(
+    Transaction.getAdminTransaction().then(
         (r) => {
             transactionData.value = r.data.data.transactions.data
         }
@@ -68,15 +83,45 @@ onMounted(() => {
                local="transaction"
     >
         <template v-slot:body="{item}">
-            <td class="text-center">{{ item.wallet_address_id }}</td>
-            <td class="text-center">{{ item.user }}</td>
+            <td class="text-center">
+                <span @click="copyCode(item.wallet_id)" class="tooltip-width">
+                     {{ item.wallet_id }}
+                <v-tooltip
+                        activator="parent"
+                        location="top"
+                >
+                  {{ item.wallet_id }}
+                </v-tooltip>
+                </span>
+            </td>
+            <td class="text-center">{{item.user.name}}</td>
             <td class="text-center">{{ item.transaction_id }}</td>
-            <td class="text-center">{{ item.ownerAddress }}</td>
-            <td class="text-center">{{ item.toAddress }}</td>
+            <td class="text-center">
+                <span @click="copyCode(item.ownerAddress)" class="tooltip-width">
+                      {{ item.ownerAddress }}
+                <v-tooltip
+                        activator="parent"
+                        location="top"
+                >
+                   {{ item.ownerAddress }}
+                </v-tooltip>
+                </span>
+            </td>
+            <td class="text-center">
+                <span @click="copyCode(item.toAddress)" class="tooltip-width">
+                      {{ item.toAddress }}
+                <v-tooltip
+                        activator="parent"
+                        location="top"
+                >
+               {{ item.toAddress }}
+                </v-tooltip>
+                </span>
+            </td>
             <td class="text-center">{{ item.amount }}</td>
             <td class="text-center">{{ item.fee }}</td>
             <td class="text-center">{{ item.status }}</td>
-            <td class="text-center">{{ item.base_tx_id }}</td>
+            <td class="text-center">{{ item.deposit_transaction }}</td>
             <td class="text-center">{{ item.network }}</td>
             <td class="text-center">{{ item.created_at }}</td>
         </template>

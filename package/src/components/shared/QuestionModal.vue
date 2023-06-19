@@ -1,6 +1,5 @@
 <script setup>
 let props = defineProps(['dialog', 'title', 'text', 'ok', 'cancel'])
-
 </script>
 
 <template>

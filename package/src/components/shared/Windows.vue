@@ -1,6 +1,5 @@
 <script setup>
 import CodeInput from "@/components/shared/CodeInput.vue";
-import QRCodeVue3 from "qrcode-vue3";
 import {computed, onMounted, ref} from "vue";
 import {useField, useForm} from "vee-validate";
 import vuetify from "@/plugins/vuetify";

@@ -28,7 +28,7 @@ const sidebarItem: menu[] = [
     {
         title: 'kyc',
         icon: 'mdi-fingerprint',
-        to: '/kyc',
+        to: '/user-kyc',
     },
     {
         title: 'gateways',
@@ -58,7 +58,7 @@ const sidebarItem: menu[] = [
     {
         title: 'Kyc List',
         icon: 'mdi-fingerprint',
-        to: '/kyc-list',
+        to: '/kyc',
     },
     {
         title: 'wallets',
@@ -98,10 +98,6 @@ const sidebarItem: menu[] = [
             {
                 title: 'Withdraw List',
                 to: '/transactions/withdraw-list'
-            },
-            {
-                title: 'suspend List',
-                to: '/transactions/suspend-List'
             }
         ],
     },

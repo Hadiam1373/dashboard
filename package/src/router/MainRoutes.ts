@@ -58,9 +58,44 @@ const MainRoutes = {
             component: () => import('@/views/dashboard/profit/index.vue'),
         },
         {
-            name: 'KYClList',
-            path: '/kyc-list',
+            name: 'UserKyc',
+            path: '/user-kyc',
+            component: () => import('@/views/dashboard/user-kyc/index.vue'),
+            // children:[
+            //     {
+            //         name: 'STEP1',
+            //         path: 'step-1',
+            //         component: () => import('@/views/dashboard/user-kyc/step1.vue'),
+            //     },
+            //     {
+            //         name: 'STEP2',
+            //         path: 'step-2',
+            //         component: () => import('@/views/dashboard/user-kyc/step2.vue'),
+            //     },
+            //     {
+            //         name: 'STEP3',
+            //         path: 'step-3',
+            //         component: () => import('@/views/dashboard/user-kyc/step3.vue'),
+            //     },
+            // ]
+        },
+        {
+            name: 'KYC',
+            path: '/kyc',
+            redirect: '/kyc/kyc-list',
             component: () => import('@/views/dashboard/kyc/index.vue'),
+            children: [
+                {
+                    name: 'KYClList',
+                    path: 'kyc-list',
+                    component: () => import('@/views/dashboard/kyc/kyc-list.vue'),
+                },
+                {
+                    name: 'User',
+                    path: 'user/:id',
+                    component: () => import('@/views/dashboard/kyc/show-user-data.vue'),
+                }
+            ]
         },
         {
             name: 'WalletList',

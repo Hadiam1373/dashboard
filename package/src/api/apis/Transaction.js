@@ -14,6 +14,26 @@ class Transaction {
         })
     }
 
+    async getAdminTransaction(transaction_id, wallet_id, status, user_id, toAddress, ownerAddress) {
+        return await axiosIns.get('panel/transaction/main', {
+            params: {
+                ...(user_id ? {user_id: user_id} : {}),
+                ...(status ? {status: status} : {}),
+                ...(transaction_id ? {transaction_id: transaction_id} : {}),
+                ...(ownerAddress ? {ownerAddress: ownerAddress} : {}),
+                ...(toAddress ? {toAddress: toAddress} : {}),
+                ...(wallet_id ? {wallet_id: wallet_id} : {}),
+            }
+        })
+    }
+
+    async getExcel(){
+        return await axiosIns.get('panel/transaction/excel/export' ,{
+            responseType:'blob'
+        })
+    }
+
+
     async removeTransaction(id){
         return await axiosIns.delete(`panel/transaction/${id}`)
     }

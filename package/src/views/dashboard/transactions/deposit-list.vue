@@ -17,7 +17,7 @@ let inputs = ref([
 
 let headers = ref([
     {title: 'wallet_id', align: 'start', key: 'wallet_address_id'},
-    {title: 'user', align: '', key: 'user'},
+    // {title: 'user', align: '', key: 'user'},
     {title: 'transaction_hash', align: 'center', key: 'transaction_id'},
     {title: 'sender_wallet_address', align: 'center', key: 'ownerAddress'},
     {title: 'receiver_wallet_address', align: 'center', key: 'toAddress'},
@@ -76,6 +76,13 @@ function getData() {
     )
 }
 
+function getExcel(){
+    Transaction.getExcel().then(response => {
+        const blob = new Blob([response.data], {type: 'application/pdf'})
+        console.log(blob)
+    })
+}
+
 function deleteItem(id) {
     Transaction.removeTransaction(id).then(
         () => {
@@ -93,6 +100,25 @@ onMounted(() => {
 })
 </script>
 <template>
+    <v-card-title>
+        <div class="d-flex w-100 justify-space-between align-center pa-0 pa-lg-5">
+            <div>
+                    <span>
+                        لیست تراکنش ها
+                    </span>
+            </div>
+            <div>
+                <v-btn
+                    color="primary"
+                    variant="flat"
+                     @click="getExcel"
+                    >
+                 دانلود خروجی Excel
+                </v-btn>
+
+            </div>
+        </div>
+    </v-card-title>
     <filters-table remove="remove" :item1="status"
                    search="search" @getDataFilters="getDataFilters"
                    @removeDataFilters="getData" :inputs="inputs"
@@ -117,7 +143,7 @@ onMounted(() => {
                 </v-tooltip>
                 </span>
             </td>
-            <td class="text-center">{{ item.user.name }}</td>
+<!--            <td class="text-center">{{ item.user.name }}</td>-->
             <td class="text-center">
                 <span @click="copyCode(item.transaction_id)" class="tooltip-width">
                       {{ item.transaction_id }}

@@ -10,8 +10,8 @@ const router = useRouter()
 const route = useRoute()
 
 let inputs = ref([
-    {type: 'text', label: 'name', key: 'one'},
-    {type: 'text', label: 'label', key: 'two'},
+    {type: 'text', label: 'name', key: 'two'},
+    {type: 'text', label: 'label', key: 'one'},
 ])
 
 let headers = ref([
@@ -37,7 +37,7 @@ let paginationLength = computed(() => {
 function getDataFilters(filter) {
     Users.getRoles(page.value, filter.text1, filter.text2).then(
         (r) => {
-            usersData.value = r.data.data.users
+            usersData.value = r.data.data.roles
         }
     )
 }
@@ -54,7 +54,7 @@ function deleteItem(id) {
 function getData() {
     Users.getRoles().then(
         (r) => {
-            usersData.value = r.data.data.roles.data
+            usersData.value = r.data.data.roles
         }
     )
 }

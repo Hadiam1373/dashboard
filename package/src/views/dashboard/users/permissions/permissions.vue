@@ -36,7 +36,7 @@ let paginationLength = computed(() => {
 function getDataFilters(filter) {
     Users.getPermissions(page.value, filter.text1, filter.text2).then(
         (r) => {
-            usersData.value = r.data.data.permissions
+            usersData.value = r.data.data.permissions.data
         }
     )
 }
@@ -53,7 +53,7 @@ function deleteItem(id) {
 function getData() {
     Users.getPermissions().then(
         (r) => {
-            usersData.value = r.data.data.permissions
+            usersData.value = r.data.data.permissions.data
         }
     )
 }
