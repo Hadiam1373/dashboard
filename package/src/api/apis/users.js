@@ -2,7 +2,7 @@ import axiosIns from "@/api/fetch/interceptors";
 
 class Users {
     async getProfile() {
-        return await axiosIns.get('panel/admin')
+        return await axiosIns.get('panel')
     }
 
     async getUsersData(page, name, email) {

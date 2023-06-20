@@ -3,12 +3,15 @@ import {useRoute, useRouter} from "vue-router";
 import Invoice from "@/api/apis/Invoice";
 import {onMounted, ref} from "vue";
 import {useField, useForm} from "vee-validate";
-import Gateways from "@/api/apis/Gateways";
+import theme from "@/plugins/theme";
+import DatePicker from 'vue3-persian-datetime-picker'
+import {useLocale} from "vuetify";
 
 const route = useRoute()
 const router = useRouter()
 const gates = ref()
 let formData = new FormData()
+const locale = useLocale()
 
 const {handleSubmit, handleReset} = useForm({
     validationSchema: {
@@ -174,7 +177,13 @@ onMounted(() => {
                     </v-text-field>
                 </v-col>
                 <v-col cols="12" lg="4" sm="6">
-
+                    <v-text-field variant="outlined" color="primary" class="custom-input"
+                                  :error-messages="expiration.errorMessage.value"
+                                  v-model="expiration.value.value" label="تاریخ انقضا" prepend-inner-icon="mdi-calendar-range">
+                    </v-text-field>
+                    <date-picker v-model="expiration.value.value" :color="theme.themes.light.colors.primary"
+                                 display-format="dddd jDD jMMMM jYYYY" type="datetime"
+                                 :locale="locale.current.value" custom-input=".custom-input" use-router/>
                 </v-col>
                 <v-col cols="12" lg="12" sm="12">
                     <v-textarea v-model="description.value.value" variant="outlined" label="توضیحات" rows="3" no-resize

@@ -19,6 +19,7 @@
                               v-model="date.value.value" label="تاریخ تولد" prepend-inner-icon="mdi-calendar-range">
                 </v-text-field>
                 <date-picker v-model="date.value.value" :color="theme.themes.light.colors.primary"
+                             display-format="dddd jDD jMMMM jYYYY"
                              :locale="locale.current.value" custom-input=".custom-input" use-router/>
             </v-col>
 
@@ -27,6 +28,16 @@
             </div>
         </v-row>
     </form>
+    <v-list class="mt-10" lines="lines" nav>
+        <v-list-item-title>توجه :</v-list-item-title>
+        <v-divider class="mt-5 mb-5"></v-divider>
+        <v-list-item>
+            حتما خودتان این اطلاعات را وارد کنید و مراقب روش های کلاهبرداری و فیشینگ باشید.
+        </v-list-item>
+        <v-list-item>
+            لطفا نام و نام خانوادگی خود را دقیقا مطابق با اطلاعات ثبت شده در کارت ملیتان وارد کنید .
+        </v-list-item>
+    </v-list>
 </template>
 
 <script setup>
@@ -73,6 +84,8 @@ function setTime(val) {
 
 </script>
 
-<style scoped>
-
+<style>
+.vpd-content {
+    background-color: #f9f9f9 !important;
+}
 </style>

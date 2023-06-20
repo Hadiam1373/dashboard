@@ -10,12 +10,6 @@
                 <step3/>
             </template>
     </Steppy>
-<!--    <div class="d-flex w-100 justify-space-between align-center">-->
-<!--        <v-btn color="secondary" class="ml-auto" v-if="step > 1" @click="step&#45;&#45;">مرحله قبل</v-btn>-->
-<!--        <v-btn color="primary" class="mr-auto" :disabled="active2" v-if="step === 1" @click="step++">مرحله بعد</v-btn>-->
-<!--        <v-btn color="primary" class="mr-auto" :disabled="active1" v-if="step === 2" @click="step++">مرحله بعد</v-btn>-->
-<!--        <v-btn color="primary" class="mr-auto" v-if="step === 3"  type="submit">اعتبار سنجی</v-btn>-->
-<!--    </div>-->
 </template>
 
 <script setup>
