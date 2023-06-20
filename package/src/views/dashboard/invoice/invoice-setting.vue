@@ -2,7 +2,6 @@
 import {useRoute, useRouter} from "vue-router";
 import Invoice from "@/api/apis/Invoice";
 import {onMounted, ref} from "vue";
-import Date from "@/components/shared/Date.vue";
 import {useField, useForm} from "vee-validate";
 import Gateways from "@/api/apis/Gateways";
 
@@ -175,7 +174,7 @@ onMounted(() => {
                     </v-text-field>
                 </v-col>
                 <v-col cols="12" lg="4" sm="6">
-                    <Date @setDate =" (n) => setTime(n)" />
+
                 </v-col>
                 <v-col cols="12" lg="12" sm="12">
                     <v-textarea v-model="description.value.value" variant="outlined" label="توضیحات" rows="3" no-resize

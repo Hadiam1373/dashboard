@@ -10,9 +10,9 @@ import Maska from 'maska';
 import VueSweetalert2 from 'vue-sweetalert2';
 import {options} from "@/theme/sweet-alert-theme";
 import 'sweetalert2/dist/sweetalert2.min.css';
-import VueDatePicker from '@vuepic/vue-datepicker';
 import '@vuepic/vue-datepicker/dist/main.css'
 import VOtpInput from "vue3-otp-input";
+
 
 
 
@@ -20,7 +20,6 @@ const app = createApp(App);
 app.use(router);
 app.use(PerfectScrollbar);
 app.use(VueTablerIcons);
-app.component('VueDatePicker', VueDatePicker);
 app.use(Maska);
 app.use(VueApexCharts);
 app.use(VueSweetalert2, options);
