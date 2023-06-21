@@ -4,10 +4,10 @@
                 <step1 @stepOne="next"/>
             </template>
             <template #2>
-                <step2/>
+                <step2 @stepTwo="next"/>
             </template>
             <template #3>
-                <step3/>
+                <step3 @stepTree="next"/>
             </template>
     </Steppy>
 </template>
@@ -55,6 +55,10 @@ function prev(val){
 .steppy-item-title {
     font-size: 16px !important;
     text-wrap: nowrap !important;
+}
+
+.wrapper-steppy{
+    padding: 18px !important;
 }
 
 .steppy-pane {

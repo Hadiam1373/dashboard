@@ -27,7 +27,6 @@ const props = defineProps({item: Object, level: Number});
                 :to="item.to"
                 :title="$vuetify.locale.t(`$vuetify.sidebar.${item.title}`)"
                 :value="item.title"
-                active-color="primary"
         >
         </v-list-item>
     </v-list-group>

@@ -14,13 +14,14 @@
                 </v-text-field>
             </v-col>
             <v-col cols="12" sm="6" lg="4">
-                <v-text-field variant="outlined" color="primary" class="custom-input"
-                              :error-messages="date.errorMessage.value"
-                              v-model="date.value.value" label="تاریخ تولد" prepend-inner-icon="mdi-calendar-range">
+                <v-text-field variant="outlined" color="primary" id="my-custom-editable-input"
+                              :error-messages="date.errorMessage.value" placeholder="تاریخ تولد"
+                               prepend-inner-icon="mdi-calendar-range">
                 </v-text-field>
                 <date-picker v-model="date.value.value" :color="theme.themes.light.colors.primary"
+                             format="YYYY-MM-DD"
                              display-format="dddd jDD jMMMM jYYYY"
-                             :locale="locale.current.value" custom-input=".custom-input" use-router/>
+                             :locale="locale.current.value" custom-input="#my-custom-editable-input"/>
             </v-col>
 
             <div class="d-flex w-100 justify-space-between align-center mt-5">
@@ -45,6 +46,7 @@ import {useField, useForm} from "vee-validate";
 import DatePicker from 'vue3-persian-datetime-picker'
 import theme from "@/plugins/theme";
 import {useLocale} from "vuetify";
+import KYC from "@/api/apis/KYC";
 
 const emit = defineEmits(['stepOne'])
 const locale = useLocale()
@@ -71,17 +73,18 @@ let lastName = useField('lastName')
 let date = useField('date')
 
 const submit = handleSubmit(values => {
-    nextStep()
+    KYC.stepOne(name.value.value, lastName.value.value, date.value.value).then(
+        (r) => {
+            if (r.data.status === 'success'){
+                nextStep()
+            }
+        },
+    )
 })
 
 function nextStep() {
     emit('stepOne')
 }
-
-function setTime(val) {
-    date.value.value = val
-}
-
 </script>
 
 <style>

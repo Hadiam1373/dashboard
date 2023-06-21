@@ -50,7 +50,7 @@
         }
 
         .v-list-item__prepend {
-            margin-inline-end: 0;
+            margin-inline-end: 13px;
         }
 
         .v-list-item__append {
@@ -86,7 +86,7 @@
             .v-list-group__items .v-list-item.v-list-item--active,
             .v-list-group__items .v-list-item.v-list-item--active > .v-list-item__overlay {
                 background: transparent;
-                color: white !important;
+                color: rgb(var(--v-theme-primary));
             }
         }
     }

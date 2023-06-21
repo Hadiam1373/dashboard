@@ -12,8 +12,7 @@ import {options} from "@/theme/sweet-alert-theme";
 import 'sweetalert2/dist/sweetalert2.min.css';
 import '@vuepic/vue-datepicker/dist/main.css'
 import VOtpInput from "vue3-otp-input";
-
-
+import CountryFlag from 'vue-country-flag-next'
 
 
 const app = createApp(App);
@@ -24,4 +23,5 @@ app.use(Maska);
 app.use(VueApexCharts);
 app.use(VueSweetalert2, options);
 app.component('v-otp-input', VOtpInput)
+app.component('country-flag', CountryFlag)
 app.use(vuetify).mount('#app');
