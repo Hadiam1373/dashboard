@@ -23,7 +23,7 @@ const {handleSubmit, handleReset} = useForm({
             return 'آدرس callback باید شامل https و کامل باشد '
         },
         logo(value) {
-            if (value) return true
+            if (value || userLogo.value) return true
             return 'لطفا لوگو خود را انتخاب نمایید'
         },
         color(value) {
@@ -67,7 +67,9 @@ function updateGateway() {
     formData.append('url', url.value.value)
     formData.append('color', color.value.value)
     formData.append('callback', callback.value.value)
-    formData.append('logo', logo.value.value[0])
+    if (!userLogo.value) {
+        formData.append('logo', logo.value.value[0])
+    }
     formData.append('_method', 'PATCH')
     Gateways.updateGateway(formData, route.params.id).then(
         () => {

@@ -104,9 +104,13 @@ tr {
   margin: 0 10px
 }
 
-.tooltip-width{
+.tooltip-width {
   overflow: hidden;
   cursor: pointer;
   width: 60px !important;
   display: flex;
+}
+
+.v-list-item__prepend {
+  margin-inline-end: 0 !important;
 }

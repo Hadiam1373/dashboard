@@ -52,8 +52,8 @@ let loading = ref(false)
 let redirect = ref()
 let userStatus = ref([])
 const items = ref([
-    {title: 'فعال', value: true},
-    {title: 'غیر فعال', value: false}
+    {title: 'فعال', cost: 'true'},
+    {title: 'غیر فعال', cost: 'false'}
 ])
 
 function updateData() {
@@ -66,7 +66,7 @@ function updateData() {
     formData.append('active_package_id', userPackage.value.value)
     formData.append('token', token.value)
     formData.append('callback', callBack.value)
-    formData.append('auto_redirect', redirect.value)
+    formData.append('auto_redirect', redirect.value.cost)
     formData.append('id', route.params.id)
     formData.append('_method', 'PATCH')
     Users.updateUser(formData, route.params.id).then(
@@ -95,12 +95,16 @@ function getData() {
             wallet.value.value = r.data.data.purse_amount
             r.data.data.packages.forEach((pack) => {
                 if (pack.id === r.data.data.active_package_id) {
-                    thisPackage.value.push(pack)
                     userPackage.value.value = pack.id
                 }
             })
+            thisPackage.value = r.data.data.packages
             callBack.value = r.data.data.settings_callback
-            redirect.value = r.data.data.$settings_auto_redirect
+            items.value.forEach((item) => {
+                if (r.data.data.$settings_auto_redirect === item.cost) {
+                    redirect.value = item
+                }
+            })
             token.value = r.data.data.token
         }
     )
@@ -108,7 +112,6 @@ function getData() {
 
 onMounted(() => {
     getData()
-    console.log(userPackage.value.value)
 })
 </script>
 
@@ -193,7 +196,7 @@ onMounted(() => {
                                   label="ریدایرکت خودکار به پنل"
                                   :items="items"
                                   item-title="title"
-                                  item-value="value"
+                                  item-value="cost"
                                   v-model="redirect"
                                   return-object
                                   messages='با فعال بودن این گزینه ، چنانچه قبلا در پنل وارد شده باشید دیگر صفحه نخست سایت را مشاهده نخواهید کرد.'

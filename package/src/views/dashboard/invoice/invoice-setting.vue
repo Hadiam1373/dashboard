@@ -138,7 +138,7 @@ onMounted(() => {
                         </template>
                     </div>
                     <div>
-                        <v-icon color="primary" @click="router.push('/gateways/gatewaysList')"
+                        <v-icon color="primary" @click="router.push('/invoices/invoice-list')"
                                 class="cursor-pointer"
                                 size="large">mdi-keyboard-backspace
                         </v-icon>

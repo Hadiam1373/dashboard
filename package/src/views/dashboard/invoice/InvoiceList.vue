@@ -8,7 +8,6 @@ import {useRouter} from "vue-router";
 import QuestionModal from "@/components/shared/QuestionModal.vue";
 
 
-
 const router = useRouter()
 
 let gateWaysData = ref()
@@ -103,10 +102,13 @@ onMounted(() => {
                 </div>
 
                 <div>
-                    <v-btn color="primary" class="d-none d-lg-block d-sm-none" @click="router.push('/invoices/invoice-setting')">
+                    <v-btn color="primary" class="d-none d-lg-block d-sm-none"
+                           @click="router.push('/invoices/invoice-setting')">
                         {{ $vuetify.locale.t(`$vuetify.dashboard.invoice.create`) }}
                     </v-btn>
-                    <v-icon class="d-lg-none" @click="router.push('/invoices/invoice-setting')" color="primary">mdi-plus</v-icon>
+                    <v-icon class="d-lg-none" @click="router.push('/invoices/invoice-setting')" color="primary">
+                        mdi-plus
+                    </v-icon>
                 </div>
             </div>
         </v-card-title>
@@ -136,8 +138,7 @@ onMounted(() => {
                     </v-tooltip>
                 </td>
                 <td class="text-center">
-                    <!--                    <status :value="item.status_label" :status="item.status_label"/>-->
-                    {{item.status_label}}
+                    <status :value="item.status_label" :status="item.status_label"/>
                 </td>
                 <td class="text-center">{{ item.created_at }}</td>
                 <td class="text-center d-none d-lg-flex align-center d-sm-none">
@@ -146,12 +147,13 @@ onMounted(() => {
                            class="mx-1 mt-2 mt-lg-0" prepend-icon="mdi-receipt">
                         {{ $vuetify.locale.t(`$vuetify.dashboard.invoice.factor`) }}
                     </v-btn>
-                    <v-btn size="small" @click="router.push(`/invoices/invoice-setting/${item.id}`)" class="mx-1 mt-2 mt-lg-0" color="info" prepend-icon="mdi-pen">
+                    <v-btn size="small" :disabled="item.status === 'cancelled'" @click="router.push(`/invoices/invoice-setting/${item.id}`)"
+                           class="mx-1 mt-2 mt-lg-0" color="info" prepend-icon="mdi-pen">
                         {{ $vuetify.locale.t(`$vuetify.dashboard.invoice.setting`) }}
                     </v-btn>
-                    <question-modal  :dialog="dialog"
-                                     title="آیا از غیر فعال کردن این صورت حساب اطمینان دارید؟" ok="بله"
-                                     cancel="انصراف" @confirm="deleteFactor(item.id)" @reject="dialog = false">
+                    <question-modal :dialog="dialog"
+                                    title="آیا از غیر فعال کردن این صورت حساب اطمینان دارید؟" ok="بله"
+                                    cancel="انصراف" @confirm="deleteFactor(item.id)" @reject="dialog = false">
                         <template v-slot:element="{props}">
                             <v-btn size="small" color="error" @click="dialog =! dialog"
                                    class="mx-1 mt-2 mt-lg-0" prepend-icon="mdi-close">

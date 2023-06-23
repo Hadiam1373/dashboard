@@ -90,8 +90,8 @@ onMounted(() => {
             <template v-slot:body="{item}">
                 <td class="text-center">{{ item.id }}</td>
                 <td class="text-center">{{ item.amount }}</td>
-                <td class="text-center">{{ item.user_id }}</td>
-                <td class="text-center">{{ item.user_package_id }}</td>
+                <td class="text-center">{{ item.user }}</td>
+                <td class="text-center">{{ item.package }}</td>
                 <td class="text-center">
                     <status :value="item.status_label" :status="item.status"/>
                 </td>

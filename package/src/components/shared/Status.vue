@@ -4,7 +4,7 @@ import {computed} from "vue";
 const props = defineProps(['status', 'value'])
 let computedColor = computed(() => {
     let color;
-    switch (props.status) {
+    switch (props.status || props.value) {
         case 'pending' :
             color = '#FCE83A'
             break;
@@ -14,16 +14,31 @@ let computedColor = computed(() => {
         case 'cancelled':
             color = '#FFB302'
             break;
+        case 'نامشخص':
+            color = '#FFB302'
+            break;
         case 'expired':
             color = '#FFB302'
             break;
         case 'enable':
             color = '#56F000'
             break;
+        case 'accepted':
+            color = '#56F000'
+            break;
+        case 'موفق':
+            color = '#56F000'
+            break;
         case 'disable':
             color = '#FCE83A'
             break;
+        case 'درانتظار':
+            color = '#FCE83A'
+            break;
         case 'ban':
+            color = '#FF3838'
+            break;
+        case 'failed':
             color = '#FF3838'
             break;
     }

@@ -3,6 +3,7 @@ import FiltersTable from "@/components/shared/FiltersTable.vue";
 import DataTable from "@/components/shared/DataTable.vue";
 import {computed, onMounted, ref} from "vue";
 import Transaction from "@/api/apis/Transaction";
+import Status from "@/components/shared/Status.vue";
 
 let inputs = ref([
     {type: 'text', label: 'transaction_hash', key: 'one'},
@@ -70,6 +71,15 @@ onMounted(() => {
 })
 </script>
 <template>
+    <v-card-title>
+        <div class="d-flex w-100 justify-space-between align-center pa-0 pa-lg-5">
+            <div>
+                    <span>
+                        لیست تراکنش ها
+                    </span>
+            </div>
+        </div>
+    </v-card-title>
     <filters-table remove="remove"
                    search="search" @getDataFilters="getDataFilters"
                    @removeDataFilters="getData" :inputs="inputs"
@@ -120,7 +130,7 @@ onMounted(() => {
             </td>
             <td class="text-center">{{ item.amount }}</td>
             <td class="text-center">{{ item.fee }}</td>
-            <td class="text-center">{{ item.status }}</td>
+            <td class="text-center"> <status :value="item.status" :status="item.status"/></td>
             <td class="text-center">{{ item.deposit_transaction }}</td>
             <td class="text-center">{{ item.network }}</td>
             <td class="text-center">{{ item.created_at }}</td>

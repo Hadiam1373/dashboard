@@ -108,7 +108,6 @@ onMounted(() => {
                 <td class="text-center d-flex align-center">
                     <v-btn size="x-small" color="info" @click="router.push(`/kyc/user/${item.id}`)"
                            icon="mdi-eye-outline">
-
                     </v-btn>
 
                     <question-modal :dialog="dialog" ok="بله" cancel="خیر"
@@ -121,13 +120,14 @@ onMounted(() => {
                         </template>
                     </question-modal>
 
-                    <question-modal v-if="item.status !== 'accepted'" :dialog="dialog2" ok="بله" cancel="خیر"
+                    <question-modal :dialog="dialog2" ok="بله" cancel="خیر"
                                     text="ایا از  تایید کاربر اطمینان دارید؟"
                                     @confirm="confirmUser(item.id)" @reject="dialog2 = false"
                     >
                         <template #element>
                             <v-btn size="x-small" @click="dialog2 = true" color="success"
-                                   icon="mdi-check"></v-btn>
+                                   icon="mdi-check" :disabled="item.status === 'accepted'">
+                            </v-btn>
                         </template>
                     </question-modal>
                 </td>

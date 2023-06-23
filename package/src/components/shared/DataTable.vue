@@ -3,7 +3,7 @@ const props = defineProps(['headers', 'dataTable', 'page', 'total', 'perPage' , 
 </script>
 
 <template>
-        <v-table hover  class="mt-5"  height="100%"  fixed-header>
+        <v-table hover  class="mt-5" height="60vh"  fixed-header>
             <thead>
             <tr>
                 <th class="text-center text-no-wrap"
