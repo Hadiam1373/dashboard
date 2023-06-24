@@ -29,6 +29,9 @@ let computedColor = computed(() => {
         case 'موفق':
             color = '#56F000'
             break;
+        case 'transferred':
+            color = '#56F000'
+            break;
         case 'disable':
             color = '#FCE83A'
             break;

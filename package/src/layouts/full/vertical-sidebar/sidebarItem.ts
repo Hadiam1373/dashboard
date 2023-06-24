@@ -111,10 +111,12 @@ const sidebarItem: menu[] = [
         icon: 'mdi-wallet-travel',
         children: [
             {
-                title: 'withdraw requests list',
+                title:'withdraw requests list',
+                to:'/withdraw/withdraw-list'
             },
             {
-                title: 'create withdraw request',
+                title:'create withdraw request',
+                to:'/withdraw/createWithdraw'
             },
         ]
     },

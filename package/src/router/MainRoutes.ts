@@ -61,23 +61,6 @@ const MainRoutes = {
             name: 'UserKyc',
             path: '/user-kyc',
             component: () => import('@/views/dashboard/user-kyc/index.vue'),
-            // children:[
-            //     {
-            //         name: 'STEP1',
-            //         path: 'step-1',
-            //         component: () => import('@/views/dashboard/user-kyc/step1.vue'),
-            //     },
-            //     {
-            //         name: 'STEP2',
-            //         path: 'step-2',
-            //         component: () => import('@/views/dashboard/user-kyc/step2.vue'),
-            //     },
-            //     {
-            //         name: 'STEP3',
-            //         path: 'step-3',
-            //         component: () => import('@/views/dashboard/user-kyc/step3.vue'),
-            //     },
-            // ]
         },
         {
             name: 'KYC',
@@ -136,7 +119,7 @@ const MainRoutes = {
                     path: 'users-list',
                     redirect: '/users/users-list/show-user-list',
                     component: () => import('@/views/dashboard/users/user-list/index.vue'),
-                    children:[
+                    children: [
                         {
                             name: 'UserList',
                             path: 'show-user-list',
@@ -199,6 +182,37 @@ const MainRoutes = {
                             component: () => import('@/views/dashboard/users/permissions/permissions.vue')
                         }
                     ]
+                },
+            ]
+        },
+        {
+            name: 'Ticket',
+            path: '/tickets',
+            redirect: '/tickets/listTicket',
+            component: () => import('@/views/dashboard/tickets/index.vue'),
+            children: [
+                {
+                    name: 'ListTicket',
+                    path: 'listTicket',
+                    component: () => import('@/views/dashboard/tickets/ticketList.vue')
+                }
+            ]
+        },
+        {
+            name: 'Withdraw',
+            path: '/withdraw',
+            redirect: '/withdraw/withdraw-list',
+            component: () => import('@/views/dashboard/withdraw/index.vue'),
+            children: [
+                {
+                    name: 'WithdrawList',
+                    path: 'withdraw-list',
+                    component: () => import('@/views/dashboard/withdraw/withdrawList.vue'),
+                },
+                {
+                    name: 'CreateWithdraw',
+                    path: 'createWithdraw',
+                    component: () => import('@/views/dashboard/withdraw/createWithdraw.vue'),
                 },
             ]
         }

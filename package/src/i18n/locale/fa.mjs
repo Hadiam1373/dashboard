@@ -19,7 +19,8 @@ export default {
         name:'نام',
         label:'برچسب',
         sender_wallet: ' آدرس کیف پول فرستنده',
-        receiver_wallet: 'آدرس کیف پول گیرنده'
+        receiver_wallet: 'آدرس کیف پول گیرنده',
+        support_department:'واحد پشتیبانی'
     },
     dataIterator: {
         noResultsText: 'نتیجه‌ای یافت نشد',
@@ -269,6 +270,24 @@ export default {
             label:'برچسب',
             description:'توضیحات',
             action:'عملیات'
+        },
+        tickets:{
+            subject:'موضوع تیکت',
+            department:'واحد پشتیبانی',
+            status:'وضعیت',
+            created_at:'تاریخ ایجاد',
+            action:'فعالیت'
+        },
+        withdraw:{
+            id:'شناسه',
+            user:'کاربر',
+            wallet:'کیف پول',
+            transactionId:'شناسه تراکنش',
+            withdrawAmount:'مبلغ درخواستی',
+            sentAmount:'مبلغ واریزی',
+            status:'وضعیت',
+            created_at:'تاریخ ایجاد',
+            action:'فعالیت'
         }
     }
 }
