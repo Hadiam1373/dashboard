@@ -15,6 +15,8 @@ let status = ref()
 let withdrawData = ref()
 let perPage = ref()
 let total = ref()
+let dialog = ref(false)
+let dialog2 = ref(false)
 
 let inputs = ref([
     {type: 'text', label: 'walletId', key: 'one'},
@@ -62,6 +64,14 @@ function getData() {
             status.value = r.data.data.status
         }
     )
+}
+
+function confirmWithdraw(id) {
+    WithdrawRequest.confirmWithdraw(id)
+}
+
+function rejectWithdraw(id) {
+    WithdrawRequest.rejectWithdraw(id)
 }
 
 watch(page, (newX) => {
@@ -133,27 +143,25 @@ onMounted(() => {
                     <status :value="item.status_label" :status="item.status"/>
                 </td>
                 <td class="text-center">{{ item.created_at }}</td>
-                <td class="text-center">
-                    <v-btn  size="x-small" color="info" @click="router.push(`/kyc/user/${item.id}`)"
+                <td class="text-center d-flex align-center">
+                    <v-btn size="x-small" class="mx-1" color="info" @click="goToTronscan(item.tx_id)"
                            icon="mdi-eye-outline">
                     </v-btn>
-
                     <question-modal :dialog="dialog" ok="بله" cancel="خیر"
-                                    text="ایا از عدم تایید کاربر اطمینان دارید؟"
-                                    @confirm="rejectUser(item.id)" @reject="dialog = false"
+                                    text="ایا از عدم تایید درخواست اطمینان دارید؟"
+                                    @confirm="rejectWithdraw(item.id)" @reject="dialog = false"
                     >
                         <template #element>
-                            <v-btn size="x-small" @click="dialog = true" color="error"
+                            <v-btn class="mx-2" size="x-small" @click="dialog = true" color="error"
                                    icon="mdi-window-close"></v-btn>
                         </template>
                     </question-modal>
-
                     <question-modal :dialog="dialog2" ok="بله" cancel="خیر"
-                                    text="ایا از  تایید کاربر اطمینان دارید؟"
-                                    @confirm="confirmUser(item.id)" @reject="dialog2 = false"
+                                    text="ایا از  تایید درخواست اطمینان دارید؟"
+                                    @confirm="confirmWithdraw(item.id)" @reject="dialog2 = false"
                     >
                         <template #element>
-                            <v-btn size="x-small" @click="dialog2 = true" color="success"
+                            <v-btn size="x-small" class="mx-2" @click="dialog2 = true" color="success"
                                    icon="mdi-check" :disabled="item.status === 'accepted'">
                             </v-btn>
                         </template>

@@ -11,6 +11,14 @@ class WithdrawRequest {
             }
         })
     }
+
+    async confirmWithdraw(id) {
+        return await axiosIns.post(`panel/withdraw/confirm/${id}`)
+    }
+
+    async rejectWithdraw(id) {
+        return await axiosIns.post(`panel/withdraw/reject/${id}`)
+    }
 }
 
 export default new WithdrawRequest()
