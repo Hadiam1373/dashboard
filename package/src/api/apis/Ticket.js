@@ -1,9 +1,9 @@
 import axiosIns from "@/api/fetch/interceptors";
 
-class Ticket{
-    async getTickets(page ,status , department){
-        return await axiosIns.get('panel/tickets' , {
-            params:{
+class Ticket {
+    async getTickets(page, status, department) {
+        return await axiosIns.get('panel/tickets', {
+            params: {
                 ...(page ? {page: page} : {}),
                 ...(status ? {status: status} : {}),
                 ...(department ? {department: department} : {}),
@@ -11,8 +11,12 @@ class Ticket{
         })
     }
 
-    async showTicket(id){
+    async showTicket(id) {
         return await axiosIns.get(`panel/tickets/${id}`)
+    }
+
+    async CloseTicket(id) {
+        return await axiosIns.delete(`panel/tickets/${id}`)
     }
 }
 
