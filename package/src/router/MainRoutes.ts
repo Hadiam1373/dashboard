@@ -195,6 +195,11 @@ const MainRoutes = {
                     name: 'ListTicket',
                     path: 'listTicket',
                     component: () => import('@/views/dashboard/tickets/ticketList.vue')
+                },
+                {
+                    name: 'TicketInfo',
+                    path: 'ticketInfo/:id?',
+                    component: () => import('@/views/dashboard/tickets/showTicket.vue')
                 }
             ]
         },

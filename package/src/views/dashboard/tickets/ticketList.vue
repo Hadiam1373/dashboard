@@ -6,16 +6,20 @@ import DataTable from "@/components/shared/DataTable.vue";
 import {computed, onMounted, ref, watch} from "vue";
 import Profit from "@/api/apis/Profit";
 import {useRouter} from "vue-router";
+import Wallet from "@/api/apis/Wallet";
+import Ticket from "@/api/apis/Ticket";
+
 const router = useRouter()
 let page = ref(1)
 let status = ref()
-let profitData = ref()
+let ticketData = ref()
 let perPage = ref()
 let total = ref()
+let departments = ref()
 
 let inputs = ref([
-    {type: 'text', label: 'type', key: 'one'},
-    {type: 'select', label: 'support_department', key: 'one'}
+    {type: 'select', label: 'type', key: 'one'},
+    {type: 'select', label: 'support_department', key: 'two'}
 ])
 
 let headers = ref([
@@ -30,19 +34,24 @@ let paginationLength = computed(() => {
     let length = Math.ceil(total.value / perPage.value)
     return length > 1 ? length : 0
 })
-function getDataFilters(filter){
-    Profit.getProfit(page.value , filter.text1 , filter.select1).then(
-        (r) => {
 
+function getDataFilters(filter) {
+    Ticket.getTickets(page.value, filter.select1, filter.select2).then(
+        (r) => {
+            ticketData.value = r.data.data.tickets.data
+            status.value = r.data.data.status
+            departments.value = r.data.data.departments
         },
     )
 }
 
-function getData(){
-    Profit.getProfit(page.value).then(
+function getData() {
+    Ticket.getTickets().then(
         (r) => {
-
-        },
+            ticketData.value = r.data.data.tickets.data
+            status.value = r.data.data.status
+            departments.value = r.data.data.departments
+        }
     )
 }
 
@@ -66,13 +75,13 @@ onMounted(() => {
                 </div>
             </div>
         </v-card-title>
-        <filters-table  remove="remove"
-                        :item1="status" search="search" @getDataFilters="getDataFilters"
-                        @removeDataFilters="getData" :inputs="inputs"
+        <filters-table remove="remove"
+                       :item1="status" :item2="departments" item-title2="name" item-value2="id" search="search" @getDataFilters="getDataFilters"
+                       @removeDataFilters="getData" :inputs="inputs"
         />
         <v-divider class="mb-5"></v-divider>
         <DataTable :headers="headers"
-                   :dataTable="profitData"
+                   :dataTable="ticketData"
                    :page="page"
                    :total="total"
                    :perPage="perPage"
@@ -80,11 +89,17 @@ onMounted(() => {
         >
             <template v-slot:body="{item}">
                 <td class="text-center">{{ item.subject }}</td>
-                <td class="text-center">{{ item.department.name }}</td>
+                <td class="text-center">{{ item.department_name }}</td>
                 <td class="text-center">
-                    <status :value="status" :status="status"/>
+                    <!--                    <status :value="status" :status="status"/>-->
+                    {{ item.status }}
                 </td>
                 <td class="text-center">{{ item.created_at }}</td>
+                <td class="text-center">
+                    <v-btn color="primary" variant="flat" @click="router.push(`/tickets/ticketInfo/${item.id}`)">
+                        مشاهده
+                    </v-btn>
+                </td>
             </template>
         </DataTable>
         <v-col cols="12">

@@ -6,7 +6,7 @@ const otpInput = ref(null);
 const bindModal = ref("");
 </script>
 <template>
-    <div style="direction: ltr">
+    <div style="direction: ltr" class="d-flex w-100 justify-center align-center">
         <v-otp-input
                 ref="otpInput"
                 v-model:value="bindModal"
@@ -18,6 +18,7 @@ const bindModal = ref("");
                 :conditionalClass="['one', 'two', 'three', 'four']"
                 :placeholder="['*', '*', '*', '*','*', '*']"
                 @on-complete="$emit('getOtp' , bindModal)"
+                @on-change="$emit('changeOtp')"
         />
     </div>
 <!--    <div class="d-flex flex">-->

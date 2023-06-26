@@ -12,6 +12,17 @@ class WithdrawRequest {
         })
     }
 
+    async getUserData() {
+        return await axiosIns.get('panel/withdraw/create')
+    }
+
+    async createWithdrawRequest(wallet, amount) {
+        return await axiosIns.post('panel/withdraw/store', {
+            target_wallet: wallet,
+            amount: amount
+        })
+    }
+
     async confirmWithdraw(id) {
         return await axiosIns.post(`panel/withdraw/confirm/${id}`)
     }
