@@ -5,7 +5,7 @@
         </v-col>
 
         <v-col cols="12" lg="6">
-            <chat v-if="ticketData" :data="message"/>
+            <chat v-if="ticketData"/>
         </v-col>
     </v-row>
 

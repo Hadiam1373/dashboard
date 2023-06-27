@@ -46,6 +46,11 @@ const sidebarItem: menu[] = [
         to: '/upgrade',
     },
     {
+        title: 'departments',
+        icon: 'mdi-face-agent',
+        to: '/department',
+    },
+    {
         title: 'invite friends',
         icon: 'mdi-account-plus',
         to: '/invite-friends',
@@ -65,11 +70,11 @@ const sidebarItem: menu[] = [
         icon: 'mdi-wallet',
         to: '/wallets',
     },
-    // {
-    //     title: 'message',
-    //     icon: 'mdi-wallet',
-    //     to: '/wallets',
-    // },
+    {
+        title: 'message',
+        icon: 'mdi-message-reply-text',
+        to: '/message',
+    },
     {
         title: 'users',
         icon: 'mdi-account',

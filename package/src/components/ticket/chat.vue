@@ -1,13 +1,13 @@
 <template>
-    <v-card  class="pa-5 mx-4">
+    <v-card class="pa-5 mx-4">
         <perfect-scrollbar class="scroll-area">
             <div class="w-90 mb-2 mx-3"
-                 v-for="(item , index) in props.data">
-                <v-alert max-width="300px" class="mr-auto" v-if="item.side_right" size="large" color="secondary">
+                 v-for="(item , index) in data">
+                <v-alert max-width="300px" :key="index" class="mr-auto" v-if="item.side_right" size="large" color="secondary">
                     {{ item.message }}
                     <caption class="date">{{ item.created_at }}</caption>
                 </v-alert>
-                <v-alert max-width="300px" class="ml-auto" v-if="!item.side_right" size="large" color="primary">
+                <v-alert max-width="300px" :key="index" class="ml-auto" v-if="!item.side_right" size="large" color="primary">
                     {{ item.message }}
                     <caption class="date">{{ item.created_at }}</caption>
                 </v-alert>
@@ -40,19 +40,37 @@
 </template>
 
 <script setup>
-import {ref} from "vue";
+import {onMounted, ref} from "vue";
 import Ticket from "@/api/apis/Ticket";
 import {useRoute} from "vue-router";
 
 const route = useRoute()
 const props = defineProps(['data'])
 
+let data = ref()
 let message = ref()
 
-function sendTicket(){
+function sendTicket() {
     const id = route.params.id
-    Ticket.sendTicket(id , message.value)
+    Ticket.sendTicket(id, message.value).then(
+        (r) => {
+            getTicket()
+        }
+    )
 }
+
+function getTicket(){
+    const id = route.params.id
+    Ticket.showTicket(id).then(
+        (r) => {
+            data.value = r.data.data.ticket.messages
+        }
+    )
+}
+
+onMounted(() => {
+    getTicket()
+})
 </script>
 
 <style scoped>
@@ -69,7 +87,7 @@ function sendTicket(){
     height: 300px;
 }
 
-.date{
+.date {
     font-size: 10px;
     position: absolute;
     left: 5px;

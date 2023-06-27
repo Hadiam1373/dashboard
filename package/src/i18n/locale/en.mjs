@@ -94,6 +94,7 @@ export default {
         'Kyc List':'Kyc List',
         wallets: 'Wallets',
         transactions: 'Transactions',
+        message:'Message',
         tickets: 'Tickets',
         withdraw: 'Withdraw',
         'withdraw requests list': 'Withdraw Requests List',

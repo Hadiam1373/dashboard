@@ -103,6 +103,7 @@ export default {
         'invite friends': 'دعوت از دوستان',
         'Kyc List': 'لیست احراز هویت ها',
         profits: 'درآمد ها',
+        message:'پیام ها',
         wallets: 'کیف پول',
         transactions: 'تراکنش ها',
         tickets: 'تیکت ها',
@@ -122,7 +123,8 @@ export default {
         CreateUser:'ایجاد کاربر',
         UserRoles:'مدیریت نقش ها',
         Permissions:'مدیریت دسترسی ها',
-        users:'کاربران'
+        users:'کاربران',
+        departments:'واحد های پشتیبانی'
     },
     login: {
         title: 'هنوز ثبت نام نکرده اید ؟',
@@ -288,6 +290,21 @@ export default {
             status:'وضعیت',
             created_at:'تاریخ ایجاد',
             action:'فعالیت'
+        },
+        messages:{
+            id:'شناسه',
+            user:'کاربر',
+            fullName:'نام',
+            email:'ایمیل',
+            subject:'موضوع',
+            date:'تاریخ',
+            action:'عملیات'
+        },
+        department:{
+            department:'نام واحد',
+            status:'وضعیت',
+            action:'فعالیت',
+            id:'شناسه'
         }
     }
 }

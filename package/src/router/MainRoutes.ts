@@ -63,6 +63,42 @@ const MainRoutes = {
             component: () => import('@/views/dashboard/user-kyc/index.vue'),
         },
         {
+            name: 'Message',
+            path: '/message',
+            redirect: '/message/message-list',
+            component: () => import('@/views/dashboard/message/index.vue'),
+            children: [
+                {
+                    name: 'MessageList',
+                    path: 'message-list',
+                    component: () => import('@/views/dashboard/message/message-list.vue'),
+                },
+                {
+                    name: 'ShowMessage',
+                    path: 'show-message',
+                    component: () => import('@/views/dashboard/message/show-message.vue'),
+                },
+            ]
+        },
+        {
+            name: 'Department',
+            path: '/department',
+            redirect: '/department/department-list',
+            component: () => import('@/views/dashboard/departments/index.vue'),
+            children: [
+                {
+                    name: 'DepartmentList',
+                    path: 'department-list',
+                    component: () => import('@/views/dashboard/departments/department-list.vue'),
+                },
+                {
+                    name: 'EditeDepartment',
+                    path: 'edite-department/:id?',
+                    component: () => import('@/views/dashboard/departments/edite-department.vue'),
+                },
+            ]
+        },
+        {
             name: 'KYC',
             path: '/kyc',
             redirect: '/kyc/kyc-list',
