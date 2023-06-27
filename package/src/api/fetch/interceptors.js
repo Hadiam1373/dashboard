@@ -37,9 +37,6 @@ axiosIns.interceptors.request.use(config => {
 axiosIns.interceptors.response.use(response => {
     // show modal
     document.querySelector('.v-application').classList.remove('loading-indicator');
-    // if (response.status === 200 && response.data.message){
-    //     successMessage(response.data.message)
-    // }
     return response
 }, error => {
     // close modal

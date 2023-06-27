@@ -65,6 +65,11 @@ const sidebarItem: menu[] = [
         icon: 'mdi-wallet',
         to: '/wallets',
     },
+    // {
+    //     title: 'message',
+    //     icon: 'mdi-wallet',
+    //     to: '/wallets',
+    // },
     {
         title: 'users',
         icon: 'mdi-account',

@@ -18,6 +18,12 @@ class Ticket {
     async CloseTicket(id) {
         return await axiosIns.delete(`panel/tickets/${id}`)
     }
+
+    async sendTicket(id, message) {
+        return await axiosIns.patch(`panel/tickets/${id}`, {
+            message: message
+        })
+    }
 }
 
 export default new Ticket()

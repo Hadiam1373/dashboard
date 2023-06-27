@@ -31,7 +31,7 @@
                         <v-file-input label="فایل" hide-details variant="outlined"></v-file-input>
                     </v-col>
                     <v-col cols="12" sm="3">
-                        <v-btn block color="primary" size="large" variant="flat">ارسال تیکت</v-btn>
+                        <v-btn @click="sendTicket" block color="primary" size="large" variant="flat">ارسال تیکت</v-btn>
                     </v-col>
                 </v-row>
             </v-col>
@@ -41,10 +41,18 @@
 
 <script setup>
 import {ref} from "vue";
+import Ticket from "@/api/apis/Ticket";
+import {useRoute} from "vue-router";
 
+const route = useRoute()
 const props = defineProps(['data'])
 
 let message = ref()
+
+function sendTicket(){
+    const id = route.params.id
+    Ticket.sendTicket(id , message.value)
+}
 </script>
 
 <style scoped>
