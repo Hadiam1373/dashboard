@@ -73,11 +73,6 @@ const MainRoutes = {
                     path: 'message-list',
                     component: () => import('@/views/dashboard/message/message-list.vue'),
                 },
-                {
-                    name: 'ShowMessage',
-                    path: 'show-message',
-                    component: () => import('@/views/dashboard/message/show-message.vue'),
-                },
             ]
         },
         {

@@ -5,7 +5,8 @@ import DataTable from "@/components/shared/DataTable.vue";
 import {computed, onMounted, ref} from "vue";
 import {useRouter} from "vue-router";
 import QuestionModal from "@/components/shared/QuestionModal.vue";
-import Message from "@/views/dashboard/message/index.vue";
+import Message from '@/api/apis/Mesages';
+import ModalMessage from "@/views/dashboard/message/modal-message.vue";
 
 
 const router = useRouter()
@@ -14,7 +15,7 @@ let status = ref()
 let kycList = ref()
 let perPage = ref()
 let total = ref()
-let userData = ref()
+let messages = ref()
 let loading = ref(false)
 let dialog = ref(false)
 
@@ -25,14 +26,15 @@ let paginationLength = computed(() => {
 })
 
 let inputs = ref([
-    {type: 'text', label: 'email', key: 'one'},
-    {type: 'select', label: 'type', key: 'one'}
+    {type: 'text', label: 'user', key: 'one'},
+    {type: 'text', label: 'email', key: 'two'},
+    {type: 'text', label: 'subject', key: 'tree'},
 ])
 
 let headers = ref([
     {title: 'id', align: 'start', key: 'id'},
-    {title: 'user', align: 'center', key: 'user'},
     {title: 'fullName', align: 'center', key: 'fullName'},
+    // {title: 'user', align: 'center', key: 'user'},
     {title: 'email', align: 'center', key: 'email'},
     {title: 'subject', align: 'center', key: 'subject'},
     {title: 'date', align: 'center', key: 'date'},
@@ -41,15 +43,28 @@ let headers = ref([
 
 
 function getDataFilters(filter) {
-
+    Message.getMessages(page.value, filter.text1, filter.text2, filter.text3).then(
+        (r) => {
+            messages.value = r.data.data.contacts.data
+        }
+    )
 }
 
-function rejectUser(id) {
-
+function deleteMessage(id) {
+    Message.deleteMessage(id).then(
+        () => {
+            getData()
+        }
+    )
 }
 
 
 function getData() {
+    Message.getMessages().then(
+        (r) => {
+            messages.value = r.data.data.contacts.data
+        }
+    )
 }
 
 onMounted(() => {
@@ -74,27 +89,23 @@ onMounted(() => {
         />
         <v-divider class="mb-5"></v-divider>
         <DataTable :headers="headers"
-                   dataTable=""
+                   :dataTable="messages"
                    :page="page"
                    :total="total"
                    :perPage="perPage"
                    local="messages"
         >
             <template v-slot:body="{item}">
-                <td class="text-center">{{ item.user.id }}</td>
-                <td class="text-center">{{ item.user.roles }}</td>
-                <td class="text-center">{{ item.user.name }}</td>
+                <td class="text-center">{{ item.id }}</td>
+                <td class="text-center">{{ item.full_name }}</td>
                 <td class="text-center">{{ item.email }}</td>
                 <td class="text-center">{{ item.subject }}</td>
                 <td class="text-center">{{ item.created_at }}</td>
                 <td class="text-center d-flex align-center">
-                    <v-btn size="x-small" color="info" @click="router.push(`/kyc/user/${item.id}`)"
-                           icon="mdi-eye-outline">
-                    </v-btn>
-
+                    <modal-message v-if="item.id" :id="item.id"/>
                     <question-modal :dialog="dialog" ok="بله" cancel="خیر"
-                                    text="ایا از عدم تایید کاربر اطمینان دارید؟"
-                                    @confirm="rejectUser(item.id)" @reject="dialog = false"
+                                    text="ایا از حذف پیام اطمینان دارید؟"
+                                    @confirm="deleteMessage(item.id)" @reject="dialog = false"
                     >
                         <template #element>
                             <v-btn size="x-small" @click="dialog = true" color="error"

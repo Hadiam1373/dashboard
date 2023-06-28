@@ -13,6 +13,7 @@ export default {
         userEmail:'ایمیل',
         walletId: 'شناسه ولت',
         'transaction_hash': 'شناسه تراکنش',
+        subject:'موضوع',
         user: 'کاربر',
         address: 'آدرس',
         network: 'شبکه',
