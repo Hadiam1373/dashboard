@@ -76,6 +76,11 @@ const sidebarItem: menu[] = [
         to: '/message',
     },
     {
+        title: 'packages',
+        icon: 'mdi-package-variant-closed',
+        to: '/packages',
+    },
+    {
         title: 'users',
         icon: 'mdi-account',
         children: [

@@ -6,6 +6,7 @@ export default {
     filters: {
         gatName: 'نام درگاه',
         type: 'وضعیت',
+        status:'نوع',
         search: 'جستجو',
         remove: 'حذف فیلترها',
         profit: 'میزان سود',
@@ -17,6 +18,7 @@ export default {
         user: 'کاربر',
         address: 'آدرس',
         network: 'شبکه',
+        package_name:'نام پکیج',
         name:'نام',
         label:'برچسب',
         sender_wallet: ' آدرس کیف پول فرستنده',
@@ -98,6 +100,7 @@ export default {
     sidebar: {
         dashboard: 'داشبورد',
         kyc: 'احراز هویت',
+        packages:'پکیج ها',
         gateways: 'درگاه ها',
         invoices: 'صورت حساب',
         upgrade: 'ارتقا حساب کاربری',
@@ -306,6 +309,14 @@ export default {
             status:'وضعیت',
             action:'فعالیت',
             id:'شناسه'
-        }
+        },
+        packages:{
+            package_name:'نام پکیج',
+            status:'وضعیت',
+            action:'فعالیت',
+            id:'شناسه',
+            type:'نوع',
+            date:'تاریخ ایجاد'
+        },
     }
 }

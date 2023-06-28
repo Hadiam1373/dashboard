@@ -251,7 +251,25 @@ const MainRoutes = {
                     component: () => import('@/views/dashboard/withdraw/createWithdraw.vue'),
                 },
             ]
-        }
+        },
+        {
+            name: 'Packages',
+            path: '/packages',
+            redirect: '/packages/packages-list',
+            component: () => import('@/views/dashboard/packages/index.vue'),
+            children: [
+                {
+                    name: 'PackagesList',
+                    path: 'packages-list',
+                    component: () => import('@/views/dashboard/packages/packageslist.vue'),
+                },
+                {
+                    name: 'CreatePackage',
+                    path: 'CreatePackage/:id?',
+                    component: () => import('@/views/dashboard/packages/create-package.vue'),
+                },
+            ]
+        },
     ]
 };
 
