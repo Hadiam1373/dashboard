@@ -82,7 +82,7 @@ const currentSubTitle = computed(() => {
 
 </script>
 <template>
-    <form @submit.prevent="submit">
+    <form  @submit.prevent="submit">
         <v-card
                 class="mx-auto"
                 color="background"

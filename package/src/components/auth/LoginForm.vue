@@ -38,9 +38,9 @@ function Login() {
             loading.value = false
             console.log(data.tow_factor_status)
             if (data.tow_factor_status === 'passed') {
-                router.push('/auth/2FA')
-            } else if (data.tow_factor_status === 'not_passed') {
                 router.push('/')
+            } else if (data.tow_factor_status === 'not_passed') {
+                router.push('/auth/2FA')
             }
 
         },

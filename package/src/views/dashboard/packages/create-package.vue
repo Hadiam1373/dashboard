@@ -4,7 +4,7 @@ import {computed, onMounted, ref} from "vue";
 import {useField, useForm} from "vee-validate";
 import {useRoute, useRouter} from "vue-router";
 import Package from '@/api/apis/Packages'
-
+import {successMessage} from "@/api/fetch/showErrorMessage";
 const route = useRoute()
 const router = useRouter()
 
@@ -75,7 +75,29 @@ function updatePackages() {
 }
 
 function createPackages() {
+    Package.getCreateDataPackage().then(
+        (r) => {
+            itemStatus.value = r.data.data.status
+            itemType.value = r.data.data.type
+        }
+    )
+}
 
+function storePackage() {
+    formData.append('name', name.value.value)
+    formData.append('fee', 0)
+    formData.append('type', type.value.value)
+    formData.append('tron_fee', tron_tax.value.value)
+    formData.append('bsc_fee', bsc_tax.value.value)
+    formData.append('code', package_code.value.value)
+    formData.append('status', status.value.value)
+    Package.storePackage(formData).then(
+        (r) => {
+            if (r.data.status === 'success') {
+                successMessage(r.data.message)
+            }
+        }
+    )
 }
 
 function editPackages() {
@@ -98,6 +120,8 @@ function editPackages() {
 onMounted(() => {
     if (route.params.id) {
         editPackages()
+    } else {
+        createPackages()
     }
 })
 </script>
@@ -164,7 +188,8 @@ onMounted(() => {
                             <v-btn v-if="route.params.id" type="submit" height="48" color="primary">
                                 ویرایش پکیج
                             </v-btn>
-                            <v-btn v-else type="submit" height="48" color="primary">ثبت پکیج</v-btn>
+                            <v-btn v-else type="submit" height="48" color="primary" @click="storePackage">ثبت پکیج
+                            </v-btn>
                         </v-col>
                     </v-row>
                 </v-col>

@@ -23,6 +23,8 @@ const {handleSubmit, handleReset} = useForm({
 
 let userSetting = ref()
 let loading = ref(false)
+let google_2fa_status = ref()
+let login_2fa = ref()
 // form data
 let mobile = useField('mobile')
 let email = useField('email')
@@ -45,6 +47,8 @@ function getSetting() {
             callback.value.value = r.data.data.callback
             fee.value.value = r.data.data.fee
             redirect.value = r.data.data.auto_redirect
+            google_2fa_status.value = r.data.data.google_2fa_status
+            login_2fa.value = r.data.data.login_2fa
             // if (r.data.data.auto_redirect === true) {
             //     redirect.value.value = 'فعال'
             // } else {
@@ -89,8 +93,26 @@ onMounted(() => {
             <v-card class="pa-5">
                 <v-card-title>تنظیمات امنیتی</v-card-title>
                 <v-divider class="mt5 mb-5"></v-divider>
-                <v-card-text>
+                <v-card-text v-if="google_2fa_status === 'disable'">
                     <Windows/>
+                </v-card-text>
+                <v-card-text v-else>
+                    <v-row align="center">
+                        <v-col cols="12" sm="6">
+                            <v-select v-model="google_2fa_status" :items="items" variant="outlined" density="compact"
+                                      label="وضعیت کد دو مرحله ای"
+                                      messages='با غیرفعال کردن این گزینه ، باید مجددا جهت فعالسازی با بارکد یا کد امنیتی اقدام کنید (امکان درخواست برداشت هم غیرفعال خواهد شد).'
+                            >
+                            </v-select>
+                        </v-col>
+                        <v-col cols="12" sm="6">
+                            <v-select v-model="login_2fa" :items="items" variant="outlined" density="compact"
+                                      label="وضعیت ورود 2 مرحله ای"
+                                      messages='با فعال کردن این گزینه ، جهت ورود به سایت باید کد 2 مرحله ای را از اپ Google Authenticator ارائه دهید. (توصیه شده، بصورت پیش فرض فعال است)'
+                            >
+                            </v-select>
+                        </v-col>
+                    </v-row>
                 </v-card-text>
             </v-card>
         </v-col>

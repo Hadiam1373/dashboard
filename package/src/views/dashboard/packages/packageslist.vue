@@ -1,11 +1,12 @@
 <script setup>
 import FiltersTable from "@/components/shared/FiltersTable.vue";
 import DataTable from "@/components/shared/DataTable.vue";
-import {computed, onMounted, ref} from "vue";
+import {computed, onMounted, ref, watch} from "vue";
 import {useRouter} from "vue-router";
 import QuestionModal from "@/components/shared/QuestionModal.vue";
 import Package from "@/api/apis/Packages"
 import Status from "@/components/shared/Status.vue";
+import {successMessage} from "@/api/fetch/showErrorMessage";
 
 
 const router = useRouter()
@@ -41,7 +42,7 @@ let headers = ref([
 
 
 function getDataFilters(filter) {
-    Package.getAllPackages(page.value ,filter.text1 , filter.select1 , filter.select2).then(
+    Package.getAllPackages(page.value, filter.text1, filter.select1, filter.select2).then(
         (r) => {
             packageList.value = r.data.data.packages.data
             type.value = r.data.data.type
@@ -50,20 +51,34 @@ function getDataFilters(filter) {
     )
 }
 
-function deleteMessage(id) {
-
+function deletePackage(id) {
+    Package.deletePackage(id).then(
+        (r) => {
+            if (r.data.status === 'success') {
+                dialog.value = false
+                successMessage(r.data.message)
+                getData()
+            }
+        }
+    )
 }
 
 
 function getData() {
-    Package.getAllPackages().then(
+    Package.getAllPackages(page.value).then(
         (r) => {
             packageList.value = r.data.data.packages.data
             type.value = r.data.data.type
             status.value = r.data.data.status
+            perPage.value = r.data.data.packages.meta.per_page
+            total.value = r.data.data.packages.meta.total
         }
     )
 }
+
+watch(page, (newX) => {
+    getData()
+})
 
 onMounted(() => {
     getData()
@@ -80,7 +95,8 @@ onMounted(() => {
                     </span>
                 </div>
                 <div>
-                    <v-btn variant="flat" color="primary" @click="router.push('/packages/CreatePackage')">ایجاد پکیج</v-btn>
+                    <v-btn variant="flat" color="primary" @click="router.push('/packages/CreatePackage')">ایجاد پکیج
+                    </v-btn>
                 </div>
             </div>
         </v-card-title>
@@ -110,7 +126,7 @@ onMounted(() => {
                     </v-btn>
                     <question-modal :dialog="dialog" ok="بله" cancel="خیر"
                                     text="ایا از حذف پیام اطمینان دارید؟"
-                                    @confirm="deleteMessage(item.id)" @reject="dialog = false"
+                                    @confirm="deletePackage(item.id)" @reject="dialog = false"
                     >
                         <template #element>
                             <v-btn size="x-small" @click="dialog = true" color="error"
