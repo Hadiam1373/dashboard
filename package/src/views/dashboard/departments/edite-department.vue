@@ -70,6 +70,7 @@ function getEditedDepartmentData() {
 function createDepartment() {
     Department.createDepartment(name.value.value, status.value.value).then(
         (r) => {
+            if(r.data.status === 'success')
             successMessage('واحد پشتیبانی مورد نظر ایجاد شد')
         }
     )

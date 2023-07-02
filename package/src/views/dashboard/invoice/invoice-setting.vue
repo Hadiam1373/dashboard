@@ -6,6 +6,7 @@ import {useField, useForm} from "vee-validate";
 import theme from "@/plugins/theme";
 import DatePicker from 'vue3-persian-datetime-picker'
 import {useLocale} from "vuetify";
+import {successMessage} from "@/api/fetch/showErrorMessage";
 
 const route = useRoute()
 const router = useRouter()
@@ -70,11 +71,15 @@ function storeInvoice() {
     formData.append('mobile', mobile.value.value)
     Invoice.StoreInvoice(formData).then(
         (r) => {
-            if (r.data.data.status !== 'error')
+            // if (r.data.data.status !== 'error')
+            //     router.push('/invoices')
+            if (r.data.status === 'success') {
+                successMessage('صورت حساب مورد نظر ایجاد شد')
                 router.push('/invoices')
+            }
         },
         (error) => {
-           router.go(0)
+            router.go(0)
         }
     )
 }
@@ -84,13 +89,15 @@ function updateInvoice() {
     formData.append('title', title.value.value)
     formData.append('amount', amount.value.value)
     formData.append('mobile', mobile.value.value)
-    formData.append('expired_at', expiration.value.value)
+    formData.append('expiration', expiration.value.value)
     formData.append('_method', 'PATCH')
     formData.append('description', description.value.value)
     Invoice.updateInvoice(formData, route.params.id).then(
         (r) => {
-            if (r.data.data.status !== 'error')
+            if (r.data.status === 'success') {
+                successMessage('صورت حساب مورد نظر ویرایش شد')
                 router.push('/invoices')
+            }
         },
         (error) => {
             router.go(0)
@@ -115,14 +122,16 @@ function getEditedInvoice() {
     )
 }
 
-function setTime(value){
-   expiration.value.value = value
+function setTime(value) {
+    expiration.value.value = value
 }
 
 onMounted(() => {
     if (route.params.id) {
         getEditedInvoice()
     }
+    getGateways()
+
 })
 </script>
 
@@ -179,10 +188,11 @@ onMounted(() => {
                 <v-col cols="12" lg="4" sm="6">
                     <v-text-field variant="outlined" color="primary" class="custom-input"
                                   :error-messages="expiration.errorMessage.value"
-                                  v-model="expiration.value.value" label="تاریخ انقضا" prepend-inner-icon="mdi-calendar-range">
+                                  v-model="expiration.value.value" label="تاریخ انقضا"
+                                  prepend-inner-icon="mdi-calendar-range">
                     </v-text-field>
                     <date-picker v-model="expiration.value.value" :color="theme.themes.light.colors.primary"
-                                 display-format="dddd jDD jMMMM jYYYY" type="datetime"
+                                 display-format="dddd jDD jMMMM jYYYY" type="datetime" format="jYYYY-jMM-jDD HH:mm"
                                  :locale="locale.current.value" custom-input=".custom-input" use-router/>
                 </v-col>
                 <v-col cols="12" lg="12" sm="12">

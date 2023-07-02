@@ -4,6 +4,7 @@ import {computed, onMounted, ref} from "vue";
 import {useField, useForm} from "vee-validate";
 import {useRoute, useRouter} from "vue-router";
 import {base642Binary} from "@/tools/base642Binary";
+import {successMessage} from "@/api/fetch/showErrorMessage";
 
 const route = useRoute()
 const router = useRouter()
@@ -67,13 +68,15 @@ function updateGateway() {
     formData.append('url', url.value.value)
     formData.append('color', color.value.value)
     formData.append('callback', callback.value.value)
-    if (!userLogo.value) {
+    if(!userLogo.value || userLogo.value  && logo.value.value){
         formData.append('logo', logo.value.value[0])
     }
     formData.append('_method', 'PATCH')
     Gateways.updateGateway(formData, route.params.id).then(
-        () => {
-            router.push('/gateways')
+        (r) => {
+            if (r.data.status === 'success') {
+                successMessage('درگاه مورد نظر با موفقیت ویرایش شد')
+            }
         },
         (error) => {
             router.go(0)
@@ -88,8 +91,9 @@ function createGateway() {
     formData.append('callback', callback.value.value)
     formData.append('logo', logo.value.value[0])
     Gateways.createGateway(formData).then(
-        () => {
-            router.push('/gateways')
+        (r) => {
+            if (r.data.data.status === 'success')
+                successMessage('درگاه مورد نظر با موفقیت ایجادشد')
         }
     )
 }

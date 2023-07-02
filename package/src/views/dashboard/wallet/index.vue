@@ -4,9 +4,10 @@ import FiltersTable from "@/components/shared/FiltersTable.vue";
 import Status from "@/components/shared/Status.vue";
 import DataTable from "@/components/shared/DataTable.vue";
 import {computed, onMounted, ref, watch} from "vue";
-import {useRouter} from "vue-router";
+import {useRoute, useRouter} from "vue-router";
 import Wallet from "@/api/apis/Wallet";
 
+const route = useRoute()
 const router = useRouter()
 let page = ref(1)
 let user_id = ref()
@@ -115,7 +116,7 @@ onMounted(() => {
                 <td class="text-center">{{ item.type }}</td>
                 <td class="text-center">{{ item.created_at }}</td>
                 <td class="text-center">
-                    <v-btn @click="router.push(`/transactions/deposit-list`)" size="small" color="primary"
+                    <v-btn @click="router.push(`/transactions/deposit-list/${item.wallet_id}`)" size="small" color="primary"
                            class="mx-1 mt-2 mt-lg-0">
                         تراکنش ها
                     </v-btn>

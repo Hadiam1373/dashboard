@@ -44,7 +44,7 @@ function getData() {
 }
 
 function getDataFilters(filter) {
-    Gateways.getGateways(page.value, filter.select1, filter.text1).then(
+    Gateways.getGateways(page.value, filter.text1 , filter.select1).then(
         (r) => {
             gateWaysData.value = r.data.data.gateways.data
             perPage.value = r.data.data.gateways.meta.per_page
@@ -101,7 +101,7 @@ onMounted(() => {
                 </td>
                 <td class="text-center">{{ item.created_at }}</td>
                 <td class="text-center d-none d-lg-table-cell d-sm-none">
-                    <v-btn size="small" color="secondary" class="mx-1 mt-2 mt-lg-0" prepend-icon="mdi-receipt">
+                    <v-btn size="small" color="secondary" @click="router.push(`/invoices/invoice-list/${item.name}`)" class="mx-1 mt-2 mt-lg-0" prepend-icon="mdi-receipt">
                         {{ $vuetify.locale.t(`$vuetify.dashboard.gateWays.invoice`) }}
                     </v-btn>
                     <v-btn @click="router.push(`/gateways/newGateways/${item.id}`)" size="small" color="primary"
@@ -110,7 +110,7 @@ onMounted(() => {
                     </v-btn>
                 </td>
                 <td class="text-center d-lg-none">
-                    <v-icon class="mx-1" color="primary">mdi-receipt</v-icon>
+                    <v-icon class="mx-1" @click="router.push(`/invoices/invoice-list/${item.name}`)" color="primary">mdi-receipt</v-icon>
                     <v-icon class="mx-1" @click="router.push(`/gateways/newGateways/${item.id}`)" color="secondary">
                         mdi-cog
                     </v-icon>

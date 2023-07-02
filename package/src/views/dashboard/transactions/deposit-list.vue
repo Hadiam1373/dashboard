@@ -5,7 +5,8 @@ import {computed, onMounted, ref} from "vue";
 import Transaction from "@/api/apis/Transaction";
 import Status from "@/components/shared/Status.vue";
 import QuestionModal from "@/components/shared/QuestionModal.vue";
-
+import {useRoute} from "vue-router";
+const route = useRoute()
 let inputs = ref([
     {type: 'text', label: 'transaction_hash', key: 'one'},
     {type: 'text', label: 'walletId', key: 'two'},
@@ -96,7 +97,12 @@ function manualCallback(id) {
 }
 
 onMounted(() => {
-    getData()
+    const id = route.params.id
+    if(route.params.id){
+        Transaction.getTransaction(page.value , null , id )
+    }else{
+        getData()
+    }
 })
 </script>
 <template>

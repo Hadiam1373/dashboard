@@ -1,9 +1,10 @@
 import axiosIns from "@/api/fetch/interceptors";
 
 class Transaction {
-    async getTransaction(transaction_id, wallet_id, status, user_id, toAddress, ownerAddress) {
+    async getTransaction(page ,transaction_id, wallet_id, status, user_id, toAddress, ownerAddress) {
         return await axiosIns.get('panel/transaction', {
             params: {
+                ...(page ? {page: page} : {}),
                 ...(user_id ? {user_id: user_id} : {}),
                 ...(status ? {status: status} : {}),
                 ...(transaction_id ? {transaction_id: transaction_id} : {}),

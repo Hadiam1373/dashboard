@@ -105,31 +105,34 @@ onMounted(() => {
                     <status :value="item.status" :status="item.status"/>
                 </td>
                 <td class="text-center">{{ item.created_at }}</td>
-                <td class="text-center d-flex align-center">
-                    <v-btn size="x-small" color="info" @click="router.push(`/kyc/user/${item.id}`)"
-                           icon="mdi-eye-outline">
-                    </v-btn>
+                <td class="text-center">
+                    <div class="d-flex align-center w-100">
+                        <v-btn class="mx-1" size="x-small" color="info" @click="router.push(`/kyc/user/${item.id}`)"
+                               icon="mdi-eye-outline">
+                        </v-btn>
 
-                    <question-modal :dialog="dialog" ok="بله" cancel="خیر"
-                                    text="ایا از عدم تایید کاربر اطمینان دارید؟"
-                                    @confirm="rejectUser(item.id)" @reject="dialog = false"
-                    >
-                        <template #element>
-                            <v-btn size="x-small" @click="dialog = true" color="error"
-                                   icon="mdi-window-close"></v-btn>
-                        </template>
-                    </question-modal>
 
-                    <question-modal :dialog="dialog2" ok="بله" cancel="خیر"
-                                    text="ایا از  تایید کاربر اطمینان دارید؟"
-                                    @confirm="confirmUser(item.id)" @reject="dialog2 = false"
-                    >
-                        <template #element>
-                            <v-btn size="x-small" @click="dialog2 = true" color="success"
-                                   icon="mdi-check" :disabled="item.status === 'accepted'">
-                            </v-btn>
-                        </template>
-                    </question-modal>
+                        <question-modal class="mx-1" :dialog="dialog" ok="بله" cancel="خیر"
+                                        text="ایا از عدم تایید کاربر اطمینان دارید؟"
+                                        @confirm="rejectUser(item.id)" @reject="dialog = false"
+                        >
+                            <template #element>
+                                <v-btn size="x-small" @click="dialog = true" color="error"
+                                       icon="mdi-window-close"></v-btn>
+                            </template>
+                        </question-modal>
+
+                        <question-modal class="mx-1" :dialog="dialog2" ok="بله" cancel="خیر"
+                                        text="ایا از  تایید کاربر اطمینان دارید؟"
+                                        @confirm="confirmUser(item.id)" @reject="dialog2 = false"
+                        >
+                            <template #element>
+                                <v-btn size="x-small" @click="dialog2 = true" color="success"
+                                       icon="mdi-check" :disabled="item.status === 'accepted'">
+                                </v-btn>
+                            </template>
+                        </question-modal>
+                    </div>
                 </td>
             </template>
         </DataTable>

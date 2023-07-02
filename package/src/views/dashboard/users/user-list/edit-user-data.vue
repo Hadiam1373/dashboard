@@ -4,6 +4,7 @@ import vuetify from "@/plugins/vuetify";
 import {onMounted, ref} from "vue";
 import {useRoute, useRouter} from "vue-router";
 import Users from "@/api/apis/users";
+import {successMessage} from "@/api/fetch/showErrorMessage";
 
 const route = useRoute()
 
@@ -70,8 +71,9 @@ function updateData() {
     formData.append('id', route.params.id)
     formData.append('_method', 'PATCH')
     Users.updateUser(formData, route.params.id).then(
-        () => {
+        (r) => {
             loading.value = false
+            if(r.data.status === 'success') successMessage('تغییرات مورد نظر با موفقیت اعمال شد')
         },
         (error) => {
             loading.value = false

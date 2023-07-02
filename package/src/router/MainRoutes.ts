@@ -37,7 +37,7 @@ const MainRoutes = {
             children: [
                 {
                     name: 'InvoiceList',
-                    path: '/invoices/invoice-list',
+                    path: '/invoices/invoice-list/:id?',
                     component: () => import('@/views/dashboard/invoice/InvoiceList.vue'),
                 },
                 {
@@ -129,7 +129,7 @@ const MainRoutes = {
                 },
                 {
                     name: 'DepositList',
-                    path: 'deposit-list',
+                    path: 'deposit-list/:id?',
                     component: () => import('@/views/dashboard/transactions/deposit-list.vue'),
                 },
                 {

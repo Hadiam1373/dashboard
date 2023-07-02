@@ -138,6 +138,10 @@ class Users {
             description: description,
         })
     }
+
+    async GetCreateData(){
+        return await axiosIns.get('panel/users/create')
+    }
 }
 
 export default new Users()

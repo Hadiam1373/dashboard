@@ -35,6 +35,9 @@ let computedColor = computed(() => {
         case 'transferred':
             color = '#56F000'
             break;
+        case 1:
+            color = '#56F000'
+            break;
         case 'disable':
             color = '#FCE83A'
             break;
@@ -45,6 +48,9 @@ let computedColor = computed(() => {
             color = '#FF3838'
             break;
         case 'failed':
+            color = '#FF3838'
+            break;
+        case 0:
             color = '#FF3838'
             break;
     }

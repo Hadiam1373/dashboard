@@ -3,6 +3,7 @@ import {onMounted, ref} from "vue";
 import {useRoute, useRouter} from "vue-router";
 import Users from "@/api/apis/users";
 import Authentication from "@/api/apis/Authentication";
+import {successMessage} from "@/api/fetch/showErrorMessage";
 
 const route = useRoute()
 const router = useRouter()
@@ -43,8 +44,9 @@ function updatePassword() {
     loading.value = true
     let id = route.params.id
     Users.updateRoles(id, itemRoles.value, itemPermissions.value).then(
-        () => {
+        (r) => {
             loading.value = false
+            if(r.data.status === 'success') successMessage('دسترسی های مورد نظر با موفقیت اعمال شد')
         },
         (error) => {
             loading.value = false

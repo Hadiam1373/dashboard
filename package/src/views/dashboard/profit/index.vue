@@ -25,7 +25,6 @@ let headers = ref([
     {title: 'package', align: 'end', key: 'package'},
     {title: 'status', align: 'end', key: 'status'},
     {title: 'date', align: 'end', key: 'creation_date'}
-
 ])
 
 let paginationLength = computed(() => {

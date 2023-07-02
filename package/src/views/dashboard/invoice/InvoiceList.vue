@@ -4,12 +4,12 @@ import DataTable from "@/components/shared/DataTable.vue";
 import FiltersTable from "@/components/shared/FiltersTable.vue";
 import {computed, onMounted, ref, watch} from "vue";
 import Invoice from "@/api/apis/Invoice";
-import {useRouter} from "vue-router";
+import {useRoute, useRouter} from "vue-router";
 import QuestionModal from "@/components/shared/QuestionModal.vue";
 
 
 const router = useRouter()
-
+const route = useRoute()
 let gateWaysData = ref()
 let gate = ref([])
 let gateId = ref([])
@@ -87,8 +87,24 @@ watch(page, (newX) => {
 })
 
 onMounted(() => {
-    getData()
+    const id = route.params.id
+    if (route.params.id) {
+        Invoice.getInvoice(page.value , id).then(
+            (r) => {
+                gateWaysData.value = r.data.data.gateways
+                gateWaysData.value.forEach(item => gate.value.push(item.name))
+                gateWaysData.value.forEach(item => gateId.value.push(item.id))
+                invoiceData.value = r.data.data.invoices.data
+                perPage.value = r.data.data.invoices.meta.per_page
+                total.value = r.data.data.invoices.meta.total
+                status.value = r.data.data.status
+            },
+        )
+    } else {
+        getData()
+    }
 })
+
 </script>
 
 <template>
@@ -147,7 +163,8 @@ onMounted(() => {
                            class="mx-1 mt-2 mt-lg-0" prepend-icon="mdi-receipt">
                         {{ $vuetify.locale.t(`$vuetify.dashboard.invoice.factor`) }}
                     </v-btn>
-                    <v-btn size="small" :disabled="item.status === 'cancelled'" @click="router.push(`/invoices/invoice-setting/${item.id}`)"
+                    <v-btn size="small" :disabled="item.status === 'cancelled'"
+                           @click="router.push(`/invoices/invoice-setting/${item.id}`)"
                            class="mx-1 mt-2 mt-lg-0" color="info" prepend-icon="mdi-pen">
                         {{ $vuetify.locale.t(`$vuetify.dashboard.invoice.setting`) }}
                     </v-btn>
@@ -165,7 +182,7 @@ onMounted(() => {
                 <td class="text-center d-lg-none">
                     <div class="d-flex align-center w-100">
                         <v-icon @click="showFactor(item.token)" class="mx-1" color="primary">mdi-receipt</v-icon>
-                        <v-icon class="mx-1" color="info">mdi-pen</v-icon>
+                        <v-icon class="mx-1" @click="router.push(`/invoices/invoice-setting/${item.id}`)" color="info">mdi-pen</v-icon>
                         <question-modal class="mx-1" :dialog="dialog"
                                         title="آیا از غیر فعال کردن این صورت حساب اطمینان دارید؟" ok="بله"
                                         cancel="انصراف" @confirm="deleteFactor(item.id)" @reject="dialog = false">

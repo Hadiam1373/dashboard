@@ -38,6 +38,7 @@ let headers = ref([
 
 
 function getDataFilters(filter) {
+    console.log(filter)
     Department.getDepartments(page.value, filter.text1, filter.select1).then(
         (r) => {
             departmentList.value = r.data.data.departments.data
@@ -81,9 +82,13 @@ onMounted(() => {
                     </span>
                 </div>
                 <div>
-                    <v-btn variant="flat" color="primary" @click="router.push('/department/edite-department')">ایجاد
-                        واحد
+                    <v-btn color="primary" class="d-none d-lg-block d-sm-none"
+                           @click="router.push('/department/edite-department')">
+                        ایجاد واحد
                     </v-btn>
+                    <v-icon class="d-lg-none" @click="router.push('/department/edite-department')" color="primary">
+                        mdi-plus
+                    </v-icon>
                 </div>
             </div>
         </v-card-title>
@@ -102,44 +107,62 @@ onMounted(() => {
             <template v-slot:body="{item}">
                 <td class="text-center">{{ item.id }}</td>
                 <td class="text-center">{{ item.name }}</td>
-                <td class="text-center">{{ item.status }}</td>
-                <td class="text-end d-flex align-center justify-center gap-2">
-                    <v-btn color="info" variant="flat" @click="router.push(`/department/edite-department/${item.id}`)">
-                        ویرایش
-                    </v-btn>
+                <td class="text-center">
+                    <status :value="item.status" :status="item.status"/>
+                </td>
+                <td class="text-center d-none d-lg-flex align-center d-sm-none">
+                    <div class="d-flex align-center justify-center gap-2 w-100">
+                        <v-btn color="info" variant="flat"
+                               @click="router.push(`/department/edite-department/${item.id}`)">
+                            ویرایش
+                        </v-btn>
 
-
-                    <v-dialog
-                            v-model="dialog"
-                            persistent
-                            width="auto"
-                    >
-                        <template v-slot:activator="{ props }">
-                            <v-btn @click="dialog = true" variant="flat" color="error">حذف</v-btn>
-                        </template>
-                        <v-card>
-                            <v-card-text>
-                                آیا مایل به حذف این واحد هستید؟
-                            </v-card-text>
-                            <v-card-actions>
-                                <v-spacer></v-spacer>
-                                <v-btn
-                                        color="error"
-                                        variant="outlined"
-                                        @click="deleteDPT(item.id)"
-                                >
-                                    بله
-                                </v-btn>
-                                <v-btn
-                                        color="success"
-                                        variant="outlined"
-                                        @click="dialog = false"
-                                >
-                                    خیر
-                                </v-btn>
-                            </v-card-actions>
-                        </v-card>
-                    </v-dialog>
+                        <v-dialog
+                                v-model="dialog"
+                                persistent
+                                width="auto"
+                        >
+                            <template v-slot:activator="{ props }">
+                                <v-btn @click="dialog = true" variant="flat" color="error">حذف</v-btn>
+                            </template>
+                            <v-card>
+                                <v-card-text>
+                                    آیا مایل به حذف این واحد هستید؟
+                                </v-card-text>
+                                <v-card-actions>
+                                    <v-spacer></v-spacer>
+                                    <v-btn
+                                            color="error"
+                                            variant="outlined"
+                                            @click="deleteDPT(item.id)"
+                                    >
+                                        بله
+                                    </v-btn>
+                                    <v-btn
+                                            color="success"
+                                            variant="outlined"
+                                            @click="dialog = false"
+                                    >
+                                        خیر
+                                    </v-btn>
+                                </v-card-actions>
+                            </v-card>
+                        </v-dialog>
+                    </div>
+                </td>
+                <td class="text-center d-lg-none">
+                    <div class="d-flex align-center w-100">
+                        <v-icon class="mx-1" @click="router.push(`/department/edite-department/${item.id}`)"
+                                color="info">mdi-pen
+                        </v-icon>
+                        <question-modal class="mx-1" :dialog="dialog"
+                                        title="آیا از غیر فعال کردن این واحد اطمینان دارید؟" ok="بله"
+                                        cancel="انصراف" @confirm="deleteDPT(item.id)" @reject="dialog = false">
+                            <template v-slot:element="{props}">
+                                <v-icon class="mx-1" color="error" @click="dialog =! dialog">mdi-close</v-icon>
+                            </template>
+                        </question-modal>
+                    </div>
                 </td>
             </template>
         </DataTable>

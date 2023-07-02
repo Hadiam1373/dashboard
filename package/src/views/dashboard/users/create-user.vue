@@ -9,10 +9,10 @@ const route = useRoute()
 
 const {handleSubmit, handleReset} = useForm({
     validationSchema: {
-        email(value) {
-            if (/^[a-z.-]+@[a-z.-]+\.[a-z]+$/i.test(value)) return true
-            return vuetify.locale.t('$vuetify.error.email')
-        },
+        // email(value) {
+        //     if (/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(value)) return true
+        //     return vuetify.locale.t('$vuetify.error.email')
+        // },
 
         mobile(value) {
             if (value) return true
@@ -85,7 +85,22 @@ function createUser() {
 }
 
 const submit = handleSubmit(values => {
-    createUser()
+    alert('dfdfdfdfdfdfdfdfdf')
+    // createUser()
+})
+
+function getCreateData() {
+    Users.GetCreateData().then(
+        (r) => {
+            userStatus.value = r.data.data.status
+            thisPackage.value = r.data.data.packages
+            items.value = r.data.data.status_auto_redirect
+        }
+    )
+}
+
+onMounted(() => {
+    getCreateData()
 })
 </script>
 

@@ -6,7 +6,7 @@ class Department {
             params: {
                 ...(page ? {page: page} : {}),
                 ...(name ? {name: name} : {}),
-                ...(status ? {status: status} : {})
+                ...(status ? {status: status} : 0)
             }
         })
     }

@@ -103,7 +103,7 @@ onMounted(() => {
                 <td class="text-center">{{ item.created_at }}</td>
                 <td class="text-center d-flex align-center">
                     <modal-message v-if="item.id" :id="item.id"/>
-                    <question-modal :dialog="dialog" ok="بله" cancel="خیر"
+                    <question-modal class="mx-1" :dialog="dialog" ok="بله" cancel="خیر"
                                     text="ایا از حذف پیام اطمینان دارید؟"
                                     @confirm="deleteMessage(item.id)" @reject="dialog = false"
                     >

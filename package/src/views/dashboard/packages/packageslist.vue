@@ -95,8 +95,13 @@ onMounted(() => {
                     </span>
                 </div>
                 <div>
-                    <v-btn variant="flat" color="primary" @click="router.push('/packages/CreatePackage')">ایجاد پکیج
+                    <v-btn color="primary" class="d-none d-lg-block d-sm-none"
+                           @click="router.push('/packages/CreatePackage')">
+                        ایجاد پکیج
                     </v-btn>
+                    <v-icon class="d-lg-none" @click="router.push('/packages/CreatePackage')" color="primary">
+                        mdi-plus
+                    </v-icon>
                 </div>
             </div>
         </v-card-title>
@@ -120,10 +125,12 @@ onMounted(() => {
                 </td>
                 <td class="text-center">{{ item.status_label }}</td>
                 <td class="text-center">{{ item.created_at }}</td>
-                <td class="text-center d-flex align-center">
-                    <v-btn color="info" @click="router.push(`/packages/CreatePackage/${item.id}`)" variant="flat">
+                <td class="text-center">
+                    <div class="d-flex align-center justify-center gap-2">
+                    <v-btn color="info" @click="router.push(`/packages/CreatePackage/${item.id}`)" variant="flat" class="d-none d-lg-block">
                         ویرایش
                     </v-btn>
+                    <v-btn icon="mdi-pen" size="x-small" @click="router.push(`/packages/CreatePackage/${item.id}`)" class="d-lg-none mx-4" color="info"></v-btn>
                     <question-modal :dialog="dialog" ok="بله" cancel="خیر"
                                     text="ایا از حذف پیام اطمینان دارید؟"
                                     @confirm="deletePackage(item.id)" @reject="dialog = false"
@@ -133,6 +140,7 @@ onMounted(() => {
                                    icon="mdi-window-close"></v-btn>
                         </template>
                     </question-modal>
+                    </div>
                 </td>
             </template>
         </DataTable>
