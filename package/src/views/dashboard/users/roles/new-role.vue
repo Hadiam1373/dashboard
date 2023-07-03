@@ -3,6 +3,7 @@ import {onMounted, ref} from "vue";
 import {useRoute, useRouter} from "vue-router";
 import Users from "@/api/apis/users";
 import Authentication from "@/api/apis/Authentication";
+import {successMessage} from "@/api/fetch/showErrorMessage";
 
 const route = useRoute()
 const router = useRouter()
@@ -39,8 +40,11 @@ function updateRoles() {
     loading.value = true
     let id = route.params.id
     Users.updateRoles(id, itemRoles.value, itemPermissions.value).then(
-        () => {
+        (r) => {
             loading.value = false
+            if (r.data.status === 'success') {
+                successMessage('کاربر باموفقیت بروزرسانی شد')
+            }
         },
         (error) => {
             loading.value = false
@@ -57,7 +61,13 @@ function getOptionRoles() {
 }
 
 function createRole() {
-    Users.creteRole(name.value, label.value, des.value, itemPermissions.value)
+    Users.creteRole(name.value, label.value, des.value, itemPermissions.value).then(
+        (r) => {
+            if (r.data.status === 'success') {
+                successMessage('نقش باموفقیت ایجاد شد')
+            }
+        }
+    )
 }
 
 

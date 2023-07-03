@@ -120,8 +120,6 @@ class Users {
         )
     }
 
-
-
     async removePermissions(id) {
         return await axiosIns.delete(`panel/permissions/${id}`)
     }

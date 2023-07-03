@@ -18,8 +18,8 @@ onMounted(() => {
 </script>
 
 <template>
-    <v-row>
-        <v-col v-for="(item , index) in profileData" :key="index" cols="12" lg="3">
+    <v-row justify="center" align="center" class="mt-5">
+        <v-col v-for="(item , index) in profileData" :key="index" cols="10" sm="6" lg="3">
             <v-card class="profile-card pa-2">
                 <v-col class="text-start">
                     {{ $vuetify.locale.t(`$vuetify.dashboard.cartTitle.${index}`) }}

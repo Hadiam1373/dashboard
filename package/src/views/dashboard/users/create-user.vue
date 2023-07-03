@@ -4,16 +4,16 @@ import vuetify from "@/plugins/vuetify";
 import {onMounted, ref} from "vue";
 import {useRoute, useRouter} from "vue-router";
 import Users from "@/api/apis/users";
+import {successMessage} from "@/api/fetch/showErrorMessage";
 
 const route = useRoute()
 
 const {handleSubmit, handleReset} = useForm({
     validationSchema: {
-        // email(value) {
-        //     if (/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(value)) return true
-        //     return vuetify.locale.t('$vuetify.error.email')
-        // },
-
+        email(value) {
+            if (/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(value)) return true
+            return vuetify.locale.t('$vuetify.error.email')
+        },
         mobile(value) {
             if (value) return true
             return 'لطفا موبایل را وراد نمایید'
@@ -40,7 +40,17 @@ const {handleSubmit, handleReset} = useForm({
             }
             return true;
         },
+
+        redirect(value) {
+            if (value) return true
+            return 'لطفا ریدایرکت را انتخاب نمایید'
+        }
     }
+})
+
+const submit = handleSubmit(values => {
+    console.log(formData)
+    createUser()
 })
 
 let formData = new FormData()
@@ -50,12 +60,13 @@ let name = useField('name')
 let status = useField('status')
 let wallet = useField('wallet')
 let userPackage = useField('userPackage')
+let password = useField('password')
+let redirect = useField('redirect')
 let thisPackage = ref([])
 let id = ref()
-let password = useField('password')
 let callBack = ref()
 let loading = ref(false)
-let redirect = ref()
+
 let userStatus = ref([])
 const items = ref([
     {title: 'فعال', value: true},
@@ -72,11 +83,14 @@ function createUser() {
     formData.append('active_package_id', userPackage.value.value)
     formData.append('password', password.value)
     formData.append('callback', callBack.value)
-    formData.append('auto_redirect', redirect.value)
-    formData.append('id', route.params.id)
-    Users.createUser(formData, route.params.id).then(
-        () => {
+    formData.append('auto_redirect', redirect.value.value.value)
+    // formData.append('id', route.params.id)
+    Users.createUser(formData).then(
+        (r) => {
             loading.value = false
+            if(r.data.status === 'success'){
+                successMessage('کاربر جدید با موفقیت ایجاد شد')
+            }
         },
         (error) => {
             loading.value = false
@@ -84,10 +98,6 @@ function createUser() {
     )
 }
 
-const submit = handleSubmit(values => {
-    alert('dfdfdfdfdfdfdfdfdf')
-    // createUser()
-})
 
 function getCreateData() {
     Users.GetCreateData().then(
@@ -151,8 +161,8 @@ onMounted(() => {
                         </v-text-field>
                     </v-col>
                     <v-col cols="12" sm="6" lg="4">
-                        <v-text-field variant="outlined" type="password" color="primary" v-model="password"
-                                      label="رمز عبور"
+                        <v-text-field variant="outlined" type="password" color="primary" v-model="password.value.value"
+                                      label="رمز عبور" :error-messages="password.errorMessage.value"
                         >
                         </v-text-field>
                     </v-col>
@@ -180,8 +190,9 @@ onMounted(() => {
                                   :items="items"
                                   item-title="title"
                                   item-value="value"
-                                  v-model="redirect"
+                                  v-model="redirect.value.value"
                                   return-object
+                                  :error-messages="redirect.errorMessage.value"
                                   messages='با فعال بودن این گزینه ، چنانچه قبلا در پنل وارد شده باشید دیگر صفحه نخست سایت را مشاهده نخواهید کرد.'
                         >
                         </v-select>

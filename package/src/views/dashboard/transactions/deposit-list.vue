@@ -53,6 +53,7 @@ async function copyCode(value) {
 }
 
 function getDataFilters(filter) {
+    console.log(filter)
     Transaction.getTransaction(
         page.value, filter.text1, filter.text2, filter.select1,
         filter.text3, filter.text4, filter.select2

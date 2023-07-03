@@ -9,21 +9,19 @@ const router = useRouter()
 export function showMessage(error) {
     const errorMessage = Object.values(error.response.data.message).flat().join('<br>');
     // if restive Unauthenticated error
-    // if (error.response.status === 401 || error.response.status === 403 || error.response.message === 'Unauthenticated.') {
-    //     removeItem('userData');
-    //     removeItem('accessToken');
-    //     Toast.fire({
-    //         icon: 'error',
-    //         title: vuetify.locale.t('$vuetify.sweetAlert.title'),
-    //         text: error.response.data.message
-    //     }).then(
-    //         (r) => {
-    //             router.push('/auth/login').then(r => true)
-    //         }
-    //     )
-    // }
+    if (error.response.status === 401 || error.response.status === 403 || error.response.message === 'Unauthenticated.') {
+        Authentication.logout().then(
+            (r) => {
+                if(r.data.status === 'success'){
+                    window.location.href = "http://localhost:5173/auth/login";
+                    removeItem('userData');
+                    removeItem('accessToken');
+                }
+            }
+        )
+    }
     // if error type is object
-     if (typeof (error.response.data.message) === 'object') {
+    if (typeof (error.response.data.message) === 'object') {
         Toast.fire({
             icon: 'error',
             title: vuetify.locale.t('$vuetify.sweetAlert.title'),

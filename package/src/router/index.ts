@@ -29,3 +29,4 @@ router.beforeEach(async (to, from) => {
         return {name: 'Login'}
     }
 })
+

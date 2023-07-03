@@ -37,7 +37,7 @@ let paginationLength = computed(() => {
 function getDataFilters(filter) {
     Users.getRoles(page.value, filter.text1, filter.text2).then(
         (r) => {
-            usersData.value = r.data.data.roles
+            usersData.value = r.data.data.roles.data
         }
     )
 }
@@ -54,7 +54,7 @@ function deleteItem(id) {
 function getData() {
     Users.getRoles().then(
         (r) => {
-            usersData.value = r.data.data.roles
+            usersData.value = r.data.data.roles.data
         }
     )
 }

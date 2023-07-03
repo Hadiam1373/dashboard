@@ -179,7 +179,8 @@ export default {
             'transactions_amount': 'مبلغ معاملات',
             'transactions_average': 'میانگین معاملات',
             'withdraw_requests': 'درخواست برداشت',
-            'monthly_average': 'میانگین ماهانه'
+            'monthly_average': 'میانگین ماهانه',
+            'transactions_confirmed':'تراکنش های موفق'
         },
         gateWays: {
             title: 'لیست درگاه ها',

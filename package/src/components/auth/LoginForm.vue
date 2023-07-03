@@ -29,25 +29,22 @@ const email = useField('email');
 const password = useField('password');
 let loading = ref(false);
 
-function Login() {
-    Authentication.login(email.value.value, password.value.value).then(
-        (r) => {
-            const {token, ...data} = r.data.data
-            setItem('userData', JSON.stringify(data), '36000000')
-            setItem('accessToken', token, '36000000')
-            loading.value = false
-            console.log(data.tow_factor_status)
-            if (data.tow_factor_status === 'passed') {
-                router.push('/')
-            } else if (data.tow_factor_status === 'not_passed') {
-                router.push('/auth/2FA')
-            }
+async function Login() {
+    try {
+        const r = await Authentication.login(email.value.value, password.value.value);
+        const {token, ...data} = r.data.data;
+        setItem('userData', JSON.stringify(data), '36000000');
+        setItem('accessToken', token, '36000000');
+        loading.value = false;
 
-        },
-        (error) => {
-            loading.value = false
+        if (data.tow_factor_status === 'passed' && r.data.status === 'success') {
+            window.location.href = "http://localhost:5173/";
+        } else if (data.tow_factor_status === 'not_passed' && r.data.status === 'success') {
+            await router.push('/auth/2FA');
         }
-    )
+    } catch (error) {
+        loading.value = false;
+    }
 }
 
 const submit = handleSubmit(values => {
