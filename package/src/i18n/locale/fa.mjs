@@ -99,6 +99,7 @@ export default {
     },
     sidebar: {
         dashboard: 'داشبورد',
+        ChangePassword:'تغییر رمز عبور',
         kyc: 'احراز هویت',
         packages:'پکیج ها',
         gateways: 'درگاه ها',

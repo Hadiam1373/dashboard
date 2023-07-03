@@ -31,6 +31,15 @@ class Auth {
             google_verify_code: code
         })
     }
+
+    async updatePassword(current, newPass, confirm) {
+        return await axiosIns.post('panel/password/update', {
+                current_password: current,
+                password: newPass,
+                password_confirmation: confirm
+            }
+        )
+    }
 }
 
 export default new Auth()

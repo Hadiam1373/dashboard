@@ -12,10 +12,11 @@ export function showMessage(error) {
     if (error.response.status === 401 || error.response.status === 403 || error.response.message === 'Unauthenticated.') {
         Authentication.logout().then(
             (r) => {
+                console.log('logout .....')
                 if(r.data.status === 'success'){
-                    window.location.href = "http://localhost:5173/auth/login";
                     removeItem('userData');
                     removeItem('accessToken');
+                    window.location.href = "http://localhost:5173/auth/login";
                 }
             }
         )

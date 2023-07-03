@@ -86,19 +86,19 @@ const sidebarItem: menu[] = [
         children: [
             {
                 title: 'UserList',
-                to:'/users/users-list'
+                to: '/users/users-list'
             },
             {
                 title: 'CreateUser',
-                to:'/users/create-user'
+                to: '/users/create-user'
             },
             {
                 title: 'UserRoles',
-                to:'/users/user-roles'
+                to: '/users/user-roles'
             },
             {
                 title: 'Permissions',
-                to:'/users/permissions'
+                to: '/users/permissions'
             }
         ]
     },
@@ -126,12 +126,12 @@ const sidebarItem: menu[] = [
         icon: 'mdi-wallet-travel',
         children: [
             {
-                title:'withdraw requests list',
-                to:'/withdraw/withdraw-list'
+                title: 'withdraw requests list',
+                to: '/withdraw/withdraw-list'
             },
             {
-                title:'create withdraw request',
-                to:'/withdraw/createWithdraw'
+                title: 'create withdraw request',
+                to: '/withdraw/createWithdraw'
             },
         ]
     },
@@ -141,7 +141,7 @@ const sidebarItem: menu[] = [
         to: '/setting',
     },
     {
-        title: 'change password',
+        title: 'ChangePassword',
         icon: 'mdi-lock',
         to: '/change-password',
     },
@@ -149,7 +149,8 @@ const sidebarItem: menu[] = [
         title: 'documentation',
         icon: 'mdi-file-document-outline',
         to: '/gateway-documentation',
-    }
+    },
+
 ];
 
 export default sidebarItem;

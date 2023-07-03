@@ -270,6 +270,11 @@ const MainRoutes = {
                 },
             ]
         },
+        {
+            name: 'ChangePassword',
+            path: '/change-password',
+            component: () => import('@/views/dashboard/change-password/index.vue'),
+        },
     ]
 };
 
