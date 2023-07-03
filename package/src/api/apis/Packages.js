@@ -36,6 +36,17 @@ class Package {
     async deletePackage(id) {
         return await axiosIns.delete(`panel/package/${id}`)
     }
+
+    async getUpgradePackage() {
+        return await axiosIns.get('panel/account/upgrade')
+    }
+
+    async changePackage(packageCode, googleCode) {
+        return await axiosIns.post('panel/account/change/package', {
+            package_code: packageCode,
+            google_verify_code: googleCode
+        })
+    }
 }
 
 export default new Package()

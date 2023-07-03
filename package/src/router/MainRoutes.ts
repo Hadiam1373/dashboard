@@ -275,6 +275,11 @@ const MainRoutes = {
             path: '/change-password',
             component: () => import('@/views/dashboard/change-password/index.vue'),
         },
+        {
+            name: 'Upgrade',
+            path: '/upgrade',
+            component: () => import('@/views/dashboard/upgrade/index.vue'),
+        },
     ]
 };
 
