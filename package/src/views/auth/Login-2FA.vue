@@ -7,7 +7,7 @@ import {useRoute, useRouter} from "vue-router";
 
 const router = useRouter()
 
-let email = ref("Hm646036@gmail.com")
+let email = ref()
 
 function setOtp(n) {
     Authentication.confirmedIs2Fa(n).then(

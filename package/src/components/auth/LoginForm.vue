@@ -38,7 +38,7 @@ async function Login() {
         loading.value = false;
 
         if (data.tow_factor_status === 'passed' && r.data.status === 'success') {
-            window.location.href = "http://localhost:5173/";
+            window.location.href = "/";
         } else if (data.tow_factor_status === 'not_passed' && r.data.status === 'success') {
             await router.push('/auth/2FA');
         }

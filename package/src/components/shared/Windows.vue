@@ -5,7 +5,10 @@ import {useField, useForm} from "vee-validate";
 import vuetify from "@/plugins/vuetify";
 import Authentication from "@/api/apis/Authentication";
 import Setting from "@/api/apis/Setting";
+import {useRoute, useRouter} from "vue-router";
 
+const router = useRouter()
+const route = useRoute()
 
 const {handleSubmit, handleReset} = useForm({
     validationSchema: {
@@ -28,7 +31,8 @@ let QR = ref()
 function setOtp(val) {
     otp.value = val
     Setting.confirmGoogleCode(val).then(
-        () => {
+        (r) => {
+            if (r.data.status === 'success')
             step.value++
         }
     )
@@ -67,7 +71,6 @@ const currentTitle = computed(() => {
         }
     },
 )
-
 const currentSubTitle = computed(() => {
     switch (step.value) {
         case 1:
@@ -82,17 +85,17 @@ const currentSubTitle = computed(() => {
 
 </script>
 <template>
-    <form  @submit.prevent="submit">
+    <form @submit.prevent="submit">
         <v-card
                 class="mx-auto"
-                color="background"
                 width="100%"
+                elevation="0"
         >
-            <v-card-title class="text-h6 font-weight-regular justify-space-between">
+            <v-card-title v-if="step !== 3" class="text-h6 font-weight-regular justify-space-between">
                 <span>{{ currentTitle }}</span>
             </v-card-title>
 
-            <v-card-subtitle>
+            <v-card-subtitle v-if="step !== 3">
                 <span>{{ currentSubTitle }}</span>
             </v-card-subtitle>
 
@@ -127,16 +130,11 @@ const currentSubTitle = computed(() => {
 
                 <v-window-item :value="3">
                     <div class="pa-4 text-center">
-                        <v-img
-                                class="mb-4"
-                                contain
-                                height="128"
-                                src="https://cdn.vuetifyjs.com/images/logos/v.svg"
-                        ></v-img>
+                        <v-icon style="font-size: 50px" class="mb-5" color="success">mdi-check-circle</v-icon>
                         <h3 class="text-h6 font-weight-light mb-2">
-                            Welcome to Vuetify
+                           ورود دو مرحله ایی شما با موفقیت انجام شد
                         </h3>
-                        <span class="text-caption text-grey">Thanks for signing up!</span>
+                        <v-btn @click="router.go(0)" variant="flat" color="primary" width="300">ادامه</v-btn>
                     </div>
                 </v-window-item>
             </v-window>
@@ -155,7 +153,7 @@ const currentSubTitle = computed(() => {
                         v-if="step === 2"
                         color="primary"
                         variant="flat"
-                        @click="step++"
+                        type="submit"
                 >
                     تایید کد دریافتی
                 </v-btn>

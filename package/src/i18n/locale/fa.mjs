@@ -320,5 +320,11 @@ export default {
             type:'نوع',
             date:'تاریخ ایجاد'
         },
+        inviteFriend:{
+            id:'شناسه',
+            name:'نام و نام خانوادگی',
+            status_label:'وضعیت',
+            created_at:'تاریخ',
+        }
     }
 }

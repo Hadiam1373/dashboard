@@ -280,6 +280,11 @@ const MainRoutes = {
             path: '/upgrade',
             component: () => import('@/views/dashboard/upgrade/index.vue'),
         },
+        {
+            name: 'InviteFriends',
+            path: '/invite-friends',
+            component: () => import('@/views/dashboard/invite-friends/index.vue'),
+        },
     ]
 };
 

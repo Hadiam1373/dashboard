@@ -2,7 +2,7 @@
     <v-alert
         type="error"
         title="ورود دو مرحله ایی فعال نیست"
-        text=" به دلایل امنیتی، برای درخواست برداشت، باید این ویژگی را در تنظیمات فعال کنید"
+        text=" به دلایل امنیتی، برای انجام این عملیات، باید این ویژگی را در تنظیمات فعال کنید"
     >
         <template v-slot="defualt">
                <v-btn color="blue" variant="text" role="link" tag="link" @click="router.push('/setting')">برو به تنظیمات</v-btn>

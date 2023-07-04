@@ -22,6 +22,15 @@ class Auth {
         })
     }
 
+
+    async confirmPasswordForChange(password, google_2fa_status, login_2fa) {
+        return await axiosIns.post('panel/settings/confirm/password/for/change', {
+            password_for_change: password,
+            google_2fa_status: google_2fa_status,
+            login_2fa: login_2fa
+        })
+    }
+
     async is2Fa() {
         return await axiosIns.get('two-factor/auth')
     }

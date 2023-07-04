@@ -16,7 +16,7 @@ export function showMessage(error) {
                 if(r.data.status === 'success'){
                     removeItem('userData');
                     removeItem('accessToken');
-                    window.location.href = "http://localhost:5173/auth/login";
+                    window.location.href = "/auth/login";
                 }
             }
         )
