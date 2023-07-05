@@ -1,6 +1,7 @@
 <script setup>
 import Icon from '../Icon.vue';
 import {useRouter} from "vue-router";
+
 const router = useRouter()
 const props = defineProps({item: Object, level: Number});
 </script>
@@ -42,7 +43,7 @@ const props = defineProps({item: Object, level: Number});
     >
         <!--        -If icon-->
         <template v-slot:prepend>
-            <v-icon>{{ item.icon}}</v-icon>
+            <v-icon>{{ item.icon }}</v-icon>
         </template>
         <v-list-item-title>{{ $vuetify.locale.t(`$vuetify.sidebar.${item.title}`) }}</v-list-item-title>
         <!---If Caption-->
@@ -62,4 +63,5 @@ const props = defineProps({item: Object, level: Number});
             </v-chip>
         </template>
     </v-list-item>
+
 </template>

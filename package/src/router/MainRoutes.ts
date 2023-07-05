@@ -285,6 +285,42 @@ const MainRoutes = {
             path: '/invite-friends',
             component: () => import('@/views/dashboard/invite-friends/index.vue'),
         },
+        {
+            name: 'ChangeHistory',
+            path: '/changeHistory',
+            component: () => import('@/views/dashboard/History/index.vue'),
+            redirect: '/changeHistory/list-changeHistory',
+            children:[
+                {
+                    name: 'ListChangeHistory',
+                    path: 'list-changeHistory',
+                    component: () => import('@/views/dashboard/History/list-change-history.vue'),
+                },
+                {
+                    name: 'CreateChangeHistory',
+                    path: 'Create-changeHistory/:id?',
+                    component: () => import('@/views/dashboard/History/create-changeHistory.vue'),
+                },
+            ]
+        },
+        {
+            name: 'LogManager',
+            path: '/logManager',
+            component: () => import('@/views/dashboard/log-manager/index.vue'),
+            redirect: '/logManager/list-logManager',
+            children: [
+                {
+                    name: 'ListLogManager',
+                    path: 'list-logManager',
+                    component: () => import('@/views/dashboard/log-manager/log-list.vue'),
+                },
+                {
+                    name: 'ShowLog',
+                    path: 'showLog/:id?',
+                    component: () => import('@/views/dashboard/log-manager/show-log.vue'),
+                },
+            ]
+        },
     ]
 };
 

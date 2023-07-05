@@ -6,6 +6,14 @@ import NavItem from './vertical-sidebar/NavItem/index.vue';
 import Logo from './logo/Logo.vue';
 import {useLocale} from 'vuetify'
 
+
+function goToDoc() {
+    window.open(
+        'https://test.bitocredit.com/document/fa',
+        '_blank' // <- This is what makes it open in a new window.
+    );
+}
+
 const {t} = useLocale()
 // Icon Imports
 import {Menu2Icon, BellRingingIcon} from 'vue-tabler-icons';
@@ -41,6 +49,13 @@ const sDrawer = ref(true);
                         <NavItem :item="item" v-else/>
                         <!---End Single Item-->
                     </template>
+                    <v-list-item
+                            prepend-icon="mdi-file-document-outline"
+                            title="مستندات درگاه"
+                            class="mb-1"
+                            @click="goToDoc"
+                    >
+                    </v-list-item>
                 </v-list>
             </perfect-scrollbar>
         </div>

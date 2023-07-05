@@ -23,7 +23,10 @@ export default {
         label:'برچسب',
         sender_wallet: ' آدرس کیف پول فرستنده',
         receiver_wallet: 'آدرس کیف پول گیرنده',
-        support_department:'واحد پشتیبانی'
+        support_department:'واحد پشتیبانی',
+        filterBy:'فیلتر براساس',
+        sortBy:'مرتب سازی براساس',
+        typeLog:'نوع لاگ'
     },
     dataIterator: {
         noResultsText: 'نتیجه‌ای یافت نشد',
@@ -99,7 +102,9 @@ export default {
     },
     sidebar: {
         dashboard: 'داشبورد',
+        ChangeHistory:'تاریخچه تغییرات',
         ChangePassword:'تغییر رمز عبور',
+        LogManager:'مدیریت لاگ ها',
         kyc: 'احراز هویت',
         packages:'پکیج ها',
         gateways: 'درگاه ها',
@@ -325,6 +330,19 @@ export default {
             name:'نام و نام خانوادگی',
             status_label:'وضعیت',
             created_at:'تاریخ',
+        },
+        logManager:{
+            name:'نام کاربر(نقش ها)',
+            typeLog:'نوع لاگ',
+            description:'توضیحات',
+            show:'وضعیت دیده شدن',
+            action:'عملیات',
+        },
+        changeHistory:{
+            id:'شناسه',
+            version:'کد نسخه',
+            created_at:'تاریخ انتشار',
+            action:'عملیات'
         }
     }
 }

@@ -3,11 +3,13 @@
         <perfect-scrollbar class="scroll-area">
             <div class="w-90 mb-2 mx-3"
                  v-for="(item , index) in data">
-                <v-alert max-width="300px" :key="index" class="mr-auto" v-if="item.side_right" size="large" color="secondary">
+                <v-alert max-width="300px" :key="index" class="mr-auto" v-if="item.side_right" size="large"
+                         color="secondary">
                     {{ item.message }}
                     <caption class="date">{{ item.created_at }}</caption>
                 </v-alert>
-                <v-alert max-width="300px" :key="index" class="ml-auto" v-if="!item.side_right" size="large" color="primary">
+                <v-alert max-width="300px" :key="index" class="ml-auto" v-if="!item.side_right" size="large"
+                         color="primary">
                     {{ item.message }}
                     <caption class="date">{{ item.created_at }}</caption>
                 </v-alert>
@@ -27,10 +29,13 @@
 
             <v-col cols="12">
                 <v-row align="center" justify="space-between">
-                    <v-col cols="12" sm="6">
-                        <v-file-input label="فایل" hide-details variant="outlined"></v-file-input>
+                    <v-col cols="12">
+                        <v-file-input multiple show-size color="primary" hidden
+                                      counter label="فایل" hide-details variant="outlined">
+                        </v-file-input>
                     </v-col>
-                    <v-col cols="12" sm="3">
+
+                    <v-col cols="12">
                         <v-btn @click="sendTicket" block color="primary" size="large" variant="flat">ارسال تیکت</v-btn>
                     </v-col>
                 </v-row>
@@ -59,7 +64,7 @@ function sendTicket() {
     )
 }
 
-function getTicket(){
+function getTicket() {
     const id = route.params.id
     Ticket.showTicket(id).then(
         (r) => {
@@ -84,7 +89,7 @@ onMounted(() => {
     position: relative;
     margin: auto;
     width: 100%;
-    height: 300px;
+    height: 60vh;
 }
 
 .date {

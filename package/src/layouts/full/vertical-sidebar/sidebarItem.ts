@@ -146,9 +146,14 @@ const sidebarItem: menu[] = [
         to: '/change-password',
     },
     {
-        title: 'documentation',
-        icon: 'mdi-file-document-outline',
-        to: '/gateway-documentation',
+        title: 'LogManager',
+        icon: 'mdi-chart-timeline-variant',
+        to: '/logManager',
+    },
+    {
+        title: 'ChangeHistory',
+        icon: 'mdi-history',
+        to: '/changeHistory',
     },
 
 ];
