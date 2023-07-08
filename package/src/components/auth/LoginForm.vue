@@ -24,23 +24,38 @@ const {handleSubmit, handleReset} = useForm({
         },
     }
 })
+
 const checkbox = useField('checkbox')
 const email = useField('email');
 const password = useField('password');
 let loading = ref(false);
 
+function setToken(data, token) {
+    console.log(data.roles)
+    if (data.roles) {
+        data.roles.find(item => {
+            console.log(item)
+            if (item && item === 'admin') {
+                setItem('userRole', 'admin', '36000000')
+            }
+        })
+    } else {
+        setItem('userRole', 'user', '36000000')
+    }
+    setItem('userData', JSON.stringify(data), '36000000');
+    setItem('accessToken', token, '36000000');
+}
+
 async function Login() {
     try {
         const r = await Authentication.login(email.value.value, password.value.value);
         const {token, ...data} = r.data.data;
-        setItem('userData', JSON.stringify(data), '36000000');
-        setItem('accessToken', token, '36000000');
+        setToken(data, token)
         loading.value = false;
-
         if (data.tow_factor_status === 'passed' && r.data.status === 'success') {
-            window.location.href = "/";
+            window.location.href = "/gateways";
         } else if (data.tow_factor_status === 'not_passed' && r.data.status === 'success') {
-            await router.push('/auth/2FA');
+            window.location.href = '/auth/2FA'
         }
     } catch (error) {
         loading.value = false;

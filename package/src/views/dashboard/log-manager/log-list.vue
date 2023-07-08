@@ -132,7 +132,7 @@ onMounted(() => {
                             </v-btn>
                         </template>
                         <v-list>
-                            <v-list-item @click="toShowLog(item.id)">
+                            <v-list-item :disabled="typeof(item.user) === 'string' " @click="toShowLog(item.id)">
                                 <v-list-item-title>مشاهده</v-list-item-title>
                             </v-list-item>
                             <v-list-item @click="deleteLog(item.id)">

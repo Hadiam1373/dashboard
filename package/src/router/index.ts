@@ -1,8 +1,9 @@
-import {createRouter, createWebHistory} from 'vue-router';
+import {createRouter, createWebHistory, useRoute} from 'vue-router';
 import MainRoutes from './MainRoutes';
 import AuthRoutes from './AuthRoutes';
-import {clearItem, getItem} from "@/storage";
-import Authentication from "@/api/apis/Authentication";
+import {clearItem, getItem, removeItem} from "@/storage";
+
+const route = useRoute()
 
 export const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -30,3 +31,18 @@ router.beforeEach(async (to, from) => {
     }
 })
 
+
+const role = getItem('userRole')
+const adminRole = ['/department', '/packages']
+router.beforeEach(async (to, from) => {
+    if (role === 'admin') {
+        to.matched.map(route => {
+            adminRole.map(item => {
+                if (item === route.path) console.log('true ////', item)
+            })
+        })
+    }
+})
+// {
+//     window.location.href = "/auth/login";
+// }

@@ -9,7 +9,7 @@ const MainRoutes = {
         {
             name: 'Dashboard',
             path: '/',
-            component: () => import('@/views/dashboard/index.vue')
+            component: () => import('@/views/dashboard/index.vue'),
         },
         {
             name: 'Gateways',
@@ -290,7 +290,7 @@ const MainRoutes = {
             path: '/changeHistory',
             component: () => import('@/views/dashboard/History/index.vue'),
             redirect: '/changeHistory/list-changeHistory',
-            children:[
+            children: [
                 {
                     name: 'ListChangeHistory',
                     path: 'list-changeHistory',

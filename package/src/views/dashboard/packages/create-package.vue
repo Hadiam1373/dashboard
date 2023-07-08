@@ -5,6 +5,7 @@ import {useField, useForm} from "vee-validate";
 import {useRoute, useRouter} from "vue-router";
 import Package from '@/api/apis/Packages'
 import {successMessage} from "@/api/fetch/showErrorMessage";
+
 const route = useRoute()
 const router = useRouter()
 
@@ -69,7 +70,9 @@ function updatePackages() {
     formData.append('status', status.value.value)
     Package.editedPackage(id, formData).then(
         (r) => {
-            router.push('/packages')
+            if (r.data.status === 'success') {
+                router.push('/packages')
+            }
         }
     )
 }

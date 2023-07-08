@@ -147,7 +147,7 @@ onMounted(() => {
                     <v-btn size="x-small" class="mx-1" color="info" @click="goToTronscan(item.tx_id)"
                            icon="mdi-eye-outline">
                     </v-btn>
-                    <question-modal :dialog="dialog" ok="بله" cancel="خیر"
+                    <question-modal :dialog="dialog" class="mx-1" ok="بله" cancel="خیر"
                                     text="ایا از عدم تایید درخواست اطمینان دارید؟"
                                     @confirm="rejectWithdraw(item.id)" @reject="dialog = false"
                     >
@@ -156,7 +156,7 @@ onMounted(() => {
                                    icon="mdi-window-close"></v-btn>
                         </template>
                     </question-modal>
-                    <question-modal :dialog="dialog2" ok="بله" cancel="خیر"
+                    <question-modal class="mx-1" :dialog="dialog2" ok="بله" cancel="خیر"
                                     text="ایا از  تایید درخواست اطمینان دارید؟"
                                     @confirm="confirmWithdraw(item.id)" @reject="dialog2 = false"
                     >

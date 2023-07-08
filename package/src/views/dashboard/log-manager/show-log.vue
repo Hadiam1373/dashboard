@@ -10,7 +10,6 @@ function getLogData() {
     const id = route.params.id
     LogManager.showLog(id).then(
         (r) => {
-            getLogData()
             data.value = r.data.data.log
         }
     )
@@ -30,31 +29,31 @@ onMounted(() => {
                     <v-list-item>
                         <div class="d-flex flex-column gap-2">
                             <v-list-item-title class="font-weight-bold">کاربر :</v-list-item-title>
-                            <v-alert :text="data.user.name"></v-alert>
+                            <v-alert v-if="data.user.name" :text="data.user.name"></v-alert>
                         </div>
                     </v-list-item>
                     <v-list-item>
                         <div class="d-flex flex-column gap-2">
                             <v-list-item-title class="font-weight-bold">آدرس IP :</v-list-item-title>
-                            <v-alert :text="data.ip"></v-alert>
+                            <v-alert v-if="data.ip" :text="data.ip"></v-alert>
                         </div>
                     </v-list-item>
                     <v-list-item>
                         <div class="d-flex flex-column gap-2">
                             <v-list-item-title class="font-weight-bold">نوع لاگ :</v-list-item-title>
-                            <v-alert :text="data.type"></v-alert>
+                            <v-alert  v-if="data.type" :text="data.type"></v-alert>
                         </div>
                     </v-list-item>
                     <v-list-item>
                         <div class="d-flex flex-column gap-2">
                             <v-list-item-title class="font-weight-bold">سیستم عامل کاربر :</v-list-item-title>
-                            <v-alert :text="data.device"></v-alert>
+                            <v-alert v-if="data.device"  :text="data.device"></v-alert>
                         </div>
                     </v-list-item>
                     <v-list-item>
                         <div class="d-flex flex-column gap-2">
                             <v-list-item-title class="font-weight-bold">مرورگر کاربر :</v-list-item-title>
-                            <v-alert :text="data.browser"></v-alert>
+                            <v-alert v-if="data.browser" :text="data.browser"></v-alert>
                         </div>
                     </v-list-item>
                 </v-list>
@@ -81,19 +80,19 @@ onMounted(() => {
                     <v-list-item>
                         <div class="d-flex flex-column gap-2">
                             <v-list-item-title class="font-weight-bold">Old Data :</v-list-item-title>
-                            <v-alert>{{ data.data.old.tow_factor_status }} / {{ data.data.old.updated_at }}</v-alert>
+                            <v-alert v-if="data.data.old.tow_factor_status && data.data.old.updated_at">{{ data.data.old.tow_factor_status }} / {{ data.data.old.updated_at }}</v-alert>
                         </div>
                     </v-list-item>
                     <v-list-item>
                         <div class="d-flex flex-column gap-2">
                             <v-list-item-title class="font-weight-bold">New Data :</v-list-item-title>
-                            <v-alert>{{ data.data.new.tow_factor_status }} / {{ data.data.new.updated_at }}</v-alert>
+                            <v-alert v-if="data.data.old.tow_factor_status && data.data.old.updated_at">{{ data.data.new.tow_factor_status }} / {{ data.data.new.updated_at }}</v-alert>
                         </div>
                     </v-list-item>
                     <v-list-item>
                         <div class="d-flex flex-column gap-2">
                             <v-list-item-title class="font-weight-bold">توضیحات :</v-list-item-title>
-                            <v-alert :text="data.description"></v-alert>
+                            <v-alert v-if="data.description" :text="data.description"></v-alert>
                         </div>
                     </v-list-item>
                 </v-list>
