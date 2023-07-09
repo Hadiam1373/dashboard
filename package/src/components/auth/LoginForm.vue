@@ -31,15 +31,16 @@ const password = useField('password');
 let loading = ref(false);
 
 function setToken(data, token) {
-    console.log(data.roles)
-    if (data.roles) {
+    console.log(data.roles.length)
+    if (data.roles.length > 0) {
         data.roles.find(item => {
             console.log(item)
             if (item && item === 'admin') {
                 setItem('userRole', 'admin', '36000000')
             }
         })
-    } else {
+    }
+    else if(data.roles.length === 0) {
         setItem('userRole', 'user', '36000000')
     }
     setItem('userData', JSON.stringify(data), '36000000');

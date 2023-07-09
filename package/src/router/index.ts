@@ -33,16 +33,15 @@ router.beforeEach(async (to, from) => {
 
 
 const role = getItem('userRole')
-const adminRole = ['/department', '/packages']
+const adminRole = ['/department', '/packages', '/message', '/users', '/withdraw-list', '/logManager','/kyc']
 router.beforeEach(async (to, from) => {
-    if (role === 'admin') {
+    if (role === 'user') {
         to.matched.map(route => {
             adminRole.map(item => {
-                if (item === route.path) console.log('true ////', item)
+                if (item === route.path) {
+                    window.location.href = "/404";
+                }
             })
         })
     }
 })
-// {
-//     window.location.href = "/auth/login";
-// }

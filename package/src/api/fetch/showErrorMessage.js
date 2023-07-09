@@ -3,7 +3,6 @@ import vuetify from "@/plugins/vuetify";
 import {removeItem} from "@/storage";
 import {useRouter} from "vue-router";
 import Authentication from "@/api/apis/Authentication";
-
 const router = useRouter()
 
 export function showMessage(error) {
@@ -15,7 +14,7 @@ export function showMessage(error) {
                 if(r.data.status === 'success'){
                     removeItem('userData');
                     removeItem('accessToken');
-                    removeItem('role');
+                    removeItem('userRole');
                     window.location.href = "/auth/login";
                 }
             }

@@ -2,7 +2,7 @@
 import {ListCheckIcon, MailIcon, UserIcon} from 'vue-tabler-icons';
 import Authentication from "@/api/apis/Authentication";
 import {router} from '@/router'
-import {clearItem, getItem} from "@/storage";
+import {clearItem, getItem, removeItem} from "@/storage";
 import {computed, onMounted, onUnmounted, ref} from "vue";
 
 let userData = ref({})
@@ -11,9 +11,13 @@ let loading = ref(false)
 function Logout() {
     loading.value = true
     Authentication.logout().then(
-        () => {
-            clearItem()
-            router.push('/auth/login');
+        (r) => {
+            if(r.data.status === 'success'){
+                removeItem('userData');
+                removeItem('accessToken');
+                removeItem('userRole');
+                window.location.href = "/auth/login";
+            }
         },
         (error) => {
             loading.value = false

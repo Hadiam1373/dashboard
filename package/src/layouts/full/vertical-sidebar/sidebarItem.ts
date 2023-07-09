@@ -1,8 +1,4 @@
-import {
-    ApertureIcon,
-    CopyIcon, DashboardIcon,
-    LayoutDashboardIcon, LoginIcon, MoodHappyIcon, TypographyIcon, UserPlusIcon
-} from 'vue-tabler-icons';
+import {getItem} from "@/storage";
 
 export interface menu {
     header?: string;
@@ -19,7 +15,7 @@ export interface menu {
     subCaption?: string;
 }
 
-const sidebarItem: menu[] = [
+const adminMenu: menu[] = [
     {
         title: 'dashboard',
         icon: 'mdi-view-dashboard',
@@ -46,11 +42,6 @@ const sidebarItem: menu[] = [
         to: '/upgrade',
     },
     {
-        title: 'departments',
-        icon: 'mdi-face-agent',
-        to: '/department',
-    },
-    {
         title: 'invite friends',
         icon: 'mdi-account-plus',
         to: '/invite-friends',
@@ -61,24 +52,55 @@ const sidebarItem: menu[] = [
         to: '/profits',
     },
     {
-        title: 'Kyc List',
-        icon: 'mdi-fingerprint',
-        to: '/kyc',
-    },
-    {
         title: 'wallets',
         icon: 'mdi-wallet',
         to: '/wallets',
     },
     {
-        title: 'message',
-        icon: 'mdi-message-reply-text',
-        to: '/message',
+        title: 'tickets',
+        icon: 'mdi-ticket-confirmation',
+        to: '/tickets',
+    },
+    {
+        title: 'withdraw',
+        icon: 'mdi-wallet-travel',
+        children: [
+            {
+                title: 'withdraw requests list',
+                to: '/withdraw/withdraw-list'
+            }
+        ]
+    },
+    {
+        title: 'setting',
+        icon: 'mdi-cog',
+        to: '/setting',
+    },
+    {
+        title: 'ChangePassword',
+        icon: 'mdi-lock',
+        to: '/change-password',
+    },
+    {
+        title: 'ChangeHistory',
+        icon: 'mdi-history',
+        to: '/changeHistory',
+    },
+//     just admin
+    {
+        title: 'departments',
+        icon: 'mdi-face-agent',
+        to: '/department',
     },
     {
         title: 'packages',
         icon: 'mdi-package-variant-closed',
         to: '/packages',
+    },
+    {
+        title: 'message',
+        icon: 'mdi-message-reply-text',
+        to: '/message',
     },
     {
         title: 'users',
@@ -117,6 +139,69 @@ const sidebarItem: menu[] = [
         ],
     },
     {
+        title: 'LogManager',
+        icon: 'mdi-chart-timeline-variant',
+        to: '/logManager',
+    },
+    {
+        title: 'Kyc List',
+        icon: 'mdi-fingerprint',
+        to: '/kyc',
+    },
+]
+
+const userMenu: menu[] = [
+    {
+        title: 'dashboard',
+        icon: 'mdi-view-dashboard',
+        to: '/',
+    },
+    {
+        title: 'kyc',
+        icon: 'mdi-fingerprint',
+        to: '/user-kyc',
+    },
+    {
+        title: 'gateways',
+        icon: 'mdi-cart-outline',
+        to: '/gateways',
+    },
+    {
+        title: 'invoices',
+        icon: 'mdi-credit-card',
+        to: '/invoices',
+    },
+    {
+        title: 'upgrade',
+        icon: 'mdi-rocket-launch',
+        to: '/upgrade',
+    },
+    {
+        title: 'invite friends',
+        icon: 'mdi-account-plus',
+        to: '/invite-friends',
+    },
+    {
+        title: 'profits',
+        icon: 'mdi-cash-multiple',
+        to: '/profits',
+    },
+    {
+        title: 'wallets',
+        icon: 'mdi-wallet',
+        to: '/wallets',
+    },
+    {
+        title: 'transactions',
+        icon: 'mdi-swap-horizontal',
+        children: [
+            {
+                title: 'Deposit List',
+                to: '/transactions/deposit-list'
+            }
+        ],
+    },
+    {
         title: 'tickets',
         icon: 'mdi-ticket-confirmation',
         to: '/tickets',
@@ -146,16 +231,22 @@ const sidebarItem: menu[] = [
         to: '/change-password',
     },
     {
-        title: 'LogManager',
-        icon: 'mdi-chart-timeline-variant',
-        to: '/logManager',
-    },
-    {
         title: 'ChangeHistory',
         icon: 'mdi-history',
         to: '/changeHistory',
     },
+]
 
-];
+let sidebarItem: menu[] = [];
+
+(function runSideBarByRoles() {
+    const role = getItem('userRole')
+    if (role === 'user') {
+        sidebarItem = userMenu
+    } else if (role === 'admin') {
+        sidebarItem = adminMenu
+    }
+}())
+
 
 export default sidebarItem;

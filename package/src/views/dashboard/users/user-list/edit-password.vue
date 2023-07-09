@@ -4,7 +4,7 @@ import {onMounted, ref} from "vue";
 import vuetify from "@/plugins/vuetify";
 import {useRoute, useRouter} from "vue-router";
 import Users from "@/api/apis/users";
-import {clearItem} from "@/storage";
+import {clearItem, removeItem} from "@/storage";
 import Authentication from "@/api/apis/Authentication";
 
 const route = useRoute()
@@ -54,10 +54,14 @@ function updatePassword() {
         () => {
             loading.value = false
             Authentication.logout().then(
-                () => {
-                    clearItem()
-                    router.push('/auth/login')
-                }
+                (r) => {
+                    if(r.data.status === 'success'){
+                        removeItem('userData');
+                        removeItem('accessToken');
+                        removeItem('userRole');
+                        window.location.href = "/auth/login";
+                    }
+                },
             )
         },
         (error) => {
