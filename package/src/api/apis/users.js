@@ -1,8 +1,15 @@
 import axiosIns from "@/api/fetch/interceptors";
+import {getItem} from "@/storage";
+
+const role = getItem('userRole')
 
 class Users {
     async getProfile() {
-        return await axiosIns.get('panel/admin')
+        if (role === 'admin') {
+            return await axiosIns.get('panel/admin')
+        } else if (role === 'user') {
+            return await axiosIns.get('panel')
+        }
     }
 
     async getUsersData(page, name, email) {
@@ -137,7 +144,7 @@ class Users {
         })
     }
 
-    async GetCreateData(){
+    async GetCreateData() {
         return await axiosIns.get('panel/users/create')
     }
 }

@@ -22,11 +22,6 @@ const adminMenu: menu[] = [
         to: '/',
     },
     {
-        title: 'kyc',
-        icon: 'mdi-fingerprint',
-        to: '/user-kyc',
-    },
-    {
         title: 'gateways',
         icon: 'mdi-cart-outline',
         to: '/gateways',

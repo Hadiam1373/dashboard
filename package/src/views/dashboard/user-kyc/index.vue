@@ -1,24 +1,35 @@
 <template>
-    <Steppy v-model:step="step" primaryColor1="#00D1BC" nextText="مرحله بعد" backText="مرحله قبل" :tabs="tabs" loading="true">
-            <template #1>
-                <step1 @stepOne="next"/>
-            </template>
-            <template #2>
-                <step2 @stepTwo="next"/>
-            </template>
-            <template #3>
-                <step3 @stepTree="next"/>
-            </template>
+    <v-alert
+        v-if="showKyc === false"
+        density="compact"
+        type="warning"
+        title="خطا"
+        :text="message"
+    ></v-alert>
+    <Steppy v-if="showKyc === true" v-model:step="step" primaryColor1="#00D1BC" nextText="مرحله بعد" backText="مرحله قبل" :tabs="tabs"
+            loading="true">
+        <template #1>
+            <step1 @stepOne="next"/>
+        </template>
+        <template #2>
+            <step2 @stepTwo="next"/>
+        </template>
+        <template #3>
+            <step3 @stepTree="next"/>
+        </template>
     </Steppy>
 </template>
 
 <script setup>
 import {Steppy} from 'vue3-steppy'
-import {ref} from "vue";
+import {onMounted, ref} from "vue";
 import Step1 from "@/views/dashboard/user-kyc/step1.vue";
 import Step2 from "@/views/dashboard/user-kyc/step2.vue";
 import Step3 from "@/views/dashboard/user-kyc/step3.vue";
+import KYC from "@/api/apis/KYC";
 
+let showKyc = ref(false)
+let message = ref('کاربر گرامی مراحل احراز هویت شما  قبلا تکمیل شده است. ')
 let step = ref(1)
 let active1 = ref(false)
 let active2 = ref(false)
@@ -37,18 +48,25 @@ let tabs = ref([
     }
 ])
 
-function next(){
-   step.value ++
+function next() {
+    step.value++
 }
 
-function prev(val){
-    step.value --
+function prev(val) {
+    step.value--
 }
-// const onSubmit = handleSubmit(values => {
-//     // Submit to API
-//     console.log(values); // { email: 'email@gmail.com' }
-// });
 
+function wizard() {
+    KYC.wizardKyc().then(
+        (r) => {
+           showKyc.value = r.data.data.show_kyc
+        }
+    )
+}
+
+onMounted(() => {
+    wizard()
+})
 </script>
 
 <style>
@@ -57,7 +75,7 @@ function prev(val){
     text-wrap: nowrap !important;
 }
 
-.wrapper-steppy{
+.wrapper-steppy {
     padding: 18px !important;
 }
 

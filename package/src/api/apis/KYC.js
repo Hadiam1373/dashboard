@@ -23,6 +23,10 @@ class KYC {
         return await axiosIns.post(`panel/kyc/reject/${id}`)
     }
 
+    async wizardKyc() {
+        return await axiosIns.get(`panel/kyc`)
+    }
+
     async stepOne(name, last_name, date_of_birth) {
         return await axiosIns.post(`panel/kyc/step/1`, {
             name: name,
